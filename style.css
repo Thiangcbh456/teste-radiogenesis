@@ -116,7 +116,7 @@ ul{list-style:none}
     align-items:center;
     padding:10px 0;
 }
-.header__logo{flex-shrink:0}
+.header__logo{flex-shrink:0;padding-left:4px}
 
 .logo{display:flex;align-items:center;gap:10px}
 .logo__icon{color:var(--primary-color);display:flex;flex-shrink:0}
@@ -197,8 +197,7 @@ ul{list-style:none}
     box-shadow:var(--shadow-xl);
     overflow-y:auto;
     transform:translateX(101%);
-    transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);
-    will-change:transform;
+    transition:transform 0.3s ease;
 }
 .mobile-menu.open{transform:translateX(0)}
 
@@ -248,9 +247,8 @@ ul{list-style:none}
 .page{
     display:none;
     opacity:0;
-    transform:translateY(15px);
-    transition:opacity 0.4s cubic-bezier(.4,0,.2,1),transform 0.4s cubic-bezier(.4,0,.2,1);
-    will-change:opacity,transform;
+    transform:translateY(10px);
+    transition:opacity 0.3s ease,transform 0.3s ease;
 }
 .page.active{display:block}
 .page.visible{opacity:1;transform:translateY(0)}
@@ -529,6 +527,7 @@ ul{list-style:none}
 @media(max-width:768px){
     .top-bar{display:none}
     .nav{display:none}
+    .header__logo{padding-left:6px}
 
     /* ✅ NÃO esconde .header__actions — apenas os botões desktop dentro dele */
     .header__btn-desktop{display:none !important}
@@ -654,3 +653,57 @@ ul{list-style:none}
 /* 3 botões nos cards de exame */
 .exam-card__actions{display:flex;gap:8px;margin-top:auto;width:100%;flex-wrap:wrap}
 .exam-card__actions .btn{flex:1;padding:10px 4px;font-size:.78rem;text-align:center;min-width:80px}
+
+/* Dispositivos com tela lenta (60hz limitado, hardware fraco) */
+@media (update: slow) {
+    .page { transition: none !important; }
+    .mobile-menu { transition: none !important; }
+    .mobile-overlay { transition: none !important; }
+}
+
+/* ================================================
+   PERFORMANCE ADAPTATIVA
+   .perf-low  → dispositivo fraco (sem transform, transição mínima)
+   .perf-mid  → dispositivo médio (transição curta, sem transform)
+   .perf-high → dispositivo potente (animação completa — padrão)
+   ================================================ */
+
+/* Fraco: sem animação nenhuma */
+.perf-low .page {
+    transition: opacity 0.15s ease !important;
+    transform: none !important;
+}
+.perf-low .page.visible {
+    transform: none !important;
+}
+.perf-low .mobile-menu {
+    transition: transform 0.15s ease !important;
+}
+.perf-low .mobile-overlay {
+    transition: opacity 0.15s ease !important;
+}
+.perf-low .exam-card:hover,
+.perf-low .quick-card:hover,
+.perf-low .unit-card:hover,
+.perf-low .team-card:hover,
+.perf-low .convenio-item:hover,
+.perf-low .btn:hover {
+    transform: none !important;
+}
+
+/* Médio: fade sem transform */
+.perf-mid .page {
+    transition: opacity 0.2s ease !important;
+    transform: none !important;
+}
+.perf-mid .page.visible {
+    transform: none !important;
+}
+.perf-mid .mobile-menu {
+    transition: transform 0.2s ease !important;
+}
+.perf-mid .btn:hover {
+    transform: translateY(-1px) !important;
+}
+
+/* Potente: mantém o padrão definido acima, sem override */

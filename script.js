@@ -5,6 +5,58 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    /* ================================================
+       0. DETECÇÃO DE PERFORMANCE DO DISPOSITIVO
+       Critérios:
+         - navigator.hardwareConcurrency  → nº de núcleos de CPU
+         - navigator.deviceMemory         → RAM em GB (quando disponível)
+         - prefers-reduced-motion         → respeita preferência do SO
+       Classes aplicadas no <html>:
+         perf-low  → ≤ 2 núcleos ou ≤ 2GB RAM
+         perf-mid  → 3–4 núcleos ou 3–4GB RAM
+         perf-high → 5+ núcleos e 4GB+ RAM
+       ================================================ */
+    (function detectPerformance() {
+        const root = document.documentElement;
+
+        // Respeita preferência do sistema operacional primeiro
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            root.classList.add('perf-low');
+            return;
+        }
+
+        const cores  = navigator.hardwareConcurrency || 4;
+        const memory = navigator.deviceMemory;        // undefined se não disponível
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+        // Desktop: só é fraco se tiver 2 ou menos núcleos (muito raro)
+        // Mobile: critério mais rigoroso pois GPU/memória são limitados
+        if (isMobile) {
+            // Mobile fraco: ≤ 4 núcleos E pouca RAM (ou RAM desconhecida)
+            const lowRAM = memory !== undefined && memory <= 2;
+            const lowCPU = cores <= 4;
+            if (lowRAM || (lowCPU && memory === undefined)) {
+                root.classList.add('perf-low');
+            } else if (cores <= 6 || (memory !== undefined && memory <= 4)) {
+                root.classList.add('perf-mid');
+            } else {
+                root.classList.add('perf-high');
+            }
+        } else {
+            // Desktop: animação completa por padrão, reduz só se CPU muito fraca
+            if (cores <= 2) {
+                root.classList.add('perf-mid');
+            } else {
+                root.classList.add('perf-high');
+            }
+        }
+    })();
+
+    /* Ajusta delays de transição conforme classe de performance */
+    const perfDelay = document.documentElement.classList.contains('perf-low')  ? 80
+                    : document.documentElement.classList.contains('perf-mid')   ? 120
+                    : 150;
+
     // 1. Seleção de Elementos Globais
     const header     = document.getElementById('header');
     const hamburger  = document.getElementById('hamburger');
@@ -35,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Delay para o Fade Out terminar (300ms)
-        const delay = currentPage ? 300 : 0;
+        const delay = currentPage ? perfDelay : 0;
 
         setTimeout(() => {
             // Esconde todas as páginas e remove classes
@@ -52,21 +104,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Volta para o topo instantaneamente
                 window.scrollTo({ top: 0, behavior: 'instant' });
 
-                // Técnica de RequestAnimationFrame Duplo (60 FPS)
+                // rAF único — mais leve para hardware fraco
                 requestAnimationFrame(() => {
                     targetPage.classList.add('active');
-
-                    requestAnimationFrame(() => {
-                        targetPage.classList.add('visible');
-
-                        updatePageTitle(pageId);
-                        updateActiveNav(pageId);
-
-                        // Dispara contadores se for a Home
-                        if (pageId === 'inicio') {
-                            setTimeout(animateCounters, 400);
-                        }
-                    });
+                    targetPage.classList.add('visible');
+                    updatePageTitle(pageId);
+                    updateActiveNav(pageId);
+                    if (pageId === 'inicio') {
+                        setTimeout(animateCounters, 300);
+                    }
                 });
             }
 
@@ -130,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     countersAnimated = false;
                     animateCounters();
                 }
-            }, 20);
+            }, 10);
         } else {
             window.location.hash = '#inicio';
         }
@@ -357,6 +403,24 @@ document.addEventListener('DOMContentLoaded', () => {
         @keyframes toastIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     `;
     document.head.appendChild(styleSheet);
+
+
+    /* ================================================
+       LOGO RESPONSIVA — ajuste dinâmico por largura de tela
+       ================================================ */
+    function adjustLogoSize() {
+        const logo = document.querySelector('.header__logo img');
+        if (!logo) return;
+        const w = window.innerWidth;
+        if (w <= 375)       logo.style.height = '38px';
+        else if (w <= 480)  logo.style.height = '42px';
+        else if (w <= 768)  logo.style.height = '46px';
+        else if (w <= 1024) logo.style.height = '48px';
+        else                logo.style.height = '50px';
+    }
+
+    adjustLogoSize();
+    window.addEventListener('resize', adjustLogoSize);
 
     // Inicialização final
     handleHash();
