@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultrassonografia com Doppler | Radiogênesis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <style>
+        :root{
+            --primary:#0099C8;--primary-hover:#007BA3;--primary-50:#E6F6FB;--primary-100:#C0E8F5;
+            --primary-200:#8DD4EC;--primary-700:#007BA3;--primary-900:#003D52;
+            --gray-50:#F0F4F8;--gray-100:#E1E8EF;--gray-200:#CFD8E3;
+            --text-heading:#1A2B3F;--text-body:#3D5068;--text-muted:#6B819A;--text-light:#8FA3B8;
+            --bg-body:#F4F7FA;--bg-white:#FFFFFF;--bg-navy:#0A1F2E;--bg-navy-deep:#061520;
+            --success:#10B981;--whatsapp:#25D366;
+            --font-sans:'Inter',-apple-system,sans-serif;
+            --font-heading:'Poppins','Inter',sans-serif;
+            --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-full:9999px;
+            --shadow-md:0 4px 16px rgba(15,29,47,.07),0 2px 4px rgba(15,29,47,.04);
+            --shadow-lg:0 8px 32px rgba(15,29,47,.10),0 2px 8px rgba(15,29,47,.05);
+            --transition:all .3s cubic-bezier(.4,0,.2,1);
+        }
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth}
+
+        /* PAGE FADE-IN */
+        body{
+            font-family:var(--font-sans);color:var(--text-body);background:var(--bg-body);
+            -webkit-font-smoothing:antialiased;line-height:1.6;
+            opacity:0;animation:pageFadeIn .45s ease forwards;
+        }
+        @keyframes pageFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+        a{text-decoration:none;color:inherit}
+        img{max-width:100%;display:block}
+
+        /* HEADER */
+        .header{background:rgba(255,255,255,.97);border-bottom:1px solid var(--gray-100);padding:14px 0;position:sticky;top:0;z-index:100;box-shadow:var(--shadow-md)}
+        .container{width:100%;max-width:1100px;margin:0 auto;padding:0 clamp(16px,4vw,24px)}
+        .header__inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+        .header__back{display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-size:.85rem;font-weight:600;padding:8px 18px;border:2px solid var(--primary);border-radius:var(--radius-full);transition:var(--transition)}
+        .header__back:hover{background:var(--primary-50);transform:translateX(-2px)}
+        .logo img{height:40px;width:auto}
+
+        /* HERO */
+        .hero{background:linear-gradient(135deg,var(--bg-navy-deep),var(--primary-900) 60%,#005F7D);padding:clamp(40px,6vw,64px) 0;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;top:-40%;right:-5%;width:500px;height:500px;background:rgba(0,153,200,.08);border-radius:50%;pointer-events:none}
+        .hero__inner{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;position:relative;z-index:1}
+        .hero__badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-full);color:#90cfe8;font-size:.78rem;font-weight:500;margin-bottom:14px}
+        .hero__title{font-family:var(--font-heading);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;line-height:1.15;margin-bottom:14px}
+        .hero__desc{font-size:clamp(.88rem,2vw,1rem);color:rgba(191,219,254,.82);line-height:1.75;max-width:600px;margin-bottom:24px}
+        .hero__tags{display:flex;flex-wrap:wrap;gap:8px}
+        .hero__tag{padding:5px 12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-full);color:rgba(255,255,255,.85);font-size:.75rem;font-weight:500}
+        .hero__icon{width:clamp(80px,10vw,110px);height:clamp(80px,10vw,110px);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);flex-shrink:0}
+
+        /* CONTENT */
+        .content{padding:clamp(40px,6vw,64px) 0}
+
+        /* IMAGEM — primeiro card, full width */
+        .image-card{
+            background:var(--bg-white);
+            border:1px solid var(--gray-100);
+            border-radius:var(--radius-lg);
+            overflow:hidden;
+            box-shadow:var(--shadow-lg);
+            margin-bottom:clamp(24px,4vw,40px);
+        }
+        .image-card__header{
+            display:flex;align-items:center;gap:12px;
+            padding:20px 28px 16px;
+            border-bottom:2px solid var(--primary-50);
+        }
+        .image-card__icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--primary-50);color:var(--primary);border-radius:var(--radius-md);flex-shrink:0}
+        .image-card__title{font-family:var(--font-heading);font-size:1.05rem;font-weight:700;color:var(--text-heading)}
+        .image-slot{
+            width:100%;aspect-ratio:16/6;
+            background:var(--gray-50);
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            gap:12px;color:var(--text-light);position:relative;overflow:hidden;
+            min-height:200px;
+        }
+        .image-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:block}
+        .image-slot__placeholder{display:flex;flex-direction:column;align-items:center;gap:10px;padding:32px}
+        .image-slot__label{font-size:.82rem;color:var(--text-light);text-align:center;line-height:1.6}
+        .image-slot__label code{font-size:.75rem;background:var(--gray-100);padding:2px 6px;border-radius:4px;color:var(--text-muted)}
+
+        /* GRID de info */
+        .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,28px)}
+        .info-card{background:var(--bg-white);border:1px solid var(--gray-100);border-radius:var(--radius-lg);padding:clamp(20px,3vw,28px);box-shadow:var(--shadow-md)}
+        .info-card--full{grid-column:1/-1}
+        .info-card__header{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--primary-50)}
+        .info-card__icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--primary-50);color:var(--primary);border-radius:var(--radius-md);flex-shrink:0}
+        .info-card__title{font-family:var(--font-heading);font-size:1rem;font-weight:700;color:var(--text-heading)}
+        .info-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+        .info-list li{display:flex;align-items:flex-start;gap:10px;font-size:clamp(.82rem,1.8vw,.9rem);color:var(--text-body);line-height:1.6}
+        .info-list li::before{content:'';width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+        .info-list--green li::before{background:var(--success)}
+        .info-list--red li::before{background:#EF4444}
+        .info-text{font-size:clamp(.82rem,1.8vw,.9rem);color:var(--text-body);line-height:1.75}
+        .info-meta{display:flex;align-items:center;gap:10px;margin-top:16px;padding:12px 16px;background:var(--gray-50);border-radius:var(--radius-sm)}
+        .info-meta svg{color:var(--primary);flex-shrink:0}
+        .info-meta span{font-size:.85rem;color:var(--text-muted)}
+        .info-meta strong{color:var(--text-heading)}
+
+        /* CTA */
+        .cta{background:linear-gradient(135deg,var(--bg-navy-deep),#004a6b);padding:clamp(40px,6vw,56px) 0;margin-top:clamp(40px,6vw,64px)}
+        .cta__inner{text-align:center}
+        .cta__title{font-family:var(--font-heading);font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;color:#fff;margin-bottom:10px}
+        .cta__sub{color:rgba(191,219,254,.8);margin-bottom:28px;font-size:clamp(.85rem,2vw,.95rem)}
+        .cta__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+        /* BUTTONS */
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-sans);font-weight:600;font-size:clamp(.82rem,2vw,.9rem);border:2px solid transparent;border-radius:var(--radius-full);cursor:pointer;transition:var(--transition);white-space:nowrap;padding:12px 28px;min-height:44px}
+        .btn--primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+        .btn--primary:hover{background:var(--primary-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,153,200,.38)}
+        .btn--outline-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+        .btn--outline-white:hover{background:rgba(255,255,255,.1);border-color:#fff;transform:translateY(-2px)}
+        .btn--whatsapp{background:var(--whatsapp);border-color:var(--whatsapp);color:#fff}
+        .btn--whatsapp:hover{background:#20BD5A;transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.35)}
+
+        /* FOOTER */
+        .footer{background:var(--bg-navy-deep);color:rgba(143,163,184,.6);text-align:center;padding:20px 0;font-size:.78rem;border-top:1px solid rgba(0,153,200,.15)}
+        .footer a{color:var(--primary);font-weight:500}
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            .hero__inner{grid-template-columns:1fr}
+            .hero__icon{display:none}
+            .info-grid{grid-template-columns:1fr}
+            .info-card--full{grid-column:auto}
+            .image-slot{aspect-ratio:16/9;min-height:160px}
+            .cta__btns{flex-direction:column;align-items:center}
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <a href="index.html" class="logo">
+                    <img src="img/top.png" alt="Radiogênesis">
+                </a>
+                <a href="javascript:void(0)" onclick="window.opener ? window.close() : window.location.href='index.html#exames'" class="header__back">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    Voltar para Exames
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero__inner">
+                <div>
+                    <div class="hero__badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        Diagnóstico por Imagem — Radiogênesis
+                    </div>
+                    <h1 class="hero__title">Ultrassonografia com Doppler</h1>
+                    <p class="hero__desc">O Doppler avalia o fluxo sanguíneo em artérias e veias em tempo real. Permite identificar obstruções, tromboses, varizes e alterações vasculares com precisão, sem radiação e de forma não invasiva.</p>
+                    <div class="hero__tags"><span class="hero__tag">Fluxo Sanguíneo</span><span class="hero__tag">Vascular</span><span class="hero__tag">Trombose</span><span class="hero__tag">Sem radiação</span></div>
+                </div>
+                <div class="hero__icon">
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.6"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container">
+
+            <!-- 1. IMAGEM — primeiro elemento -->
+            <div class="image-card">
+                <div class="image-card__header">
+                    <div class="image-card__icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    </div>
+                    <h2 class="image-card__title">Imagem Ilustrativa — Ultrassonografia com Doppler</h2>
+                </div>
+                <div class="image-slot">
+                    <!-- Para adicionar a imagem, remova o comentário abaixo e coloque o arquivo em img/exames/ -->
+                    <!-- <img src="img/exames/ultrassonografia-doppler.jpg" alt="Ultrassonografia com Doppler"> -->
+                    <div class="image-slot__placeholder">
+                        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <p class="image-slot__label">
+                            Espaço reservado para imagem do exame<br>
+                            Arquivo: <code>img/exames/ultrassonografia-doppler.jpg</code>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. GRID: Indicações + Contraindicações + Preparo -->
+            <div class="info-grid">
+
+                <div class="info-card">
+                    <div class="info-card__header">
+                        <div class="info-card__icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        </div>
+                        <h2 class="info-card__title">Indicações</h2>
+                    </div>
+                    <ul class="info-list info-list--green"><li>Diagnóstico de trombose venosa profunda (TVP)</li><li>Avaliação de insuficiência venosa e varizes</li><li>Investigação de estenoses e oclusões arteriais</li><li>Avaliação do fluxo uteroplacentário em gestações de risco</li><li>Diagnóstico de aneurismas vasculares</li><li>Avaliação de transplantes renais e hepáticos</li></ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card__header">
+                        <div class="info-card__icon" style="background:#FEF2F2;color:#EF4444">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                        </div>
+                        <h2 class="info-card__title">Contraindicações</h2>
+                    </div>
+                    <ul class="info-list info-list--red"><li>Não há contraindicações absolutas para o Doppler convencional</li><li>Feridas abertas ou curativos na região podem dificultar o exame</li><li>Obesidade e edema intenso podem limitar a qualidade das imagens</li></ul>
+                </div>
+
+                <div class="info-card info-card--full">
+                    <div class="info-card__header">
+                        <div class="info-card__icon" style="background:#F0FDF4;color:#15803D">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        </div>
+                        <h2 class="info-card__title">Preparo para o Exame</h2>
+                    </div>
+                    <p class="info-text">Para Doppler abdominal: jejum de 6 horas. Para membros: sem preparo específico. Vista roupas confortáveis que permitam acesso à região.</p>
+                    <div class="info-meta">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span><strong>Duração estimada:</strong> 30 a 60 minutos, dependendo dos vasos avaliados.</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <div class="cta__inner">
+                <h2 class="cta__title">Pronto para agendar seu exame?</h2>
+                <p class="cta__sub">Entre em contato com a Radiogênesis e agende com facilidade.</p>
+                <div class="cta__btns">
+                    <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%28a%29%20Ultrassonografia%20com%20Doppler." target="_blank" class="btn btn--whatsapp">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Agendar pelo WhatsApp
+                    </a>
+                    <a href="tel:+558532545885" class="btn btn--outline-white">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        (85) 3254-5885
+                    </a>
+                    <a href="http://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" class="btn btn--primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        Acessar Laudo Online
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 <a href="index.html">Radiogênesis</a> — Diagnóstico por Imagem. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

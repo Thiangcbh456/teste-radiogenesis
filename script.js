@@ -1,79 +1,157 @@
 /* ================================================
-   RADIOGÊNESIS — SPA ENGINE v4.0
-   Responsivo + Touch-friendly
+   RADIOGÊNESIS — SPA ENGINE v4.0 (Full Optimized)
+   Responsivo + Touch-friendly + Performance
    ================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // 1. Seleção de Elementos Globais
     const header     = document.getElementById('header');
     const hamburger  = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const backToTop  = document.getElementById('backToTop');
     const allPages   = document.querySelectorAll('.page');
 
-    const overlay = document.createElement('div');
-    overlay.classList.add('mobile-overlay');
-    document.body.appendChild(overlay);
+    // ✅ FIX: Usa o overlay já existente no HTML pelo ID
+    // (não cria um segundo overlay dinamicamente)
+    const overlay = document.getElementById('mobileOverlay');
 
+    let ticking = false; // Controle de performance do scroll
 
     /* ================================================
-       1. SPA ROUTER
+       1. SPA ROUTER (Navegação Principal)
        ================================================ */
     function navigateTo(pageId) {
         if (!pageId) return;
 
-        const currentPage = document.querySelector('.page.active.visible');
+        const currentPage = document.querySelector('.page.active');
+
+        // Se já estiver na página atual, ignora o clique
         if (currentPage && currentPage.dataset.page === pageId) return;
 
-        if (currentPage) currentPage.classList.remove('visible');
+        // Inicia o Fade Out da página atual
+        if (currentPage) {
+            currentPage.classList.remove('visible');
+        }
 
-        const delay = currentPage ? 280 : 0;
+        // Delay para o Fade Out terminar (300ms)
+        const delay = currentPage ? 300 : 0;
 
         setTimeout(() => {
-            allPages.forEach(p => p.classList.remove('active', 'visible'));
+            // Esconde todas as páginas e remove classes
+            allPages.forEach(p => {
+                p.classList.remove('active', 'visible');
+                p.style.display = 'none';
+            });
 
             const targetPage = document.querySelector(`.page[data-page="${pageId}"]`);
+
             if (targetPage) {
-                targetPage.classList.add('active');
+                targetPage.style.display = 'block';
+
+                // Volta para o topo instantaneamente
                 window.scrollTo({ top: 0, behavior: 'instant' });
-                void targetPage.offsetHeight;
-                requestAnimationFrame(() => targetPage.classList.add('visible'));
-                updatePageTitle(pageId);
-                if (pageId === 'inicio') setTimeout(animateCounters, 400);
+
+                // Técnica de RequestAnimationFrame Duplo (60 FPS)
+                requestAnimationFrame(() => {
+                    targetPage.classList.add('active');
+
+                    requestAnimationFrame(() => {
+                        targetPage.classList.add('visible');
+
+                        updatePageTitle(pageId);
+                        updateActiveNav(pageId);
+
+                        // Dispara contadores se for a Home
+                        if (pageId === 'inicio') {
+                            setTimeout(animateCounters, 400);
+                        }
+                    });
+                });
             }
 
-            updateActiveNav(pageId);
-            history.pushState(null, '', `#${pageId}`);
+            // Atualiza o histórico do navegador (Hash)
+            if (window.location.hash.replace('#', '') !== pageId) {
+                history.pushState(null, '', `#${pageId}`);
+            }
         }, delay);
 
         closeMobileMenu();
     }
 
+    /* ================================================
+       2. AUXILIARES: Títulos e Links Ativos
+       ================================================ */
     function updateActiveNav(pageId) {
-        document.querySelectorAll('.nav__link').forEach(link => {
+        document.querySelectorAll('.nav__link, .mobile-menu__link').forEach(link => {
             link.classList.toggle('active', link.dataset.page === pageId);
         });
     }
 
     function updatePageTitle(pageId) {
         const titles = {
-            'inicio':'Radiogênesis | Diagnóstico por Imagem',
-            'exames':'Exames | Radiogênesis',
-            'sobre':'Sobre Nós | Radiogênesis',
-            'equipe':'Equipe Médica | Radiogênesis',
-            'unidades':'Unidades | Radiogênesis',
-            'convenios':'Convênios | Radiogênesis',
-            'contato':'Contato | Radiogênesis',
-            'ouvidoria':'Ouvidoria | Radiogênesis',
-            'trabalhe-conosco':'Trabalhe Conosco | Radiogênesis',
-            'laudo':'Laudo Online | Radiogênesis'
+            'inicio': 'Radiogênesis | Diagnóstico por Imagem',
+            'exames': 'Exames | Radiogênesis',
+            'sobre': 'Sobre Nós | Radiogênesis',
+            'equipe': 'Equipe Médica | Radiogênesis',
+            'unidades': 'Unidades | Radiogênesis',
+            'convenios': 'Convênios | Radiogênesis',
+            'contato': 'Contato | Radiogênesis',
+            'ouvidoria': 'Ouvidoria | Radiogênesis',
+            'trabalhe-conosco': 'Trabalhe Conosco | Radiogênesis',
+            'laudo': 'Laudo Online | Radiogênesis'
         };
         document.title = titles[pageId] || titles['inicio'];
     }
 
+    /* ================================================
+       3. HASH ROUTING (SOLUÇÃO DEFINITIVA)
+       ================================================ */
+    function handleHash() {
+        const hash = window.location.hash.replace('#', '') || 'inicio';
+        const targetPage = document.querySelector(`.page[data-page="${hash}"]`);
+
+        if (targetPage) {
+            allPages.forEach(p => {
+                p.style.display = 'none';
+                p.classList.remove('active', 'visible');
+            });
+
+            targetPage.style.display = 'block';
+
+            setTimeout(() => {
+                targetPage.classList.add('active');
+                targetPage.classList.add('visible');
+
+                updatePageTitle(hash);
+                updateActiveNav(hash);
+
+                if (hash === 'inicio') {
+                    countersAnimated = false;
+                    animateCounters();
+                }
+            }, 20);
+        } else {
+            window.location.hash = '#inicio';
+        }
+    }
+
+    // Ouvinte para quando o usuário clica em "Voltar" no navegador
+    window.addEventListener('hashchange', handleHash);
 
     /* ================================================
-       2. EVENT DELEGATION
+       INICIALIZAÇÃO DE SEGURANÇA
+       ================================================ */
+    handleHash();
+
+    window.addEventListener('load', () => {
+        if (!document.querySelector('.page.active')) {
+            handleHash();
+        }
+    });
+
+    /* ================================================
+       4. DELEGAÇÃO DE EVENTOS (Cliques SPA)
        ================================================ */
     document.addEventListener('click', (e) => {
         const spaLink = e.target.closest('.spa-link');
@@ -85,18 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ================================================
-       3. HASH ROUTING
-       ================================================ */
-    function handleHash() {
-        const hash = window.location.hash.replace('#', '') || 'inicio';
-        navigateTo(hash);
-    }
-    window.addEventListener('hashchange', handleHash);
-    handleHash();
-
-
-    /* ================================================
-       4. MOBILE MENU
+       5. MENU MOBILE (Hambúrguer)
        ================================================ */
     function openMobileMenu() {
         mobileMenu.classList.add('open');
@@ -114,14 +181,27 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
-    hamburger.addEventListener('click', () => {
-        mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+        });
+    }
+
+    if (overlay) {
+        overlay.addEventListener('click', closeMobileMenu);
+    }
+
+    // Botão X dentro do menu lateral
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMobileMenu();
     });
 
-    overlay.addEventListener('click', closeMobileMenu);
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileMenu(); });
-
-    /* Fecha menu ao redimensionar para desktop           ◀ RESPONSIVE */
+    // Fecha menu se a tela for redimensionada para desktop
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
@@ -132,32 +212,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ================================================
-       5. SCROLL EFFECTS
+       6. EFEITOS DE SCROLL (Sticky Header & Top Button)
        ================================================ */
-    let ticking = false;
     function handleScroll() {
         if (!ticking) {
             requestAnimationFrame(() => {
-                header.classList.toggle('header--scrolled', window.scrollY > 10);
-                backToTop.classList.toggle('visible', window.scrollY > 400);
+                const isScrolled = window.scrollY > 10;
+                if (header.classList.contains('header--scrolled') !== isScrolled) {
+                    header.classList.toggle('header--scrolled', isScrolled);
+                }
+                if (backToTop) {
+                    backToTop.classList.toggle('visible', window.scrollY > 400);
+                }
                 ticking = false;
             });
             ticking = true;
         }
     }
     window.addEventListener('scroll', handleScroll, { passive: true });
-    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    if (backToTop) {
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
 
 
     /* ================================================
-       6. COUNTER ANIMATION
+       7. CONTADORES (Animação Numérica)
        ================================================ */
     let countersAnimated = false;
     function animateCounters() {
         if (countersAnimated) return;
-        countersAnimated = true;
+        const counterElements = document.querySelectorAll('.stat-item__number[data-count]');
+        if (counterElements.length === 0) return;
 
-        document.querySelectorAll('.stat-item__number[data-count]').forEach(counter => {
+        countersAnimated = true;
+        counterElements.forEach(counter => {
             const target = parseInt(counter.dataset.count);
             const duration = 2000;
             const start = performance.now();
@@ -175,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ================================================
-       7. FORMS
+       8. FORMULÁRIOS E MÁSCARAS
        ================================================ */
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
@@ -183,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const nome = document.getElementById('nome').value.trim();
             const email = document.getElementById('email').value.trim();
-            const msg  = document.getElementById('mensagem').value.trim();
+            const msg = document.getElementById('mensagem').value.trim();
 
             if (!nome || !email || !msg) return showToast('Preencha todos os campos.', 'error');
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showToast('E-mail inválido.', 'error');
@@ -192,13 +281,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const original = btn.innerHTML;
             btn.innerHTML = '✓ Enviado!';
             btn.style.background = 'var(--success)';
-            btn.style.borderColor = 'var(--success)';
             btn.disabled = true;
+
             showToast('Mensagem enviada com sucesso!', 'success');
 
             setTimeout(() => {
-                btn.innerHTML = original; btn.style.background = ''; btn.style.borderColor = '';
-                btn.disabled = false; this.reset();
+                btn.innerHTML = original;
+                btn.style.background = '';
+                btn.disabled = false;
+                this.reset();
             }, 3000);
         });
     }
@@ -210,14 +301,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const p = document.getElementById('laudoProtocolo').value.trim();
             const s = document.getElementById('laudoSenha').value.trim();
             if (!p || !s) return showToast('Preencha protocolo e senha.', 'error');
-            showToast('Redirecionando para o sistema...', 'success');
+            showToast('Redirecionando para o sistema de laudos...', 'success');
         });
     }
 
-
-    /* ================================================
-       8. PHONE MASK
-       ================================================ */
     const tel = document.getElementById('telefone');
     if (tel) {
         tel.addEventListener('input', function () {
@@ -231,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ================================================
-       9. TOAST
+       9. SISTEMA DE TOAST (Notificações)
        ================================================ */
     function showToast(message, type) {
         const old = document.querySelector('.toast');
@@ -243,17 +330,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         Object.assign(toast.style, {
             position: 'fixed',
-            top: 'clamp(70px, 12vw, 100px)',
-            right: 'clamp(12px, 3vw, 24px)',
-            left: window.innerWidth <= 480 ? 'clamp(12px, 3vw, 24px)' : 'auto',
-            maxWidth: '420px',
-            padding: '14px 18px',
+            top: '80px',
+            right: '20px',
+            padding: '12px 20px',
             borderRadius: '12px',
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
-            fontSize: '.88rem',
-            fontWeight: '500',
             zIndex: '9999',
             color: '#fff',
             boxShadow: '0 8px 32px rgba(0,0,0,.15)',
@@ -261,29 +344,20 @@ document.addEventListener('DOMContentLoaded', () => {
             animation: 'toastIn .4s ease'
         });
 
-        toast.querySelector('button').style.cssText =
-            'background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;padding:0 0 0 8px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;';
+        const closeBtn = toast.querySelector('button');
+        closeBtn.style.cssText = 'background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;';
 
         document.body.appendChild(toast);
-        setTimeout(() => {
-            if (toast.parentElement) {
-                toast.style.animation = 'toastOut .3s ease forwards';
-                setTimeout(() => toast.remove(), 300);
-            }
-        }, 4000);
+        setTimeout(() => { if (toast.parentElement) toast.remove(); }, 4000);
     }
 
-    const css = document.createElement('style');
-    css.textContent = `
-        @keyframes toastIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
-        @keyframes toastOut{from{transform:translateX(0);opacity:1}to{transform:translateX(120%);opacity:0}}
-        @media(max-width:480px){
-            @keyframes toastIn{from{transform:translateY(-30px);opacity:0}to{transform:translateY(0);opacity:1}}
-            @keyframes toastOut{from{transform:translateY(0);opacity:0}to{transform:translateY(-30px);opacity:0}}
-        }
+    // Animações CSS para o Toast
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = `
+        @keyframes toastIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     `;
-    document.head.appendChild(css);
+    document.head.appendChild(styleSheet);
 
-
-    handleScroll();
+    // Inicialização final
+    handleHash();
 });
