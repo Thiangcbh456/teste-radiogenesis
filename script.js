@@ -25,37 +25,55 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const cores  = navigator.hardwareConcurrency || 4;
-        const memory = navigator.deviceMemory;        // undefined se não disponível
+        const cores    = navigator.hardwareConcurrency || 4;
+        const memory   = navigator.deviceMemory; // undefined se não suportado
         const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-        // Desktop: só é fraco se tiver 2 ou menos núcleos (muito raro)
-        // Mobile: critério mais rigoroso pois GPU/memória são limitados
+        /*
+         * Lógica equilibrada por pontuação:
+         *   núcleos ≤ 4  → +2 pts fraco
+         *   núcleos 5–6  → +1 pt fraco
+         *   RAM ≤ 2GB    → +2 pts fraco
+         *   RAM 3–4GB    → +1 pt fraco
+         *   RAM > 4GB    → 0 pts
+         *
+         * Exemplos reais:
+         *   Samsung A12  (4 núcleos, 4GB) → 2+0 = 2 → perf-low  ✓
+         *   Moto G30     (8 núcleos, 4GB) → 0+1 = 1 → perf-mid  ✓
+         *   Samsung A32  (8 núcleos, 4GB) → 0+1 = 1 → perf-mid  ✓
+         *   Flagship     (8 núcleos, 8GB) → 0+0 = 0 → perf-high ✓
+         */
         if (isMobile) {
-            // Mobile fraco: ≤ 4 núcleos E pouca RAM (ou RAM desconhecida)
-            const lowRAM = memory !== undefined && memory <= 2;
-            const lowCPU = cores <= 4;
-            if (lowRAM || (lowCPU && memory === undefined)) {
-                root.classList.add('perf-low');
-            } else if (cores <= 6 || (memory !== undefined && memory <= 4)) {
-                root.classList.add('perf-mid');
-            } else {
-                root.classList.add('perf-high');
+            let score = 0;
+            if (cores <= 4) score += 2;
+            else if (cores <= 6) score += 1;
+            if (memory !== undefined) {
+                if (memory <= 2) score += 2;
+                else if (memory <= 4) score += 1;
             }
+            if (score >= 2) root.classList.add('perf-low');
+            else if (score === 1) root.classList.add('perf-mid');
+            else root.classList.add('perf-high');
         } else {
-            // Desktop: animação completa por padrão, reduz só se CPU muito fraca
-            if (cores <= 2) {
-                root.classList.add('perf-mid');
-            } else {
-                root.classList.add('perf-high');
-            }
+            if (cores <= 2) root.classList.add('perf-mid');
+            else root.classList.add('perf-high');
         }
     })();
 
     /* Ajusta delays de transição conforme classe de performance */
-    const perfDelay = document.documentElement.classList.contains('perf-low')  ? 80
-                    : document.documentElement.classList.contains('perf-mid')   ? 120
+    const perfDelay = document.documentElement.classList.contains('perf-low')  ? 250
+                    : document.documentElement.classList.contains('perf-mid')   ? 280
                     : 150;
+
+    // 0.5 Carregamento suave das imagens das unidades
+    document.querySelectorAll('.unit-img').forEach(img => {
+        if (img.complete && img.naturalWidth > 0) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', () => img.classList.add('loaded'));
+            img.addEventListener('error', () => img.classList.add('loaded'));
+        }
+    });
 
     // 1. Seleção de Elementos Globais
     const header     = document.getElementById('header');
@@ -212,11 +230,25 @@ document.addEventListener('DOMContentLoaded', () => {
        5. MENU MOBILE (Hambúrguer)
        ================================================ */
     function openMobileMenu() {
+        // Posiciona o menu exatamente abaixo do header
+        const menuHeader = document.getElementById('header');
+        const menuTopBar = document.querySelector('.top-bar');
+        const headerBottom = (menuTopBar ? menuTopBar.getBoundingClientRect().height : 0) + (menuHeader ? menuHeader.getBoundingClientRect().height : 0);
+        mobileMenu.style.top = headerBottom + 'px';
+        mobileMenu.style.height = 'calc(100dvh - ' + headerBottom + 'px)';
+
         mobileMenu.classList.add('open');
         overlay.classList.add('active');
         hamburger.classList.add('active');
         hamburger.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
+        // Bloqueia cliques em tudo exceto o menu
+        const app = document.getElementById('app');
+        const topBar = document.querySelector('.top-bar');
+        if (app) app.style.setProperty('pointer-events', 'none', 'important');
+        if (topBar) topBar.style.setProperty('pointer-events', 'none', 'important');
+        const vw = document.querySelector('[vw]');
+        if (vw) vw.style.setProperty('left', '-200px', 'important');
     }
 
     function closeMobileMenu() {
@@ -225,6 +257,13 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.classList.remove('active');
         hamburger.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
+        // Restaura cliques
+        const app = document.getElementById('app');
+        const topBar = document.querySelector('.top-bar');
+        if (app) app.style.removeProperty('pointer-events');
+        if (topBar) topBar.style.removeProperty('pointer-events');
+        const vw = document.querySelector('[vw]');
+        if (vw) vw.style.setProperty('left', '20px', 'important');
     }
 
     if (hamburger) {
@@ -421,6 +460,114 @@ document.addEventListener('DOMContentLoaded', () => {
 
     adjustLogoSize();
     window.addEventListener('resize', adjustLogoSize);
+
+
+    /* ================================================
+       HERO BACKGROUND CAROUSEL — troca automática a cada 5s
+       ================================================ */
+    (function initHeroCarousel() {
+        const isMobile = () => window.innerWidth <= 768;
+
+        // Seleciona o carrossel ativo conforme dispositivo
+        function getActiveSlides() {
+            if (isMobile()) {
+                return document.querySelectorAll('.hero__bg-carousel--mobile .hero__bg-slide');
+            }
+            return document.querySelectorAll('.hero__bg-carousel--desktop .hero__bg-slide');
+        }
+
+        const allDots = document.querySelectorAll('.hero__carousel-dot');
+        const label   = document.getElementById('heroSlideLabel');
+        let current = 0;
+        let timer;
+
+        function getActiveDots() {
+            const slides = getActiveSlides();
+            return Array.from(allDots).slice(0, slides.length);
+        }
+
+        function updateDotVisibility() {
+            const slides = getActiveSlides();
+            allDots.forEach((dot, i) => {
+                dot.style.display = i < slides.length ? '' : 'none';
+            });
+        }
+
+        function goTo(index) {
+            const slides   = getActiveSlides();
+            const dots     = getActiveDots();
+            slides[current].classList.remove('active');
+            if (dots[current]) dots[current].classList.remove('active');
+            current = (index + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            if (dots[current]) dots[current].classList.add('active');
+            if (label) label.textContent = slides[current].dataset.label || '';
+        }
+
+        updateDotVisibility();
+        window.addEventListener('resize', () => { updateDotVisibility(); current = 0; goTo(0); });
+
+        function next() { goTo(current + 1); }
+        function startTimer() { timer = setInterval(next, 5000); }
+        function resetTimer() { clearInterval(timer); startTimer(); }
+
+        allDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const idx = parseInt(dot.dataset.index);
+                const slides = getActiveSlides();
+                if (idx < slides.length) {
+                    goTo(idx);
+                    resetTimer();
+                }
+            });
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) clearInterval(timer);
+            else startTimer();
+        });
+
+        startTimer();
+    })();
+
+
+    /* ================================================
+       VLIBRAS — MutationObserver para forçar canto esquerdo
+       ================================================ */
+    (function watchVLibras() {
+        function applyPosition() {
+            const vw = document.querySelector('[vw]');
+            if (!vw) return;
+            // Não interfere se menu mobile estiver aberto
+            const menu = document.getElementById('mobileMenu');
+            if (menu && menu.classList.contains('open')) return;
+
+
+            vw.style.setProperty('position', 'fixed', 'important');
+            vw.style.setProperty('z-index', '299', 'important');
+            vw.style.setProperty('right', 'auto', 'important');
+            vw.style.setProperty('left', '20px', 'important');
+            vw.style.setProperty('bottom', 'clamp(12px,3vw,24px)', 'important');
+            vw.style.setProperty('top', 'auto', 'important');
+            vw.style.setProperty('transform', 'none', 'important');
+            vw.style.setProperty('display', 'block', 'important');
+            vw.style.setProperty('pointer-events', 'auto', 'important');
+            vw.style.setProperty('visibility', 'visible', 'important');
+
+            const btn = vw.querySelector('[vw-access-button]');
+            if (btn) {
+                btn.style.setProperty('right', 'auto', 'important');
+                btn.style.setProperty('left', '0', 'important');
+                btn.style.setProperty('bottom', '0', 'important');
+                btn.style.setProperty('top', 'auto', 'important');
+                btn.style.setProperty('transform', 'none', 'important');
+            }
+        }
+
+        const observer = new MutationObserver(applyPosition);
+        observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+        window.addEventListener('load', applyPosition);
+    })();
 
     // Inicialização final
     handleHash();
