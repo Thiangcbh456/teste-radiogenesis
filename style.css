@@ -422,9 +422,10 @@ ul{list-style:none}
     width:100%;
     height:60px;
 }
-.convenio-item__logo img{
+.convenio-item__logo img,
+.convenio-img{
     max-width:100%;
-    max-height:60px;
+    max-height:80px;
     width:auto;
     height:auto;
     object-fit:contain;
@@ -432,7 +433,7 @@ ul{list-style:none}
     opacity:0;
     transition:opacity .3s ease;
 }
-.convenio-item__logo img.loaded{
+.convenio-img.loaded{
     opacity:1;
 }
 
@@ -913,43 +914,56 @@ ul{list-style:none}
 
 /* Variáveis do tema escuro */
 [data-theme="dark"] {
-    --bg-body:#0F1923;
-    --bg-white:#1A2535;
-    --bg-soft:#1E2D3D;
-    --bg-blue-mist:#162030;
-    --bg-navy:#061218;
-    --bg-navy-deep:#040D14;
+    /* Fundos — slate azulado, não preto puro */
+    --bg-body:#0F172A;
+    --bg-white:#1E293B;
+    --bg-soft:#1E293B;
+    --bg-blue-mist:#172033;
+    --bg-navy:#0B1120;
+    --bg-navy-deep:#080E1A;
 
-    --text-heading:#E8F0F8;
-    --text-body:#A8BDD0;
-    --text-muted:#7A9AB5;
-    --text-light:#556E86;
+    /* Textos */
+    --text-heading:#F1F5F9;
+    --text-body:#94A3B8;
+    --text-muted:#64748B;
+    --text-light:#475569;
 
-    --gray-50:#1E2D3D;
-    --gray-100:#243444;
-    --gray-200:#2E4058;
-    --gray-300:#3D5470;
+    /* Bordas / separadores */
+    --gray-50:#1E293B;
+    --gray-100:#334155;
+    --gray-200:#475569;
+    --gray-300:#64748B;
 
-    --shadow-sm:0 1px 4px rgba(0,0,0,.25),0 1px 2px rgba(0,0,0,.15);
-    --shadow-md:0 4px 16px rgba(0,0,0,.35),0 2px 4px rgba(0,0,0,.2);
-    --shadow-lg:0 8px 32px rgba(0,0,0,.45),0 2px 8px rgba(0,0,0,.25);
-    --shadow-xl:0 16px 48px rgba(0,0,0,.55),0 4px 12px rgba(0,0,0,.3);
-    --shadow-card:0 2px 8px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
-    --shadow-card-hover:0 8px 32px rgba(0,0,0,.45),0 2px 8px rgba(0,153,200,.15);
+    /* Primário mais claro para contrastar no fundo escuro */
+    --primary:#38BDF8;
+    --primary-hover:#0EA5E9;
+    --primary-50:rgba(56,189,248,.10);
+    --primary-100:rgba(56,189,248,.18);
+
+    /* Sucesso */
+    --success:#34D399;
+
+    /* Sombras mais suaves (fundo já escuro) */
+    --shadow-sm:0 1px 4px rgba(0,0,0,.20),0 1px 2px rgba(0,0,0,.12);
+    --shadow-md:0 4px 16px rgba(0,0,0,.28),0 2px 4px rgba(0,0,0,.16);
+    --shadow-lg:0 8px 32px rgba(0,0,0,.36),0 2px 8px rgba(0,0,0,.20);
+    --shadow-xl:0 16px 48px rgba(0,0,0,.44),0 4px 12px rgba(0,0,0,.24);
+    --shadow-card:0 2px 8px rgba(0,0,0,.24),0 8px 24px rgba(0,0,0,.28);
+    --shadow-card-hover:0 8px 32px rgba(0,0,0,.36),0 2px 8px rgba(56,189,248,.12);
 }
 
 /* Header no dark */
 [data-theme="dark"] .header {
-    background: rgba(26,37,53,.92);
-    border-bottom-color: rgba(45,64,88,.6);
+    background: rgba(15,23,42,.92);
+    border-bottom-color: rgba(51,65,85,.6);
 }
 [data-theme="dark"] .header--scrolled {
-    background: rgba(26,37,53,.97);
+    background: rgba(15,23,42,.97);
 }
 
 /* Top bar no dark */
 [data-theme="dark"] .top-bar {
-    background: #040D14;
+    background: #080E1A;
 }
 
 /* Mobile menu no dark */
@@ -982,16 +996,13 @@ ul{list-style:none}
     border-color: var(--gray-200);
 }
 
-/* Convênios no dark — fundo neutro para logos com bg branco */
+/* Convênios no dark — card com fundo branco para as logos não perderem cor */
 [data-theme="dark"] .convenio-item {
-    background: #1E2D3D;
+    background: #ffffff;
     border-color: var(--gray-200);
 }
-[data-theme="dark"] .convenio-img {
-    filter: brightness(0.92) contrast(1.05);
-    background: #fff;
-    border-radius: 4px;
-    padding: 4px;
+[data-theme="dark"] .convenio-item > span {
+    color: #475B6F;
 }
 
 /* Inputs no dark */
@@ -1015,7 +1026,7 @@ ul{list-style:none}
 
 /* Select arrow no dark */
 [data-theme="dark"] .form-group select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A9AB5' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
 }
 
 /* Ouvidoria channels no dark */
@@ -1032,32 +1043,32 @@ ul{list-style:none}
 /* Btn outline no dark */
 [data-theme="dark"] .btn--outline {
     background: transparent;
-    color: var(--primary-400);
-    border-color: var(--primary-400);
+    color: var(--primary);
+    border-color: var(--primary);
 }
 [data-theme="dark"] .btn--outline:hover {
-    background: rgba(0,153,200,.1);
+    background: rgba(56,189,248,.1);
 }
 
 /* Btn info no dark */
 [data-theme="dark"] .btn--info {
-    background: rgba(0,153,200,.1);
-    color: var(--primary-300);
-    border-color: rgba(0,153,200,.25);
+    background: rgba(56,189,248,.1);
+    color: var(--primary);
+    border-color: rgba(56,189,248,.25);
 }
 [data-theme="dark"] .btn--info:hover {
-    background: rgba(0,153,200,.2);
-    border-color: var(--primary-400);
+    background: rgba(56,189,248,.18);
+    border-color: var(--primary);
 }
 
 /* Quick card icon no dark */
 [data-theme="dark"] .quick-card__icon {
-    background: rgba(0,153,200,.12);
+    background: rgba(56,189,248,.10);
 }
 
 /* Exam card icon no dark */
 [data-theme="dark"] .exam-card__icon {
-    background: rgba(0,153,200,.12);
+    background: rgba(56,189,248,.10);
 }
 
 /* Section cta border no dark */
@@ -1066,7 +1077,7 @@ ul{list-style:none}
 }
 
 /* Unit badge no dark */
-[data-theme="dark"] .unit-card__badge--centro { background: rgba(0,153,200,.12); color: var(--primary-300); }
+[data-theme="dark"] .unit-card__badge--centro { background: rgba(56,189,248,.10); color: var(--primary); }
 [data-theme="dark"] .unit-card__badge--norte  { background: rgba(21,128,61,.15);  color: #4ADE80; }
 [data-theme="dark"] .unit-card__badge--sul    { background: rgba(194,65,12,.15);  color: #FB923C; }
 
@@ -1083,8 +1094,8 @@ ul{list-style:none}
 
 /* Section badge no dark */
 [data-theme="dark"] .section__badge {
-    background: rgba(0,153,200,.12);
-    color: var(--primary-300);
+    background: rgba(56,189,248,.10);
+    color: var(--primary);
 }
 
 /* ---- BOTÃO TOGGLE TEMA ---- */
@@ -1113,9 +1124,9 @@ ul{list-style:none}
     color: var(--text-muted);
 }
 [data-theme="dark"] .theme-toggle:hover {
-    border-color: var(--primary-400);
-    color: var(--primary-400);
-    background: rgba(0,153,200,.12);
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(56,189,248,.10);
 }
 
 /* Ícone: sol no dark, lua no light */
@@ -1123,3 +1134,15 @@ ul{list-style:none}
 .theme-toggle .icon-moon { display: block; }
 [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
 [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* Footer background image no dark mode */
+[data-theme="dark"] .footer::before {
+    opacity: .10;
+    filter: grayscale(30%) brightness(0.7);
+}
+
+/* Logo do header no dark mode — fica branca igual ao rodapé */
+[data-theme="dark"] .header__logo img {
+    filter: brightness(0) invert(1);
+    opacity: .85;
+}

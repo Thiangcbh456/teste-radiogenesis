@@ -75,6 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // 0.6 Carregamento suave das logos de convênios
+    function initConvenioLogos() {
+        document.querySelectorAll('.convenio-img').forEach(img => {
+            if (img.complete && img.naturalWidth > 0) {
+                img.classList.add('loaded');
+            } else {
+                img.addEventListener('load',  () => img.classList.add('loaded'));
+                img.addEventListener('error', () => img.classList.add('loaded'));
+            }
+        });
+    }
+    initConvenioLogos();
+
     // 1. Seleção de Elementos Globais
     const header     = document.getElementById('header');
     const hamburger  = document.getElementById('hamburger');
@@ -130,6 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateActiveNav(pageId);
                     if (pageId === 'inicio') {
                         setTimeout(animateCounters, 300);
+                    }
+                    if (pageId === 'convenios') {
+                        initConvenioLogos();
                     }
                 });
             }
@@ -193,6 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (hash === 'inicio') {
                     countersAnimated = false;
                     animateCounters();
+                }
+                if (hash === 'convenios') {
+                    initConvenioLogos();
                 }
             }, 10);
         } else {
@@ -535,38 +554,209 @@ document.addEventListener('DOMContentLoaded', () => {
        VLIBRAS — MutationObserver para forçar canto esquerdo
        ================================================ */
     (function watchVLibras() {
-        function applyPosition() {
-            const vw = document.querySelector('[vw]');
-            if (!vw) return;
-            // Não interfere se menu mobile estiver aberto
-            const menu = document.getElementById('mobileMenu');
+
+        var STORAGE_KEY = 'rg-vlibras-pos';
+        var dragging    = false;
+        var dragMoved   = false; // distingue clique de arrasto
+        var startX, startY, startLeft, startTop;
+
+        /* Lê posição salva ou retorna o padrão (canto inferior esquerdo) */
+        function getSavedPos() {
+            try {
+                var p = JSON.parse(localStorage.getItem(STORAGE_KEY));
+                if (p && typeof p.left === 'number' && typeof p.top === 'number') return p;
+            } catch(e) {}
+            return null;
+        }
+
+        /* Garante que o widget não saia da tela */
+        function clamp(val, min, max) {
+            return Math.min(Math.max(val, min), max);
+        }
+
+        /* Aplica posição ao container [vw] */
+        function setPos(vw, left, top) {
+            var W = window.innerWidth;
+            var H = window.innerHeight;
+            var w = vw.offsetWidth  || 80;
+            var h = vw.offsetHeight || 80;
+            left = clamp(left, 0, W - w);
+            top  = clamp(top,  0, H - h);
+
+            vw.style.setProperty('position',  'fixed',       'important');
+            vw.style.setProperty('z-index',   '299',         'important');
+            vw.style.setProperty('left',      left + 'px',   'important');
+            vw.style.setProperty('top',       top  + 'px',   'important');
+            vw.style.setProperty('right',     'auto',        'important');
+            vw.style.setProperty('bottom',    'auto',        'important');
+            vw.style.setProperty('transform', 'none',        'important');
+            vw.style.setProperty('cursor',    'grab',        'important');
+
+            var btn = vw.querySelector('[vw-access-button]');
+            if (btn) {
+                btn.style.setProperty('right',     'auto',  'important');
+                btn.style.setProperty('left',      '0',     'important');
+                btn.style.setProperty('bottom',    '0',     'important');
+                btn.style.setProperty('top',       'auto',  'important');
+                btn.style.setProperty('transform', 'none',  'important');
+            }
+
+            return { left: left, top: top };
+        }
+
+        /* Posição inicial: salva ou padrão (canto inferior esquerdo) */
+        function applyPosition(vw) {
+            var menu = document.getElementById('mobileMenu');
             if (menu && menu.classList.contains('open')) return;
 
+            var saved = getSavedPos();
+            var left, top;
+            if (saved) {
+                left = saved.left;
+                top  = saved.top;
+            } else {
+                left = 20;
+                top  = window.innerHeight - (vw.offsetHeight || 80) - 20;
+            }
+            setPos(vw, left, top);
+        }
 
-            vw.style.setProperty('position', 'fixed', 'important');
-            vw.style.setProperty('z-index', '299', 'important');
-            vw.style.setProperty('right', 'auto', 'important');
-            vw.style.setProperty('left', '20px', 'important');
-            vw.style.setProperty('bottom', 'clamp(12px,3vw,24px)', 'important');
-            vw.style.setProperty('top', 'auto', 'important');
-            vw.style.setProperty('transform', 'none', 'important');
-            vw.style.setProperty('display', 'block', 'important');
-            vw.style.setProperty('pointer-events', 'auto', 'important');
-            vw.style.setProperty('visibility', 'visible', 'important');
+        /* Retorna true se o alvo é um controle interativo DENTRO do painel interno do VLibras
+           (botões de fechar, pular, configurações) — esses cliques não devem iniciar drag.
+           O [vw-access-button] (botão principal) é excluído: nele o drag é permitido. */
+        function isVLibrasControl(target) {
+            var wrapper = target.closest('[vw-plugin-wrapper]');
+            if (!wrapper) return false; // está fora do painel — permite drag
+            return !!(target.closest('button, a, [role="button"]'));
+        }
 
-            const btn = vw.querySelector('[vw-access-button]');
-            if (btn) {
-                btn.style.setProperty('right', 'auto', 'important');
-                btn.style.setProperty('left', '0', 'important');
-                btn.style.setProperty('bottom', '0', 'important');
-                btn.style.setProperty('top', 'auto', 'important');
-                btn.style.setProperty('transform', 'none', 'important');
+        /* ---- DRAG: Mouse ---- */
+        function onMouseDown(e) {
+            if (e.button !== 0) return;
+            var vw = document.querySelector('[vw]');
+            if (!vw || !vw.contains(e.target)) return; // clique fora do widget — ignora
+            if (isVLibrasControl(e.target)) return;     // botão interno do painel — ignora
+
+            dragging  = true;
+            dragMoved = false;
+            startX    = e.clientX;
+            startY    = e.clientY;
+            startLeft = parseInt(vw.style.left) || 20;
+            startTop  = parseInt(vw.style.top)  || (window.innerHeight - 80);
+            vw.style.setProperty('cursor', 'grabbing', 'important');
+        }
+
+        function onMouseMove(e) {
+            if (!dragging) return;
+            var vw = document.querySelector('[vw]');
+            if (!vw) return;
+            var dx = e.clientX - startX;
+            var dy = e.clientY - startY;
+            if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+            setPos(vw, startLeft + dx, startTop + dy);
+        }
+
+        function onMouseUp() {
+            if (!dragging) return;
+            dragging = false;
+            var vw = document.querySelector('[vw]');
+            if (!vw) return;
+            vw.style.setProperty('cursor', 'grab', 'important');
+            if (dragMoved) {
+                var left = parseInt(vw.style.left) || 20;
+                var top  = parseInt(vw.style.top)  || 20;
+                try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ left: left, top: top })); } catch(e) {}
             }
         }
 
-        const observer = new MutationObserver(applyPosition);
-        observer.observe(document.body, { childList: true, subtree: true, attributes: true });
-        window.addEventListener('load', applyPosition);
+        /* ---- DRAG: Touch ---- */
+        function onTouchStart(e) {
+            var vw = document.querySelector('[vw]');
+            if (!vw || !vw.contains(e.target)) return; // toque fora do widget — ignora
+            if (isVLibrasControl(e.target)) return;     // botão interno do painel — ignora
+
+            var t  = e.touches[0];
+            dragging  = true;
+            dragMoved = false;
+            startX    = t.clientX;
+            startY    = t.clientY;
+            startLeft = parseInt(vw.style.left) || 20;
+            startTop  = parseInt(vw.style.top)  || (window.innerHeight - 80);
+        }
+
+        function onTouchMove(e) {
+            if (!dragging) return;
+            var vw = document.querySelector('[vw]');
+            if (!vw) return;
+            var t  = e.touches[0];
+            var dx = t.clientX - startX;
+            var dy = t.clientY - startY;
+            if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+                dragMoved = true;
+                e.preventDefault();
+            }
+            setPos(vw, startLeft + dx, startTop + dy);
+        }
+
+        function onTouchEnd() {
+            if (!dragging) return;
+            dragging = false;
+            var vw = document.querySelector('[vw]');
+            if (!vw) return;
+            if (dragMoved) {
+                var left = parseInt(vw.style.left) || 20;
+                var top  = parseInt(vw.style.top)  || 20;
+                try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ left: left, top: top })); } catch(e) {}
+            }
+        }
+
+        /* Reposiciona ao redimensionar a janela para não sair da tela */
+        window.addEventListener('resize', function() {
+            var vw = document.querySelector('[vw]');
+            if (!vw) return;
+            var left = parseInt(vw.style.left) || 20;
+            var top  = parseInt(vw.style.top)  || 20;
+            var pos  = setPos(vw, left, top);
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(pos)); } catch(e) {}
+        });
+
+        /* Inicializa posição quando o widget aparecer no DOM */
+        function initDrag(vw) {
+            applyPosition(vw);
+        }
+
+        /* Listeners globais — drag funciona independente de onde o widget estiver */
+        document.addEventListener('mousedown',  onMouseDown);
+        document.addEventListener('mousemove',  onMouseMove);
+        document.addEventListener('mouseup',    onMouseUp);
+        document.addEventListener('touchstart', onTouchStart, { passive: true });
+        document.addEventListener('touchmove',  onTouchMove,  { passive: false });
+        document.addEventListener('touchend',   onTouchEnd);
+
+        /* Observa inserção do widget no body */
+        var observer = new MutationObserver(function(mutations) {
+            for (var i = 0; i < mutations.length; i++) {
+                if (mutations[i].type === 'childList') {
+                    var vw = document.querySelector('[vw]');
+                    if (vw && !vw.dataset.dragInit) {
+                        vw.dataset.dragInit = '1';
+                        initDrag(vw);
+                    }
+                    break;
+                }
+            }
+        });
+        observer.observe(document.body, { childList: true, subtree: false });
+
+        /* Caso o widget já esteja no DOM quando o script rodar */
+        window.addEventListener('load', function() {
+            var vw = document.querySelector('[vw]');
+            if (vw && !vw.dataset.dragInit) {
+                vw.dataset.dragInit = '1';
+                initDrag(vw);
+            }
+        });
+
     })();
 
     // Inicialização final
