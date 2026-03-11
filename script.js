@@ -140,7 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     targetPage.classList.add('active');
                     targetPage.classList.add('visible');
                     updatePageTitle(pageId);
-                    updateActiveNav(pageId);
+                    const navId = pageId.startsWith('exames/') ? 'exames' : pageId;
+                    updateActiveNav(navId);
                     if (pageId === 'inicio') {
                         setTimeout(animateCounters, 300);
                     }
@@ -179,7 +180,16 @@ document.addEventListener('DOMContentLoaded', () => {
             'contato': 'Contato | Radiogênesis',
             'ouvidoria': 'Ouvidoria | Radiogênesis',
             'trabalhe-conosco': 'Trabalhe Conosco | Radiogênesis',
-            'laudo': 'Laudo Online | Radiogênesis'
+            'laudo': 'Laudo Online | Radiogênesis',
+            'exames/ressonancia-magnetica':      'Ressonância Magnética | Radiogênesis',
+            'exames/tomografia-computadorizada': 'Tomografia Computadorizada | Radiogênesis',
+            'exames/biopsia-puncao-marcacao':    'Biópsia, Punção e Marcação | Radiogênesis',
+            'exames/ultrassonografia-geral':     'Ultrassonografia Geral | Radiogênesis',
+            'exames/raio-x-digital':             'Raio-X Digital | Radiogênesis',
+            'exames/mamografia-digital':         'Mamografia Digital | Radiogênesis',
+            'exames/ultrassonografia-doppler':   'Ultrassonografia com Doppler | Radiogênesis',
+            'exames/densitometria-ossea':        'Densitometria Óssea | Radiogênesis',
+            'exames/mamotomia':                  'Mamotomia | Radiogênesis'
         };
         document.title = titles[pageId] || titles['inicio'];
     }
@@ -204,7 +214,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 targetPage.classList.add('visible');
 
                 updatePageTitle(hash);
-                updateActiveNav(hash);
+                // Nav ativa: se for subpágina de exame, marca "exames"
+                const navPage = hash.startsWith('exames/') ? 'exames' : hash;
+                updateActiveNav(navPage);
 
                 if (hash === 'inicio') {
                     countersAnimated = false;
@@ -759,6 +771,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })();
 
+
+    /* ================================================
+       SUBPÁGINAS DE EXAMES — navegação
+       ================================================ */
+
+    // Botão "Voltar para Exames" dentro das subpáginas
+    document.addEventListener('click', function(e) {
+        const backBtn = e.target.closest('[data-back]');
+        if (backBtn) {
+            e.preventDefault();
+            navigateTo(backBtn.dataset.back);
+        }
+    });
+
+    // Links .spa-exame (Saiba Mais) — abre subpágina via hash
+    document.addEventListener('click', function(e) {
+        const exameLink = e.target.closest('.spa-exame');
+        if (exameLink) {
+            e.preventDefault();
+            const hash = exameLink.getAttribute('href').replace('#', '');
+            navigateTo(hash);
+        }
+    });
+
     // Inicialização final
     handleHash();
+
 });
