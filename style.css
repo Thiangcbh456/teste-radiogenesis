@@ -55,6 +55,13 @@
 /* ---- RESET ---- */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
+/* Remove flash cinza azulado no toque em iOS/Safari */
+a,button,.btn,.nav__link,.mobile-menu__link,.quick-card,.exam-card,
+.spa-link,.hamburger,.back-to-top,.whatsapp-float,.hero__carousel-dot,
+.theme-toggle,.footer__social-link,.top-bar__link{
+    -webkit-tap-highlight-color: transparent;
+}
 body{font-family:var(--font-sans);font-size:clamp(14px,1vw,16px);line-height:1.6;color:var(--text-body);background:var(--bg-body);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;min-height:100dvh}
 a{text-decoration:none;color:inherit;transition:var(--transition-fast)}
 img,svg{max-width:100%;display:block}
@@ -137,13 +144,11 @@ ul{list-style:none}
     gap:12px;
 }
 
-/* Botões de Laudo/Resultados — visíveis só no desktop */
 .header__btn-desktop{
     /* visível por padrão no desktop */
 }
 
 /* ---- HAMBURGER ---- */
-/* Por padrão (desktop): escondido */
 .hamburger{
     display:none;
     flex-direction:column;
@@ -195,6 +200,7 @@ ul{list-style:none}
     z-index:1050;
     box-shadow:var(--shadow-xl);
     overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
     transform:translateX(101%);
     transition:transform 0.3s ease;
 }
@@ -217,7 +223,6 @@ ul{list-style:none}
 .mobile-menu__actions{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
 .mobile-menu__contact{display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid var(--gray-100)}
 
-/* Botão X dentro do menu */
 .mobile-menu__close{
     display:flex;align-items:center;justify-content:center;
     width:40px;height:40px;
@@ -263,7 +268,6 @@ ul{list-style:none}
 .section{padding:clamp(40px,6vw,64px) 0}
 .section--soft{background:var(--bg-body)}
 .section--white{background:var(--bg-white)}
-/* .section--navy-strip — ver override abaixo */
 
 .section__header{text-align:center;max-width:640px;margin:0 auto clamp(32px,5vw,48px)}
 .section__badge{display:inline-block;padding:6px 16px;background:var(--primary-50);color:var(--primary-color);font-size:.78rem;font-weight:600;border-radius:var(--radius-full);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
@@ -281,6 +285,7 @@ ul{list-style:none}
 .hero{
     position:relative;
     min-height:clamp(60vh,75vh,90vh);
+    min-height:max(360px, clamp(60vh,75vh,90vh));
     display:flex;align-items:center;overflow:hidden;
     background:linear-gradient(135deg,var(--bg-navy-deep),var(--primary-900));
     z-index:0;
@@ -353,8 +358,26 @@ ul{list-style:none}
 .exam-card__desc{font-size:clamp(.8rem,1.8vw,.88rem);color:var(--text-muted);line-height:1.6;margin-bottom:14px;flex:1}
 .exam-card__tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;flex-shrink:0}
 .exam-card__tags span{padding:4px 10px;background:var(--bg-soft);color:var(--text-muted);font-size:.7rem;font-weight:600;border-radius:var(--radius-full);text-transform:uppercase;letter-spacing:.5px}
-.exam-card__actions{display:flex;gap:10px;margin-top:auto;width:100%}
-.exam-card__actions .btn{flex:1;padding:12px 5px;font-size:.85rem;text-align:center}
+
+/* Botão Saiba Mais */
+.btn--info{background:#F0F9FF;color:var(--primary-700);border:2px solid var(--primary-200)}
+.btn--info:hover{background:var(--primary-50);border-color:var(--primary-color);transform:translateY(-2px)}
+
+/* ---- BOTÕES DOS CARDS DE EXAME ---- */
+/* Desktop e tablets — 3 botões lado a lado */
+.exam-card__actions{display:flex;gap:8px;margin-top:auto;width:100%;flex-wrap:wrap}
+.exam-card__actions .btn{flex:1;padding:10px 4px;font-size:.78rem;text-align:center;min-width:80px}
+
+/* ≤ 480px — empilha em coluna, largura total */
+@media(max-width:480px){
+    .exam-card__actions{flex-direction:column;gap:8px}
+    .exam-card__actions .btn{flex:none;width:100%;min-width:unset;padding:12px 16px;font-size:.85rem}
+}
+
+/* ≤ 320px — ajuste fino de padding/fonte, layout coluna já herdado */
+@media(max-width:320px){
+    .exam-card__actions .btn{padding:11px 12px;font-size:.82rem}
+}
 
 /* ---- ABOUT ---- */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:center}
@@ -414,7 +437,6 @@ ul{list-style:none}
 .convenio-item>span{font-weight:600;color:var(--text-muted);font-size:clamp(.78rem,1.8vw,.9rem);text-align:center}
 .convenio-item:hover>span{color:var(--primary-hover)}
 
-/* ---- LOGOS CONVÊNIOS — fade-in suave (igual às unidades) ---- */
 .convenio-item__logo{
     display:flex;
     align-items:center;
@@ -456,7 +478,7 @@ ul{list-style:none}
 .form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-light)}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:0;border-color:var(--primary-color);box-shadow:0 0 0 3px rgba(0,153,200,.12);background:#fff}
 .form-group textarea{resize:vertical;min-height:100px}
-.form-group select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B819A' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+.form-group select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B819A' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;font-size:16px}
 
 /* ---- OUVIDORIA ---- */
 .ouvidoria-card{text-align:center;max-width:640px;margin:0 auto;background:var(--bg-white);padding:clamp(28px,5vw,48px);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);border:1px solid rgba(207,216,227,.3)}
@@ -516,6 +538,19 @@ ul{list-style:none}
 .back-to-top{position:fixed;bottom:clamp(12px,3vw,24px);right:clamp(76px,12vw,90px);width:44px;height:44px;background:var(--primary-color);color:#fff;border:0;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(20px);transition:var(--transition);box-shadow:var(--shadow-md);z-index:900}
 .back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
 .back-to-top:hover{background:var(--primary-hover);transform:translateY(-3px)}
+
+/* iPhone Safe Area — evita que os botões fiquem atrás da barra
+   home em iPhones com Face ID (X em diante).
+   Em dispositivos sem notch (desktop, Android, iPhone SE)
+   env(safe-area-inset-bottom) retorna 0 — sem efeito visual. */
+@supports (bottom: env(safe-area-inset-bottom)) {
+    .whatsapp-float {
+        bottom: calc(clamp(12px, 3vw, 24px) + env(safe-area-inset-bottom));
+    }
+    .back-to-top {
+        bottom: calc(clamp(12px, 3vw, 24px) + env(safe-area-inset-bottom));
+    }
+}
 
 
 /* ================================================
@@ -585,6 +620,9 @@ ul{list-style:none}
     .unit-card__footer{flex-direction:column}
     .unit-card__footer .btn{width:100%}
     .footer::before{background-image:url('img/rodape/rodape-mobile.webp');background-position:center center}
+    /* Botões dos cards de exame — empilha em coluna */
+    .exam-card__actions{flex-direction:column;gap:8px}
+    .exam-card__actions .btn{flex:none;width:100%;min-width:unset;padding:12px 16px;font-size:.85rem}
 }
 
 @media(max-width:375px){
@@ -611,6 +649,8 @@ ul{list-style:none}
     .quick-card__icon{width:40px;height:40px}
     .exam-card{padding:16px 14px}
     .exam-card__icon{width:40px;height:40px}
+    /* Botões dos cards de exame — ajuste fino 320px */
+    .exam-card__actions .btn{padding:11px 12px;font-size:.82rem}
     .unit-card__body{padding:14px 16px}
     .unit-card__footer{padding:0 16px 16px}
     .contact-form{padding:16px}
@@ -660,14 +700,6 @@ ul{list-style:none}
     .footer{background:var(--bg-navy-deep) !important}
     .footer::before{display:none}
 }
-
-/* Botão Saiba Mais */
-.btn--info{background:#F0F9FF;color:var(--primary-700);border:2px solid var(--primary-200)}
-.btn--info:hover{background:var(--primary-50);border-color:var(--primary-color);transform:translateY(-2px)}
-
-/* 3 botões nos cards de exame */
-.exam-card__actions{display:flex;gap:8px;margin-top:auto;width:100%;flex-wrap:wrap}
-.exam-card__actions .btn{flex:1;padding:10px 4px;font-size:.78rem;text-align:center;min-width:80px}
 
 /* Dispositivos com tela lenta */
 @media (update: slow) {
@@ -845,6 +877,12 @@ ul{list-style:none}
     background-position: center 65%;
 }
 
+/* VLibras — touch-action: none impede o iOS de rolar a página
+   enquanto o usuário arrasta o widget (problema específico do Safari) */
+[vw] {
+    touch-action: none;
+}
+
 /* VLibras — reposiciona para canto inferior esquerdo */
 [vw] .vw-access-button {
     left: 20px !important;
@@ -911,10 +949,7 @@ ul{list-style:none}
 /* ================================================
    TEMA ESCURO — Dark Mode
    ================================================ */
-
-/* Variáveis do tema escuro */
 [data-theme="dark"] {
-    /* Fundos — slate azulado, não preto puro */
     --bg-body:#0F172A;
     --bg-white:#1E293B;
     --bg-soft:#1E293B;
@@ -922,28 +957,23 @@ ul{list-style:none}
     --bg-navy:#0B1120;
     --bg-navy-deep:#080E1A;
 
-    /* Textos */
     --text-heading:#F1F5F9;
     --text-body:#94A3B8;
     --text-muted:#64748B;
     --text-light:#475569;
 
-    /* Bordas / separadores */
     --gray-50:#1E293B;
     --gray-100:#334155;
     --gray-200:#475569;
     --gray-300:#64748B;
 
-    /* Primário mais claro para contrastar no fundo escuro */
     --primary:#38BDF8;
     --primary-hover:#0EA5E9;
     --primary-50:rgba(56,189,248,.10);
     --primary-100:rgba(56,189,248,.18);
 
-    /* Sucesso */
     --success:#34D399;
 
-    /* Sombras mais suaves (fundo já escuro) */
     --shadow-sm:0 1px 4px rgba(0,0,0,.20),0 1px 2px rgba(0,0,0,.12);
     --shadow-md:0 4px 16px rgba(0,0,0,.28),0 2px 4px rgba(0,0,0,.16);
     --shadow-lg:0 8px 32px rgba(0,0,0,.36),0 2px 8px rgba(0,0,0,.20);
@@ -952,7 +982,6 @@ ul{list-style:none}
     --shadow-card-hover:0 8px 32px rgba(0,0,0,.36),0 2px 8px rgba(56,189,248,.12);
 }
 
-/* Header no dark */
 [data-theme="dark"] .header {
     background: rgba(15,23,42,.92);
     border-bottom-color: rgba(51,65,85,.6);
@@ -960,13 +989,9 @@ ul{list-style:none}
 [data-theme="dark"] .header--scrolled {
     background: rgba(15,23,42,.97);
 }
-
-/* Top bar no dark */
 [data-theme="dark"] .top-bar {
     background: #080E1A;
 }
-
-/* Mobile menu no dark */
 [data-theme="dark"] .mobile-menu {
     background: var(--bg-white);
     border-left: 1px solid var(--gray-200);
@@ -981,8 +1006,6 @@ ul{list-style:none}
 [data-theme="dark"] .mobile-menu__contact {
     border-top-color: var(--gray-200);
 }
-
-/* Cards e componentes no dark */
 [data-theme="dark"] .exam-card,
 [data-theme="dark"] .quick-card,
 [data-theme="dark"] .unit-card,
@@ -995,8 +1018,6 @@ ul{list-style:none}
     background: var(--bg-white);
     border-color: var(--gray-200);
 }
-
-/* Convênios no dark — card com fundo branco para as logos não perderem cor */
 [data-theme="dark"] .convenio-item {
     background: #ffffff;
     border-color: var(--gray-200);
@@ -1004,8 +1025,6 @@ ul{list-style:none}
 [data-theme="dark"] .convenio-item > span {
     color: #475B6F;
 }
-
-/* Inputs no dark */
 [data-theme="dark"] .form-group input,
 [data-theme="dark"] .form-group select,
 [data-theme="dark"] .form-group textarea {
@@ -1023,26 +1042,18 @@ ul{list-style:none}
 [data-theme="dark"] .form-group textarea::placeholder {
     color: var(--text-light);
 }
-
-/* Select arrow no dark */
 [data-theme="dark"] .form-group select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 16px center;
 }
-
-/* Ouvidoria channels no dark */
 [data-theme="dark"] .ouvidoria__channel {
     background: var(--bg-soft);
     border-color: var(--gray-200);
 }
-
-/* Section soft no dark */
 [data-theme="dark"] .section--soft {
     background: var(--bg-body);
 }
-
-/* Btn outline no dark */
 [data-theme="dark"] .btn--outline {
     background: transparent;
     color: var(--primary);
@@ -1051,8 +1062,6 @@ ul{list-style:none}
 [data-theme="dark"] .btn--outline:hover {
     background: rgba(56,189,248,.1);
 }
-
-/* Btn info no dark */
 [data-theme="dark"] .btn--info {
     background: rgba(56,189,248,.1);
     color: var(--primary);
@@ -1062,39 +1071,25 @@ ul{list-style:none}
     background: rgba(56,189,248,.18);
     border-color: var(--primary);
 }
-
-/* Quick card icon no dark */
 [data-theme="dark"] .quick-card__icon {
     background: rgba(56,189,248,.10);
 }
-
-/* Exam card icon no dark */
 [data-theme="dark"] .exam-card__icon {
     background: rgba(56,189,248,.10);
 }
-
-/* Section cta border no dark */
 [data-theme="dark"] .section-cta {
     border-top-color: var(--gray-200);
 }
-
-/* Unit badge no dark */
 [data-theme="dark"] .unit-card__badge--centro { background: rgba(56,189,248,.10); color: var(--primary); }
 [data-theme="dark"] .unit-card__badge--norte  { background: rgba(21,128,61,.15);  color: #4ADE80; }
 [data-theme="dark"] .unit-card__badge--sul    { background: rgba(194,65,12,.15);  color: #FB923C; }
-
-/* About image placeholder no dark */
 [data-theme="dark"] .about__image-placeholder {
     background: var(--bg-soft);
     border-color: var(--gray-200);
 }
-
-/* Team card placeholder no dark */
 [data-theme="dark"] .team-card__photo {
     background: var(--bg-soft);
 }
-
-/* Section badge no dark */
 [data-theme="dark"] .section__badge {
     background: rgba(56,189,248,.10);
     color: var(--primary);
@@ -1131,30 +1126,24 @@ ul{list-style:none}
     background: rgba(56,189,248,.10);
 }
 
-/* Ícone: sol no dark, lua no light */
 .theme-toggle .icon-sun  { display: none; }
 .theme-toggle .icon-moon { display: block; }
 [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
 [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
-/* Footer background image no dark mode */
 [data-theme="dark"] .footer::before {
     opacity: .10;
     filter: grayscale(30%) brightness(0.7);
 }
-
-
-/* Page header no dark mode — mantém azul escuro */
 [data-theme="dark"] .page-header {
     background: linear-gradient(135deg, var(--bg-navy-deep) 0%, var(--primary-900) 50%, var(--primary-800) 100%);
 }
-
-/* Logo do header no dark mode — fica branca igual ao rodapé */
 [data-theme="dark"] .header__logo img {
     filter: brightness(0) invert(1);
     opacity: .85;
 }
-/* Stats strip — light mode claro para contrastar com as seções brancas */
+
+/* Stats strip */
 .section--navy-strip {
     background: linear-gradient(135deg, #0D6E8A 0%, #0F8FAD 50%, #22C4E0 100%);
     padding: clamp(32px,5vw,48px) 0;
@@ -1163,7 +1152,6 @@ ul{list-style:none}
 .section--navy-strip .stat-item__suffix { color: #7DD3FC; }
 .section--navy-strip .stat-item__label  { color: rgba(186,230,253,.85); }
 
-/* Stats strip — dark mode volta para o azul escuro original */
 [data-theme="dark"] .section--navy-strip {
     background: linear-gradient(135deg, #0A1F2E 0%, #003D52 50%, #005F7D 100%);
 }
@@ -1194,7 +1182,6 @@ ul{list-style:none}
     border-color: rgba(255,255,255,.45);
     transform: translateX(-3px);
 }
-
 .exame-sub__tags {
     display: flex;
     flex-wrap: wrap;
@@ -1213,7 +1200,6 @@ ul{list-style:none}
     text-transform: uppercase;
     letter-spacing: .5px;
 }
-
 .exame-sub__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1227,7 +1213,6 @@ ul{list-style:none}
     padding: 24px;
 }
 .exame-sub__card--full { grid-column: 1 / -1; }
-
 .exame-sub__card-header {
     display: flex;
     align-items: center;
@@ -1251,7 +1236,6 @@ ul{list-style:none}
 .exame-sub__card-icon--green { background: #F0FDF4; color: #15803D; }
 .exame-sub__card-icon--red   { background: #FEF2F2; color: #EF4444; }
 .exame-sub__card-icon--blue  { background: var(--primary-50); color: var(--primary-color); }
-
 .exame-sub__list {
     list-style: none;
     display: flex;
@@ -1274,7 +1258,6 @@ ul{list-style:none}
 }
 .exame-sub__list--green li::before { background: #22C55E; }
 .exame-sub__list--red   li::before { background: #EF4444; }
-
 .exame-sub__preparo-text {
     font-size: clamp(.88rem, 1.8vw, .95rem);
     color: var(--text-body);
@@ -1292,7 +1275,6 @@ ul{list-style:none}
     border-radius: var(--radius-sm);
 }
 .exame-sub__duracao svg { color: var(--primary-color); flex-shrink: 0; }
-
 .exame-sub__cta {
     background: var(--bg-white);
     border: 1px solid var(--gray-100);
@@ -1315,7 +1297,6 @@ ul{list-style:none}
 }
 .exame-sub__cta-btns .btn { min-width: 160px; }
 
-/* Dark mode */
 [data-theme="dark"] .exame-sub__card {
     background: var(--bg-white);
     border-color: var(--gray-200);
@@ -1330,7 +1311,6 @@ ul{list-style:none}
     border-color: var(--gray-200);
 }
 
-/* Responsivo */
 @media (max-width: 768px) {
     .exame-sub__grid { grid-template-columns: 1fr; }
     .exame-sub__card--full { grid-column: 1; }
@@ -1340,7 +1320,6 @@ ul{list-style:none}
     .exame-sub__cta-btns .btn { width: 100%; }
 }
 
-/* Placeholder de imagem nas subpáginas de exame */
 .exame-sub__image-card {
     background: var(--bg-white);
     border: 1px solid var(--gray-100);

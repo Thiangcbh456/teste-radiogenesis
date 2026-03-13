@@ -7,42 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ================================================
        0. DETECÇÃO DE PERFORMANCE DO DISPOSITIVO
-       Critérios:
-         - navigator.hardwareConcurrency  → nº de núcleos de CPU
-         - navigator.deviceMemory         → RAM em GB (quando disponível)
-         - prefers-reduced-motion         → respeita preferência do SO
-       Classes aplicadas no <html>:
-         perf-low  → ≤ 2 núcleos ou ≤ 2GB RAM
-         perf-mid  → 3–4 núcleos ou 3–4GB RAM
-         perf-high → 5+ núcleos e 4GB+ RAM
        ================================================ */
     (function detectPerformance() {
         const root = document.documentElement;
-
-        // Respeita preferência do sistema operacional primeiro
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             root.classList.add('perf-low');
             return;
         }
-
         const cores    = navigator.hardwareConcurrency || 4;
-        const memory   = navigator.deviceMemory; // undefined se não suportado
+        const memory   = navigator.deviceMemory;
         const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-        /*
-         * Lógica equilibrada por pontuação:
-         *   núcleos ≤ 4  → +2 pts fraco
-         *   núcleos 5–6  → +1 pt fraco
-         *   RAM ≤ 2GB    → +2 pts fraco
-         *   RAM 3–4GB    → +1 pt fraco
-         *   RAM > 4GB    → 0 pts
-         *
-         * Exemplos reais:
-         *   Samsung A12  (4 núcleos, 4GB) → 2+0 = 2 → perf-low  ✓
-         *   Moto G30     (8 núcleos, 4GB) → 0+1 = 1 → perf-mid  ✓
-         *   Samsung A32  (8 núcleos, 4GB) → 0+1 = 1 → perf-mid  ✓
-         *   Flagship     (8 núcleos, 8GB) → 0+0 = 0 → perf-high ✓
-         */
         if (isMobile) {
             let score = 0;
             if (cores <= 4) score += 2;
@@ -60,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
-    /* Ajusta delays de transição conforme classe de performance */
     const perfDelay = document.documentElement.classList.contains('perf-low')  ? 250
                     : document.documentElement.classList.contains('perf-mid')   ? 280
                     : 150;
@@ -94,74 +67,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenu = document.getElementById('mobileMenu');
     const backToTop  = document.getElementById('backToTop');
     const allPages   = document.querySelectorAll('.page');
+    const overlay    = document.getElementById('mobileOverlay');
 
-    // ✅ FIX: Usa o overlay já existente no HTML pelo ID
-    // (não cria um segundo overlay dinamicamente)
-    const overlay = document.getElementById('mobileOverlay');
-
-    let ticking = false; // Controle de performance do scroll
+    let ticking = false;
 
     /* ================================================
-       1. SPA ROUTER (Navegação Principal)
+       1. SPA ROUTER
        ================================================ */
     function navigateTo(pageId) {
         if (!pageId) return;
-
         const currentPage = document.querySelector('.page.active');
-
-        // Se já estiver na página atual, ignora o clique
         if (currentPage && currentPage.dataset.page === pageId) return;
-
-        // Inicia o Fade Out da página atual
-        if (currentPage) {
-            currentPage.classList.remove('visible');
-        }
-
-        // Delay para o Fade Out terminar (300ms)
+        if (currentPage) currentPage.classList.remove('visible');
         const delay = currentPage ? perfDelay : 0;
-
         setTimeout(() => {
-            // Esconde todas as páginas e remove classes
             allPages.forEach(p => {
                 p.classList.remove('active', 'visible');
                 p.style.display = 'none';
             });
-
             const targetPage = document.querySelector(`.page[data-page="${pageId}"]`);
-
             if (targetPage) {
                 targetPage.style.display = 'block';
-
-                // Volta para o topo instantaneamente
                 window.scrollTo({ top: 0, behavior: 'instant' });
-
-                // rAF único — mais leve para hardware fraco
                 requestAnimationFrame(() => {
                     targetPage.classList.add('active');
                     targetPage.classList.add('visible');
                     updatePageTitle(pageId);
                     const navId = pageId.startsWith('exames/') ? 'exames' : pageId;
                     updateActiveNav(navId);
-                    if (pageId === 'inicio') {
-                        setTimeout(animateCounters, 300);
-                    }
-                    if (pageId === 'convenios') {
-                        initConvenioLogos();
-                    }
+                    if (pageId === 'inicio') setTimeout(animateCounters, 300);
+                    if (pageId === 'convenios') initConvenioLogos();
                 });
             }
-
-            // Atualiza o histórico do navegador (Hash)
             if (window.location.hash.replace('#', '') !== pageId) {
                 history.pushState(null, '', `#${pageId}`);
             }
         }, delay);
-
         closeMobileMenu();
     }
 
     /* ================================================
-       2. AUXILIARES: Títulos e Links Ativos
+       2. AUXILIARES
        ================================================ */
     function updateActiveNav(pageId) {
         document.querySelectorAll('.nav__link, .mobile-menu__link').forEach(link => {
@@ -195,54 +141,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ================================================
-       3. HASH ROUTING (SOLUÇÃO DEFINITIVA)
+       3. HASH ROUTING
        ================================================ */
     function handleHash() {
         const hash = window.location.hash.replace('#', '') || 'inicio';
         const targetPage = document.querySelector(`.page[data-page="${hash}"]`);
-
         if (targetPage) {
             allPages.forEach(p => {
                 p.style.display = 'none';
                 p.classList.remove('active', 'visible');
             });
-
             targetPage.style.display = 'block';
-
             setTimeout(() => {
                 targetPage.classList.add('active');
                 targetPage.classList.add('visible');
-
                 updatePageTitle(hash);
-                // Nav ativa: se for subpágina de exame, marca "exames"
                 const navPage = hash.startsWith('exames/') ? 'exames' : hash;
                 updateActiveNav(navPage);
-
-                if (hash === 'inicio') {
-                    countersAnimated = false;
-                    animateCounters();
-                }
-                if (hash === 'convenios') {
-                    initConvenioLogos();
-                }
+                if (hash === 'inicio') { countersAnimated = false; animateCounters(); }
+                if (hash === 'convenios') initConvenioLogos();
             }, 10);
         } else {
             window.location.hash = '#inicio';
         }
     }
 
-    // Ouvinte para quando o usuário clica em "Voltar" no navegador
     window.addEventListener('hashchange', handleHash);
-
-    /* ================================================
-       INICIALIZAÇÃO DE SEGURANÇA
-       ================================================ */
     handleHash();
-
     window.addEventListener('load', () => {
-        if (!document.querySelector('.page.active')) {
-            handleHash();
-        }
+        if (!document.querySelector('.page.active')) handleHash();
     });
 
     /* ================================================
@@ -258,28 +185,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ================================================
-       5. MENU MOBILE (Hambúrguer)
+       5. MENU MOBILE
+       FIX Safari dinâmico:
+         - Antes: calculava height via JS com top bar (display:none → 0)
+           e não acompanhava mudanças do Safari na barra de URL
+         - Agora: height fica 100% no CSS (100dvh), JS só define o `top`
+           com a altura real do header. ResizeObserver mantém o `top`
+           sincronizado se o header mudar (rotação, Safari scroll).
        ================================================ */
+
+    // ResizeObserver: recalcula top do menu quando o header mudar de tamanho
+    // (Safari encolhe/mostra barra de URL → header pode se mover)
+    const menuResizeObserver = new ResizeObserver(entries => {
+        for (const entry of entries) {
+            if (mobileMenu && mobileMenu.classList.contains('open')) {
+                mobileMenu.style.top = entry.contentRect.height + 'px';
+            }
+        }
+    });
+
     function openMobileMenu() {
-        // Posiciona o menu exatamente abaixo do header
-        const menuHeader = document.getElementById('header');
-        const menuTopBar = document.querySelector('.top-bar');
-        const headerBottom = (menuTopBar ? menuTopBar.getBoundingClientRect().height : 0) + (menuHeader ? menuHeader.getBoundingClientRect().height : 0);
-        mobileMenu.style.top = headerBottom + 'px';
-        mobileMenu.style.height = 'calc(100dvh - ' + headerBottom + 'px)';
+        // Usa apenas o header visível — top bar é display:none em mobile
+        // e não deve ser consultada (retornaria 0 de forma enganosa)
+        const headerH = header ? header.getBoundingClientRect().height : 0;
+        mobileMenu.style.top = headerH + 'px';
+
+        // NÃO define mobileMenu.style.height aqui.
+        // O CSS já tem: height: 100dvh
+        // O Safari atualiza o dvh sozinho quando a barra de URL muda.
+        mobileMenu.style.height = '';
 
         mobileMenu.classList.add('open');
         overlay.classList.add('active');
         hamburger.classList.add('active');
         hamburger.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
-        // Bloqueia cliques em tudo exceto o menu
+
         const app = document.getElementById('app');
         const topBar = document.querySelector('.top-bar');
         if (app) app.style.setProperty('pointer-events', 'none', 'important');
         if (topBar) topBar.style.setProperty('pointer-events', 'none', 'important');
         const vw = document.querySelector('[vw]');
         if (vw) vw.style.setProperty('left', '-200px', 'important');
+
+        // Começa a observar o header para manter o top sincronizado
+        if (header) menuResizeObserver.observe(header);
     }
 
     function closeMobileMenu() {
@@ -288,13 +238,16 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.classList.remove('active');
         hamburger.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
-        // Restaura cliques
+
         const app = document.getElementById('app');
         const topBar = document.querySelector('.top-bar');
         if (app) app.style.removeProperty('pointer-events');
         if (topBar) topBar.style.removeProperty('pointer-events');
         const vw = document.querySelector('[vw]');
         if (vw) vw.style.setProperty('left', '20px', 'important');
+
+        // Para de observar — menu fechado não precisa acompanhar o header
+        if (header) menuResizeObserver.unobserve(header);
     }
 
     if (hamburger) {
@@ -303,21 +256,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (overlay) {
-        overlay.addEventListener('click', closeMobileMenu);
-    }
+    if (overlay) overlay.addEventListener('click', closeMobileMenu);
 
-    // Botão X dentro do menu lateral
     const mobileMenuClose = document.getElementById('mobileMenuClose');
-    if (mobileMenuClose) {
-        mobileMenuClose.addEventListener('click', closeMobileMenu);
-    }
+    if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeMobileMenu();
     });
 
-    // Fecha menu se a tela for redimensionada para desktop
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
@@ -328,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ================================================
-       6. EFEITOS DE SCROLL (Sticky Header & Top Button)
+       6. SCROLL
        ================================================ */
     function handleScroll() {
         if (!ticking) {
@@ -337,9 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (header.classList.contains('header--scrolled') !== isScrolled) {
                     header.classList.toggle('header--scrolled', isScrolled);
                 }
-                if (backToTop) {
-                    backToTop.classList.toggle('visible', window.scrollY > 400);
-                }
+                if (backToTop) backToTop.classList.toggle('visible', window.scrollY > 400);
                 ticking = false;
             });
             ticking = true;
@@ -353,20 +298,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ================================================
-       7. CONTADORES (Animação Numérica)
+       7. CONTADORES
        ================================================ */
     let countersAnimated = false;
     function animateCounters() {
         if (countersAnimated) return;
         const counterElements = document.querySelectorAll('.stat-item__number[data-count]');
         if (counterElements.length === 0) return;
-
         countersAnimated = true;
         counterElements.forEach(counter => {
             const target = parseInt(counter.dataset.count);
             const duration = 2000;
             const start = performance.now();
-
             function tick(now) {
                 const progress = Math.min((now - start) / duration, 1);
                 const eased = 1 - Math.pow(1 - progress, 3);
@@ -386,21 +329,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            const nome = document.getElementById('nome').value.trim();
+            const nome  = document.getElementById('nome').value.trim();
             const email = document.getElementById('email').value.trim();
-            const msg = document.getElementById('mensagem').value.trim();
-
+            const msg   = document.getElementById('mensagem').value.trim();
             if (!nome || !email || !msg) return showToast('Preencha todos os campos.', 'error');
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showToast('E-mail inválido.', 'error');
-
             const btn = this.querySelector('button[type="submit"]');
             const original = btn.innerHTML;
             btn.innerHTML = '✓ Enviado!';
             btn.style.background = 'var(--success)';
             btn.disabled = true;
-
             showToast('Mensagem enviada com sucesso!', 'success');
-
             setTimeout(() => {
                 btn.innerHTML = original;
                 btn.style.background = '';
@@ -434,49 +373,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ================================================
-       9. SISTEMA DE TOAST (Notificações)
+       9. TOAST
        ================================================ */
     function showToast(message, type) {
         const old = document.querySelector('.toast');
         if (old) old.remove();
-
         const toast = document.createElement('div');
         toast.className = 'toast';
         toast.innerHTML = `<span>${message}</span><button onclick="this.parentElement.remove()">&times;</button>`;
-
         Object.assign(toast.style, {
-            position: 'fixed',
-            top: '80px',
-            right: '20px',
-            padding: '12px 20px',
-            borderRadius: '12px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            zIndex: '9999',
-            color: '#fff',
+            position: 'fixed', top: '80px', right: '20px',
+            padding: '12px 20px', borderRadius: '12px',
+            display: 'flex', alignItems: 'center', gap: '10px',
+            zIndex: '9999', color: '#fff',
             boxShadow: '0 8px 32px rgba(0,0,0,.15)',
             background: type === 'success' ? '#10B981' : '#EF4444',
             animation: 'toastIn .4s ease'
         });
-
         const closeBtn = toast.querySelector('button');
         closeBtn.style.cssText = 'background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;';
-
         document.body.appendChild(toast);
         setTimeout(() => { if (toast.parentElement) toast.remove(); }, 4000);
     }
 
-    // Animações CSS para o Toast
     const styleSheet = document.createElement('style');
-    styleSheet.textContent = `
-        @keyframes toastIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    `;
+    styleSheet.textContent = `@keyframes toastIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }`;
     document.head.appendChild(styleSheet);
 
 
     /* ================================================
-       LOGO RESPONSIVA — ajuste dinâmico por largura de tela
+       LOGO RESPONSIVA
        ================================================ */
     function adjustLogoSize() {
         const logo = document.querySelector('.header__logo img');
@@ -488,18 +414,16 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (w <= 1024) logo.style.height = '48px';
         else                logo.style.height = '50px';
     }
-
     adjustLogoSize();
     window.addEventListener('resize', adjustLogoSize);
 
 
     /* ================================================
-       HERO BACKGROUND CAROUSEL — troca automática a cada 5s
+       HERO BACKGROUND CAROUSEL
        ================================================ */
     (function initHeroCarousel() {
         const isMobile = () => window.innerWidth <= 768;
 
-        // Seleciona o carrossel ativo conforme dispositivo
         function getActiveSlides() {
             if (isMobile()) {
                 return document.querySelectorAll('.hero__bg-carousel--mobile .hero__bg-slide');
@@ -525,8 +449,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function goTo(index) {
-            const slides   = getActiveSlides();
-            const dots     = getActiveDots();
+            const slides = getActiveSlides();
+            const dots   = getActiveDots();
             slides[current].classList.remove('active');
             if (dots[current]) dots[current].classList.remove('active');
             current = (index + slides.length) % slides.length;
@@ -535,8 +459,30 @@ document.addEventListener('DOMContentLoaded', () => {
             if (label) label.textContent = slides[current].dataset.label || '';
         }
 
-        updateDotVisibility();
-        window.addEventListener('resize', () => { updateDotVisibility(); current = 0; goTo(0); });
+        // Inicializa o primeiro slide e dots do carrossel ativo
+        // Roda APÓS definir goTo para garantir estado consistente
+        function initCarousel() {
+            const slides = getActiveSlides();
+            // Garante que todos os slides comecem sem active
+            document.querySelectorAll('.hero__bg-slide').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.hero__carousel-dot').forEach(d => d.classList.remove('active'));
+            current = 0;
+            if (slides[0]) slides[0].classList.add('active');
+            updateDotVisibility();
+            const dots = getActiveDots();
+            if (dots[0]) dots[0].classList.add('active');
+        }
+
+        initCarousel();
+
+        window.addEventListener('resize', () => {
+            clearTimeout(window._carouselResizeTimer);
+            window._carouselResizeTimer = setTimeout(() => {
+                clearInterval(timer);
+                initCarousel();
+                startTimer();
+            }, 200);
+        });
 
         function next() { goTo(current + 1); }
         function startTimer() { timer = setInterval(next, 5000); }
@@ -544,12 +490,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         allDots.forEach(dot => {
             dot.addEventListener('click', () => {
-                const idx = parseInt(dot.dataset.index);
+                const idx    = parseInt(dot.dataset.index);
                 const slides = getActiveSlides();
-                if (idx < slides.length) {
-                    goTo(idx);
-                    resetTimer();
-                }
+                if (idx < slides.length) { goTo(idx); resetTimer(); }
             });
         });
 
@@ -558,21 +501,24 @@ document.addEventListener('DOMContentLoaded', () => {
             else startTimer();
         });
 
-        startTimer();
+        // Em dispositivos perf-low (iPhone 6/7, Samsung A12 etc.)
+        // o carrossel fica estático — animação contínua consome
+        // CPU/bateria de forma perceptível nesses aparelhos
+        const isPerfLow = document.documentElement.classList.contains('perf-low');
+        if (!isPerfLow) startTimer();
     })();
 
 
     /* ================================================
-       VLIBRAS — MutationObserver para forçar canto esquerdo
+       VLIBRAS
        ================================================ */
     (function watchVLibras() {
 
         var STORAGE_KEY = 'rg-vlibras-pos';
         var dragging    = false;
-        var dragMoved   = false; // distingue clique de arrasto
+        var dragMoved   = false;
         var startX, startY, startLeft, startTop;
 
-        /* Lê posição salva ou retorna o padrão (canto inferior esquerdo) */
         function getSavedPos() {
             try {
                 var p = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -581,12 +527,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return null;
         }
 
-        /* Garante que o widget não saia da tela */
-        function clamp(val, min, max) {
-            return Math.min(Math.max(val, min), max);
-        }
+        function clamp(val, min, max) { return Math.min(Math.max(val, min), max); }
 
-        /* Aplica posição ao container [vw] */
         function setPos(vw, left, top) {
             var W = window.innerWidth;
             var H = window.innerHeight;
@@ -594,65 +536,48 @@ document.addEventListener('DOMContentLoaded', () => {
             var h = vw.offsetHeight || 80;
             left = clamp(left, 0, W - w);
             top  = clamp(top,  0, H - h);
-
-            vw.style.setProperty('position',  'fixed',       'important');
-            vw.style.setProperty('z-index',   '299',         'important');
-            vw.style.setProperty('left',      left + 'px',   'important');
-            vw.style.setProperty('top',       top  + 'px',   'important');
-            vw.style.setProperty('right',     'auto',        'important');
-            vw.style.setProperty('bottom',    'auto',        'important');
-            vw.style.setProperty('transform', 'none',        'important');
-            vw.style.setProperty('cursor',    'grab',        'important');
-
+            vw.style.setProperty('position',  'fixed',     'important');
+            vw.style.setProperty('z-index',   '299',       'important');
+            vw.style.setProperty('left',      left + 'px', 'important');
+            vw.style.setProperty('top',       top  + 'px', 'important');
+            vw.style.setProperty('right',     'auto',      'important');
+            vw.style.setProperty('bottom',    'auto',      'important');
+            vw.style.setProperty('transform', 'none',      'important');
+            vw.style.setProperty('cursor',    'grab',      'important');
             var btn = vw.querySelector('[vw-access-button]');
             if (btn) {
-                btn.style.setProperty('right',     'auto',  'important');
-                btn.style.setProperty('left',      '0',     'important');
-                btn.style.setProperty('bottom',    '0',     'important');
-                btn.style.setProperty('top',       'auto',  'important');
-                btn.style.setProperty('transform', 'none',  'important');
+                btn.style.setProperty('right',     'auto', 'important');
+                btn.style.setProperty('left',      '0',    'important');
+                btn.style.setProperty('bottom',    '0',    'important');
+                btn.style.setProperty('top',       'auto', 'important');
+                btn.style.setProperty('transform', 'none', 'important');
             }
-
             return { left: left, top: top };
         }
 
-        /* Posição inicial: salva ou padrão (canto inferior esquerdo) */
         function applyPosition(vw) {
             var menu = document.getElementById('mobileMenu');
             if (menu && menu.classList.contains('open')) return;
-
             var saved = getSavedPos();
             var left, top;
-            if (saved) {
-                left = saved.left;
-                top  = saved.top;
-            } else {
-                left = 20;
-                top  = window.innerHeight - (vw.offsetHeight || 80) - 20;
-            }
+            if (saved) { left = saved.left; top = saved.top; }
+            else { left = 20; top = window.innerHeight - (vw.offsetHeight || 80) - 20; }
             setPos(vw, left, top);
         }
 
-        /* Retorna true se o alvo é um controle interativo DENTRO do painel interno do VLibras
-           (botões de fechar, pular, configurações) — esses cliques não devem iniciar drag.
-           O [vw-access-button] (botão principal) é excluído: nele o drag é permitido. */
         function isVLibrasControl(target) {
             var wrapper = target.closest('[vw-plugin-wrapper]');
-            if (!wrapper) return false; // está fora do painel — permite drag
+            if (!wrapper) return false;
             return !!(target.closest('button, a, [role="button"]'));
         }
 
-        /* ---- DRAG: Mouse ---- */
         function onMouseDown(e) {
             if (e.button !== 0) return;
             var vw = document.querySelector('[vw]');
-            if (!vw || !vw.contains(e.target)) return; // clique fora do widget — ignora
-            if (isVLibrasControl(e.target)) return;     // botão interno do painel — ignora
-
-            dragging  = true;
-            dragMoved = false;
-            startX    = e.clientX;
-            startY    = e.clientY;
+            if (!vw || !vw.contains(e.target)) return;
+            if (isVLibrasControl(e.target)) return;
+            dragging  = true; dragMoved = false;
+            startX = e.clientX; startY = e.clientY;
             startLeft = parseInt(vw.style.left) || 20;
             startTop  = parseInt(vw.style.top)  || (window.innerHeight - 80);
             vw.style.setProperty('cursor', 'grabbing', 'important');
@@ -662,8 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!dragging) return;
             var vw = document.querySelector('[vw]');
             if (!vw) return;
-            var dx = e.clientX - startX;
-            var dy = e.clientY - startY;
+            var dx = e.clientX - startX; var dy = e.clientY - startY;
             if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
             setPos(vw, startLeft + dx, startTop + dy);
         }
@@ -681,17 +605,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        /* ---- DRAG: Touch ---- */
         function onTouchStart(e) {
             var vw = document.querySelector('[vw]');
-            if (!vw || !vw.contains(e.target)) return; // toque fora do widget — ignora
-            if (isVLibrasControl(e.target)) return;     // botão interno do painel — ignora
-
-            var t  = e.touches[0];
-            dragging  = true;
-            dragMoved = false;
-            startX    = t.clientX;
-            startY    = t.clientY;
+            if (!vw || !vw.contains(e.target)) return;
+            if (isVLibrasControl(e.target)) return;
+            var t = e.touches[0];
+            dragging = true; dragMoved = false;
+            startX = t.clientX; startY = t.clientY;
             startLeft = parseInt(vw.style.left) || 20;
             startTop  = parseInt(vw.style.top)  || (window.innerHeight - 80);
         }
@@ -700,13 +620,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!dragging) return;
             var vw = document.querySelector('[vw]');
             if (!vw) return;
-            var t  = e.touches[0];
-            var dx = t.clientX - startX;
-            var dy = t.clientY - startY;
-            if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
-                dragMoved = true;
-                e.preventDefault();
-            }
+            var t = e.touches[0];
+            var dx = t.clientX - startX; var dy = t.clientY - startY;
+            if (Math.abs(dx) > 5 || Math.abs(dy) > 5) { dragMoved = true; e.preventDefault(); }
             setPos(vw, startLeft + dx, startTop + dy);
         }
 
@@ -722,7 +638,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        /* Reposiciona ao redimensionar a janela para não sair da tela */
         window.addEventListener('resize', function() {
             var vw = document.querySelector('[vw]');
             if (!vw) return;
@@ -732,12 +647,8 @@ document.addEventListener('DOMContentLoaded', () => {
             try { localStorage.setItem(STORAGE_KEY, JSON.stringify(pos)); } catch(e) {}
         });
 
-        /* Inicializa posição quando o widget aparecer no DOM */
-        function initDrag(vw) {
-            applyPosition(vw);
-        }
+        function initDrag(vw) { applyPosition(vw); }
 
-        /* Listeners globais — drag funciona independente de onde o widget estiver */
         document.addEventListener('mousedown',  onMouseDown);
         document.addEventListener('mousemove',  onMouseMove);
         document.addEventListener('mouseup',    onMouseUp);
@@ -745,47 +656,33 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('touchmove',  onTouchMove,  { passive: false });
         document.addEventListener('touchend',   onTouchEnd);
 
-        /* Observa inserção do widget no body */
         var observer = new MutationObserver(function(mutations) {
             for (var i = 0; i < mutations.length; i++) {
                 if (mutations[i].type === 'childList') {
                     var vw = document.querySelector('[vw]');
-                    if (vw && !vw.dataset.dragInit) {
-                        vw.dataset.dragInit = '1';
-                        initDrag(vw);
-                    }
+                    if (vw && !vw.dataset.dragInit) { vw.dataset.dragInit = '1'; initDrag(vw); }
                     break;
                 }
             }
         });
         observer.observe(document.body, { childList: true, subtree: false });
 
-        /* Caso o widget já esteja no DOM quando o script rodar */
         window.addEventListener('load', function() {
             var vw = document.querySelector('[vw]');
-            if (vw && !vw.dataset.dragInit) {
-                vw.dataset.dragInit = '1';
-                initDrag(vw);
-            }
+            if (vw && !vw.dataset.dragInit) { vw.dataset.dragInit = '1'; initDrag(vw); }
         });
 
     })();
 
 
     /* ================================================
-       SUBPÁGINAS DE EXAMES — navegação
+       SUBPÁGINAS DE EXAMES
        ================================================ */
-
-    // Botão "Voltar para Exames" dentro das subpáginas
     document.addEventListener('click', function(e) {
         const backBtn = e.target.closest('[data-back]');
-        if (backBtn) {
-            e.preventDefault();
-            navigateTo(backBtn.dataset.back);
-        }
+        if (backBtn) { e.preventDefault(); navigateTo(backBtn.dataset.back); }
     });
 
-    // Links .spa-exame (Saiba Mais) — abre subpágina via hash
     document.addEventListener('click', function(e) {
         const exameLink = e.target.closest('.spa-exame');
         if (exameLink) {
@@ -795,7 +692,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Inicialização final
     handleHash();
 
 });
