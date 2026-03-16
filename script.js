@@ -95,7 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     updatePageTitle(pageId);
                     const navId = pageId.startsWith('exames/') ? 'exames' : pageId;
                     updateActiveNav(navId);
-                    if (pageId === 'inicio') setTimeout(animateCounters, 300);
+
+                    /* FIX BUG 4 — resetar flag antes de animar,
+                       senão contadores não rodam ao voltar para Início */
+                    if (pageId === 'inicio') {
+                        countersAnimated = false;
+                        setTimeout(animateCounters, 300);
+                    }
+
                     if (pageId === 'convenios') initConvenioLogos();
                 });
             }
@@ -174,28 +181,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ================================================
        4. DELEGAÇÃO DE EVENTOS (Cliques SPA)
+       — Unificado: trata .spa-link e .spa-exame num só listener
        ================================================ */
     document.addEventListener('click', (e) => {
-        const spaLink = e.target.closest('.spa-link');
-        if (!spaLink) return;
-        e.preventDefault();
-        const pageId = spaLink.dataset.page;
-        if (pageId) navigateTo(pageId);
+        const spaLink  = e.target.closest('.spa-link');
+        const exameLink = e.target.closest('.spa-exame');
+        const backBtn  = e.target.closest('[data-back]');
+
+        if (spaLink) {
+            e.preventDefault();
+            const pageId = spaLink.dataset.page;
+            if (pageId) navigateTo(pageId);
+        } else if (exameLink) {
+            e.preventDefault();
+            const hash = exameLink.getAttribute('href').replace('#', '');
+            navigateTo(hash);
+        } else if (backBtn) {
+            e.preventDefault();
+            navigateTo(backBtn.dataset.back);
+        }
     });
 
 
     /* ================================================
        5. MENU MOBILE
-       FIX Safari dinâmico:
-         - Antes: calculava height via JS com top bar (display:none → 0)
-           e não acompanhava mudanças do Safari na barra de URL
-         - Agora: height fica 100% no CSS (100dvh), JS só define o `top`
-           com a altura real do header. ResizeObserver mantém o `top`
-           sincronizado se o header mudar (rotação, Safari scroll).
        ================================================ */
 
-    // ResizeObserver: recalcula top do menu quando o header mudar de tamanho
-    // (Safari encolhe/mostra barra de URL → header pode se mover)
     const menuResizeObserver = new ResizeObserver(entries => {
         for (const entry of entries) {
             if (mobileMenu && mobileMenu.classList.contains('open')) {
@@ -205,14 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function openMobileMenu() {
-        // Usa apenas o header visível — top bar é display:none em mobile
-        // e não deve ser consultada (retornaria 0 de forma enganosa)
         const headerH = header ? header.getBoundingClientRect().height : 0;
         mobileMenu.style.top = headerH + 'px';
-
-        // NÃO define mobileMenu.style.height aqui.
-        // O CSS já tem: height: 100dvh
-        // O Safari atualiza o dvh sozinho quando a barra de URL muda.
         mobileMenu.style.height = '';
 
         mobileMenu.classList.add('open');
@@ -228,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const vw = document.querySelector('[vw]');
         if (vw) vw.style.setProperty('left', '-200px', 'important');
 
-        // Começa a observar o header para manter o top sincronizado
         if (header) menuResizeObserver.observe(header);
     }
 
@@ -246,7 +250,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const vw = document.querySelector('[vw]');
         if (vw) vw.style.setProperty('left', '20px', 'important');
 
-        // Para de observar — menu fechado não precisa acompanhar o header
         if (header) menuResizeObserver.unobserve(header);
     }
 
@@ -271,6 +274,11 @@ document.addEventListener('DOMContentLoaded', () => {
         resizeTimer = setTimeout(() => {
             if (window.innerWidth > 768) closeMobileMenu();
         }, 150);
+    });
+
+    // Safety reset — fecha o menu se o usuário navegar pelo histórico
+    window.addEventListener('popstate', () => {
+        closeMobileMenu();
     });
 
 
@@ -400,24 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
     styleSheet.textContent = `@keyframes toastIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }`;
     document.head.appendChild(styleSheet);
 
-
-    /* ================================================
-       LOGO RESPONSIVA
-       ================================================ */
-    function adjustLogoSize() {
-        const logo = document.querySelector('.header__logo img');
-        if (!logo) return;
-        const w = window.innerWidth;
-        if (w <= 375)       logo.style.height = '38px';
-        else if (w <= 480)  logo.style.height = '42px';
-        else if (w <= 768)  logo.style.height = '46px';
-        else if (w <= 1024) logo.style.height = '48px';
-        else                logo.style.height = '50px';
-    }
-    adjustLogoSize();
-    window.addEventListener('resize', adjustLogoSize);
-
-
     /* ================================================
        HERO BACKGROUND CAROUSEL
        ================================================ */
@@ -435,6 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const label   = document.getElementById('heroSlideLabel');
         let current = 0;
         let timer;
+        let carouselResizeTimer; // FIX: variável local, não polui window
 
         function getActiveDots() {
             const slides = getActiveSlides();
@@ -452,32 +443,41 @@ document.addEventListener('DOMContentLoaded', () => {
             const slides = getActiveSlides();
             const dots   = getActiveDots();
             slides[current].classList.remove('active');
-            if (dots[current]) dots[current].classList.remove('active');
+            if (dots[current]) {
+                dots[current].classList.remove('active');
+                dots[current].removeAttribute('aria-current');
+            }
             current = (index + slides.length) % slides.length;
             slides[current].classList.add('active');
-            if (dots[current]) dots[current].classList.add('active');
+            if (dots[current]) {
+                dots[current].classList.add('active');
+                dots[current].setAttribute('aria-current', 'true');
+            }
             if (label) label.textContent = slides[current].dataset.label || '';
         }
 
-        // Inicializa o primeiro slide e dots do carrossel ativo
-        // Roda APÓS definir goTo para garantir estado consistente
         function initCarousel() {
             const slides = getActiveSlides();
-            // Garante que todos os slides comecem sem active
             document.querySelectorAll('.hero__bg-slide').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.hero__carousel-dot').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.hero__carousel-dot').forEach(d => {
+                d.classList.remove('active');
+                d.removeAttribute('aria-current');
+            });
             current = 0;
             if (slides[0]) slides[0].classList.add('active');
             updateDotVisibility();
             const dots = getActiveDots();
-            if (dots[0]) dots[0].classList.add('active');
+            if (dots[0]) {
+                dots[0].classList.add('active');
+                dots[0].setAttribute('aria-current', 'true');
+            }
         }
 
         initCarousel();
 
         window.addEventListener('resize', () => {
-            clearTimeout(window._carouselResizeTimer);
-            window._carouselResizeTimer = setTimeout(() => {
+            clearTimeout(carouselResizeTimer); // FIX: usa variável local
+            carouselResizeTimer = setTimeout(() => {
                 clearInterval(timer);
                 initCarousel();
                 startTimer();
@@ -501,9 +501,6 @@ document.addEventListener('DOMContentLoaded', () => {
             else startTimer();
         });
 
-        // Em dispositivos perf-low (iPhone 6/7, Samsung A12 etc.)
-        // o carrossel fica estático — animação contínua consome
-        // CPU/bateria de forma perceptível nesses aparelhos
         const isPerfLow = document.documentElement.classList.contains('perf-low');
         if (!isPerfLow) startTimer();
     })();
@@ -673,25 +670,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     })();
-
-
-    /* ================================================
-       SUBPÁGINAS DE EXAMES
-       ================================================ */
-    document.addEventListener('click', function(e) {
-        const backBtn = e.target.closest('[data-back]');
-        if (backBtn) { e.preventDefault(); navigateTo(backBtn.dataset.back); }
-    });
-
-    document.addEventListener('click', function(e) {
-        const exameLink = e.target.closest('.spa-exame');
-        if (exameLink) {
-            e.preventDefault();
-            const hash = exameLink.getAttribute('href').replace('#', '');
-            navigateTo(hash);
-        }
-    });
-
-    handleHash();
 
 });

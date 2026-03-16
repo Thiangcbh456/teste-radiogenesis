@@ -67,6 +67,79 @@ a{text-decoration:none;color:inherit;transition:var(--transition-fast)}
 img,svg{max-width:100%;display:block}
 ul{list-style:none}
 
+/* ---- SR-ONLY — Conteúdo apenas para leitores de tela ---- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+/* ---- FOCUS VISIBLE — Acessibilidade por teclado ---- */
+
+:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.btn:focus-visible,
+.nav__link:focus-visible,
+.mobile-menu__link:focus-visible,
+.quick-card:focus-visible,
+.exam-card:focus-visible,
+.footer__social-link:focus-visible,
+.top-bar__link:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(0,153,200,.15);
+}
+
+.hamburger:focus-visible,
+.theme-toggle:focus-visible,
+.back-to-top:focus-visible,
+.whatsapp-float:focus-visible,
+.hero__carousel-dot:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(0,153,200,.20);
+}
+
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+    outline: none;
+}
+
+.unit-card:focus-visible,
+.convenio-item:focus-visible,
+.team-card:focus-visible,
+.contact-info__card:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.footer__links a:focus-visible,
+.footer__bottom-links a:focus-visible {
+    outline: 2px solid var(--primary-300);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.mobile-menu__close:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0,153,200,.15);
+}
+
 .container{
     width:100%;
     max-width:var(--container-max);
@@ -124,6 +197,12 @@ ul{list-style:none}
     padding:10px 0;
 }
 .header__logo{flex-shrink:0;padding-left:4px}
+.header__logo-img {
+    height: clamp(38px, 6vw, 50px);
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
 
 .logo{display:flex;align-items:center;gap:10px}
 .logo__icon{color:var(--primary-color);display:flex;flex-shrink:0}
@@ -364,17 +443,14 @@ ul{list-style:none}
 .btn--info:hover{background:var(--primary-50);border-color:var(--primary-color);transform:translateY(-2px)}
 
 /* ---- BOTÕES DOS CARDS DE EXAME ---- */
-/* Desktop e tablets — 3 botões lado a lado */
 .exam-card__actions{display:flex;gap:8px;margin-top:auto;width:100%;flex-wrap:wrap}
 .exam-card__actions .btn{flex:1;padding:10px 4px;font-size:.78rem;text-align:center;min-width:80px}
 
-/* ≤ 480px — empilha em coluna, largura total */
 @media(max-width:480px){
     .exam-card__actions{flex-direction:column;gap:8px}
     .exam-card__actions .btn{flex:none;width:100%;min-width:unset;padding:12px 16px;font-size:.85rem}
 }
 
-/* ≤ 320px — ajuste fino de padding/fonte, layout coluna já herdado */
 @media(max-width:320px){
     .exam-card__actions .btn{padding:11px 12px;font-size:.82rem}
 }
@@ -539,10 +615,7 @@ ul{list-style:none}
 .back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
 .back-to-top:hover{background:var(--primary-hover);transform:translateY(-3px)}
 
-/* iPhone Safe Area — evita que os botões fiquem atrás da barra
-   home em iPhones com Face ID (X em diante).
-   Em dispositivos sem notch (desktop, Android, iPhone SE)
-   env(safe-area-inset-bottom) retorna 0 — sem efeito visual. */
+/* iPhone Safe Area */
 @supports (bottom: env(safe-area-inset-bottom)) {
     .whatsapp-float {
         bottom: calc(clamp(12px, 3vw, 24px) + env(safe-area-inset-bottom));
@@ -620,7 +693,6 @@ ul{list-style:none}
     .unit-card__footer{flex-direction:column}
     .unit-card__footer .btn{width:100%}
     .footer::before{background-image:url('img/rodape/rodape-mobile.webp');background-position:center center}
-    /* Botões dos cards de exame — empilha em coluna */
     .exam-card__actions{flex-direction:column;gap:8px}
     .exam-card__actions .btn{flex:none;width:100%;min-width:unset;padding:12px 16px;font-size:.85rem}
 }
@@ -649,7 +721,6 @@ ul{list-style:none}
     .quick-card__icon{width:40px;height:40px}
     .exam-card{padding:16px 14px}
     .exam-card__icon{width:40px;height:40px}
-    /* Botões dos cards de exame — ajuste fino 320px */
     .exam-card__actions .btn{padding:11px 12px;font-size:.82rem}
     .unit-card__body{padding:14px 16px}
     .unit-card__footer{padding:0 16px 16px}
@@ -701,12 +772,12 @@ ul{list-style:none}
     .footer::before{display:none}
 }
 
-/* Dispositivos com tela lenta */
 @media (update: slow) {
     .page { transition: none !important; }
     .mobile-menu { transition: none !important; }
     .mobile-overlay { transition: none !important; }
 }
+
 
 /* ================================================
    PERFORMANCE ADAPTATIVA
@@ -831,6 +902,7 @@ ul{list-style:none}
     background-position: center;
     opacity: 0;
     transition: opacity 1.2s ease;
+    will-change: opacity;
 }
 .hero__bg-slide.active {
     opacity: 1;
@@ -877,13 +949,10 @@ ul{list-style:none}
     background-position: center 65%;
 }
 
-/* VLibras — touch-action: none impede o iOS de rolar a página
-   enquanto o usuário arrasta o widget (problema específico do Safari) */
+/* VLibras */
 [vw] {
     touch-action: none;
 }
-
-/* VLibras — reposiciona para canto inferior esquerdo */
 [vw] .vw-access-button {
     left: 20px !important;
     right: auto !important;
@@ -893,7 +962,6 @@ ul{list-style:none}
     left: 20px !important;
     right: auto !important;
 }
-
 [vw],
 [vw] *,
 [vw-plugin-wrapper],
@@ -946,10 +1014,28 @@ ul{list-style:none}
     .hero__bg-carousel--mobile { display: block; }
 }
 
+
 /* ================================================
    TEMA ESCURO — Dark Mode
+   FIX BUG 1: Sobrescreve TODAS as variáveis --primary-*
+   que existem em :root, em vez de criar --primary avulso.
    ================================================ */
 [data-theme="dark"] {
+    --primary-color:#38BDF8;
+    --primary-hover:#0EA5E9;
+    --primary-50:rgba(56,189,248,.10);
+    --primary-100:rgba(56,189,248,.18);
+    --primary-200:rgba(56,189,248,.25);
+    --primary-300:#7DD3FC;
+    --primary-400:#38BDF8;
+    --primary-500:#38BDF8;
+    --primary-600:#0EA5E9;
+    --primary-700:#0284C7;
+    --primary-800:#0369A1;
+    --primary-900:#0C4A6E;
+
+    --bg-overlay:rgba(56,189,248,.25);
+
     --bg-body:#0F172A;
     --bg-white:#1E293B;
     --bg-soft:#1E293B;
@@ -966,11 +1052,6 @@ ul{list-style:none}
     --gray-100:#334155;
     --gray-200:#475569;
     --gray-300:#64748B;
-
-    --primary:#38BDF8;
-    --primary-hover:#0EA5E9;
-    --primary-50:rgba(56,189,248,.10);
-    --primary-100:rgba(56,189,248,.18);
 
     --success:#34D399;
 
@@ -1056,31 +1137,31 @@ ul{list-style:none}
 }
 [data-theme="dark"] .btn--outline {
     background: transparent;
-    color: var(--primary);
-    border-color: var(--primary);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 [data-theme="dark"] .btn--outline:hover {
-    background: rgba(56,189,248,.1);
+    background: var(--primary-50);
 }
 [data-theme="dark"] .btn--info {
-    background: rgba(56,189,248,.1);
-    color: var(--primary);
-    border-color: rgba(56,189,248,.25);
+    background: var(--primary-50);
+    color: var(--primary-color);
+    border-color: var(--primary-200);
 }
 [data-theme="dark"] .btn--info:hover {
-    background: rgba(56,189,248,.18);
-    border-color: var(--primary);
+    background: var(--primary-100);
+    border-color: var(--primary-color);
 }
 [data-theme="dark"] .quick-card__icon {
-    background: rgba(56,189,248,.10);
+    background: var(--primary-50);
 }
 [data-theme="dark"] .exam-card__icon {
-    background: rgba(56,189,248,.10);
+    background: var(--primary-50);
 }
 [data-theme="dark"] .section-cta {
     border-top-color: var(--gray-200);
 }
-[data-theme="dark"] .unit-card__badge--centro { background: rgba(56,189,248,.10); color: var(--primary); }
+[data-theme="dark"] .unit-card__badge--centro { background: var(--primary-50); color: var(--primary-color); }
 [data-theme="dark"] .unit-card__badge--norte  { background: rgba(21,128,61,.15);  color: #4ADE80; }
 [data-theme="dark"] .unit-card__badge--sul    { background: rgba(194,65,12,.15);  color: #FB923C; }
 [data-theme="dark"] .about__image-placeholder {
@@ -1091,8 +1172,25 @@ ul{list-style:none}
     background: var(--bg-soft);
 }
 [data-theme="dark"] .section__badge {
-    background: rgba(56,189,248,.10);
-    color: var(--primary);
+    background: var(--primary-50);
+    color: var(--primary-color);
+}
+
+/* ---- Dark mode: focus-visible ---- */
+[data-theme="dark"] :focus-visible {
+    outline-color: var(--primary-color);
+}
+[data-theme="dark"] .btn:focus-visible,
+[data-theme="dark"] .nav__link:focus-visible,
+[data-theme="dark"] .quick-card:focus-visible,
+[data-theme="dark"] .exam-card:focus-visible,
+[data-theme="dark"] .hamburger:focus-visible,
+[data-theme="dark"] .theme-toggle:focus-visible {
+    box-shadow: 0 0 0 4px rgba(56,189,248,.18);
+}
+[data-theme="dark"] .footer__links a:focus-visible,
+[data-theme="dark"] .footer__bottom-links a:focus-visible {
+    outline-color: var(--primary-300);
 }
 
 /* ---- BOTÃO TOGGLE TEMA ---- */
@@ -1121,9 +1219,9 @@ ul{list-style:none}
     color: var(--text-muted);
 }
 [data-theme="dark"] .theme-toggle:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    background: rgba(56,189,248,.10);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: var(--primary-50);
 }
 
 .theme-toggle .icon-sun  { display: none; }
@@ -1156,7 +1254,7 @@ ul{list-style:none}
     background: linear-gradient(135deg, #0A1F2E 0%, #003D52 50%, #005F7D 100%);
 }
 [data-theme="dark"] .section--navy-strip .stat-item__number { color: #fff; }
-[data-theme="dark"] .section--navy-strip .stat-item__suffix { color: var(--primary); }
+[data-theme="dark"] .section--navy-strip .stat-item__suffix { color: var(--primary-color); }
 [data-theme="dark"] .section--navy-strip .stat-item__label  { color: rgba(148,163,184,.8); }
 
 
@@ -1302,8 +1400,8 @@ ul{list-style:none}
     border-color: var(--gray-200);
 }
 [data-theme="dark"] .exame-sub__card-icon--blue {
-    background: rgba(56,189,248,.12);
-    color: var(--primary);
+    background: var(--primary-50);
+    color: var(--primary-color);
 }
 [data-theme="dark"] .exame-sub__duracao { background: var(--bg-soft); }
 [data-theme="dark"] .exame-sub__cta {

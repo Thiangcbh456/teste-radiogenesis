@@ -4,15 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Radiogênesis — Diagnóstico por Imagem. Excelência em Ressonância, Tomografia, Ultrassom e mais.">
+    <!-- Open Graph — aparência ao compartilhar nas redes sociais e WhatsApp -->
+    <meta property="og:type"         content="website">
+    <meta property="og:url"          content="https://teste-radiogenesis.netlify.app/">
+    <meta property="og:title"        content="Radiogênesis | Diagnóstico por Imagem">
+    <meta property="og:description"  content="Excelência em Ressonância, Tomografia, Ultrassom e mais. Três unidades em Fortaleza/CE.">
+    <meta property="og:image"        content="https://teste-radiogenesis.netlify.app/img/OpenGraph/og-image.webp">
+    <meta property="og:image:width"  content="1620">
+    <meta property="og:image:height" content="1080">
+    <meta property="og:locale"       content="pt_BR">
     <title>Radiogênesis | Diagnóstico por Imagem</title>
     <link rel="preload" as="image" href="img/inicio/medical.webp" media="(min-width: 769px)">
-    <link rel="preload" as="image" href="img/mobile/medical0.png" media="(max-width: 768px)">
-    <link rel="preload" as="image" href="img/unidades/medical.webp">
-    <link rel="preload" as="image" href="img/unidades/hospital.webp">
-    <link rel="preload" as="image" href="img/unidades/bs tower.webp">
-    
+    <link rel="preload" as="image" href="img/mobile/medical0.webp" media="(max-width: 768px)">
+    <link rel="preload" as="image" href="img/unidades/medical.webp" media="(min-width: 769px)">
+    <link rel="preload" as="image" href="img/unidades/hospital.webp" media="(min-width: 769px)">
+    <link rel="preload" as="image" href="img/unidades/bs-tower.webp" media="(min-width: 769px)">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://api.whatsapp.com">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"></noscript>
@@ -23,11 +32,18 @@
 </head>
 <body>
 
-    <!-- ===== OVERLAY MOBILE (único, com ID para o JS) ===== -->
+    <!-- ===== SVG SPRITE — ícones reutilizáveis ===== -->
+    <svg style="display:none" aria-hidden="true">
+        <symbol id="icon-whatsapp" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </symbol>
+    </svg>
+
+    <!-- ===== OVERLAY MOBILE ===== -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <!-- ===== MENU MOBILE (único, estrutura completa) ===== -->
-    <div class="mobile-menu" id="mobileMenu">
+    <!-- ===== MENU MOBILE ===== -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu de navegação">
         <div class="mobile-menu__content">
             <div class="mobile-menu__header">
                 <button class="mobile-menu__close" id="mobileMenuClose" aria-label="Fechar menu">
@@ -91,11 +107,9 @@
     <!-- ===== HEADER ===== -->
     <header class="header" id="header">
         <div class="container header__inner">
-
             <a href="#inicio" class="header__logo spa-link" data-page="inicio">
-                <img src="img/top.png" alt="Logo Radiogênesis" style="height:50px;width:auto;display:block;object-fit:contain;" fetchpriority="high">
+                <img src="img/top.png" alt="Logo Radiogênesis" class="header__logo-img" fetchpriority="high">
             </a>
-
             <nav class="nav" id="nav">
                 <ul class="nav__list">
                     <li><a href="#inicio" class="nav__link spa-link active" data-page="inicio">Início</a></li>
@@ -107,7 +121,6 @@
                     <li><a href="#contato" class="nav__link spa-link" data-page="contato">Contato</a></li>
                 </ul>
             </nav>
-
             <div class="header__actions">
                 <a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" class="btn btn--outline btn--sm header__btn-desktop" target="_blank" rel="noopener noreferrer" title="Laudo Online">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
@@ -117,7 +130,6 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
                     <span class="btn__text">Resultados</span>
                 </a>
-
                 <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
                     <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                     <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -128,7 +140,6 @@
                     <span class="hamburger__line"></span>
                 </button>
             </div>
-
         </div>
     </header>
 
@@ -138,12 +149,10 @@
         <!-- PAGE: INÍCIO -->
         <div class="page active" data-page="inicio">
             <section class="hero">
-                <!-- Carrossel de fundo full-width -->
                 <!-- Carrossel Desktop -->
                 <div class="hero__bg-carousel hero__bg-carousel--desktop" id="heroCarousel">
-                    <div class="hero__bg-slide  active" style="background-image:url('img/inicio/medical.webp')" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide active" style="background-image:url('img/inicio/medical.webp')" data-label="Unidade Medical"></div>
                     <div class="hero__bg-slide" style="background-image:url('img/inicio/medical1.webp')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/medical3.webp')" data-label="Unidade Medical"></div>
                     <div class="hero__bg-slide" style="background-image:url('img/inicio/medical3.webp')" data-label="Unidade Medical"></div>
                     <div class="hero__bg-slide" style="background-image:url('img/inicio/hospital.webp')" data-label="Unidade Hospital Gênesis"></div>
                     <div class="hero__bg-slide" style="background-image:url('img/inicio/hospital1.webp')" data-label="Unidade Hospital Gênesis"></div>
@@ -151,18 +160,16 @@
                     <div class="hero__bg-slide" style="background-image:url('img/inicio/hospital3.webp')" data-label="Unidade Hospital Gênesis"></div>
                     <div class="hero__bg-slide" style="background-image:url('img/inicio/bstower0.webp')" data-label="Unidade BS Tower"></div>
                     <div class="hero__bg-slide" style="background-image:url('img/inicio/bstower1.webp')" data-label="Unidade BS Tower"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/bstower2.webp')" data-label="Unidade BS Tower"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/bstower3.webp')" data-label="Unidade BS Tower"></div>
                     <div class="hero__bg-overlay"></div>
                 </div>
                 <!-- Carrossel Mobile -->
                 <div class="hero__bg-carousel hero__bg-carousel--mobile" id="heroCarouselMobile">
-                    <div class="hero__bg-slide active" style="background-image:url('img/mobile/medical0.png')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical1.png')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical2.png')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical3.png')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical4.png')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical5.png')" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide active" style="background-image:url('img/mobile/medical0.webp')" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical1.webp')" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical2.webp')" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical3.webp')" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical4.webp')" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical5.webp')" data-label="Unidade Medical"></div>
                     <div class="hero__bg-overlay"></div>
                 </div>
                 <div class="container hero__inner">
@@ -172,14 +179,14 @@
                         <p class="hero__subtitle">Exames de imagem com equipamentos de última geração, laudos rápidos e uma equipe médica altamente qualificada.</p>
                         <div class="hero__actions">
                             <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" class="btn btn--primary btn--lg btn--whatsapp btn--touch">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                <svg width="20" height="20" fill="currentColor" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
                                 Agendar pelo WhatsApp
                             </a>
                             <a href="#exames" class="btn btn--glass btn--lg btn--touch spa-link" data-page="exames">Nossos Exames →</a>
                         </div>
                         <!-- Indicadores do carrossel -->
                         <div class="hero__carousel-dots">
-                            <button class="hero__carousel-dot  active" data-index="0" aria-label="Slide 1"></button>
+                            <button class="hero__carousel-dot active" data-index="0" aria-label="Slide 1"></button>
                             <button class="hero__carousel-dot" data-index="1" aria-label="Slide 2"></button>
                             <button class="hero__carousel-dot" data-index="2" aria-label="Slide 3"></button>
                             <button class="hero__carousel-dot" data-index="3" aria-label="Slide 4"></button>
@@ -190,21 +197,10 @@
                             <button class="hero__carousel-dot" data-index="8" aria-label="Slide 9"></button>
                             <button class="hero__carousel-dot" data-index="9" aria-label="Slide 10"></button>
                             <button class="hero__carousel-dot" data-index="10" aria-label="Slide 11"></button>
-                            <button class="hero__carousel-dot" data-index="11" aria-label="Slide 12"></button>
                         </div>
                     </div>
-                    <div class="hero__visual">
-                        <!-- <div class="floating-card floating-card--1">
-                            <div class="floating-card__icon">🏥</div>
-                            <div><strong>3 Unidades</strong><small>Medical, BS e Gênesis</small></div>
-                        </div>
-                        <div class="floating-card floating-card--2">
-                            <div class="floating-card__icon">⚡</div>
-                            <div><strong>Laudo Rápido</strong><small>Em até 3 dias</small></div>
-                        </div> -->
-                    </div>
+                    <div class="hero__visual"></div>
                 </div>
-                <!-- Label da unidade atual -->
                 <div class="hero__slide-label" id="heroSlideLabel">Unidade Medical</div>
             </section>
 
@@ -251,6 +247,7 @@
 
             <section class="section section--navy-strip">
                 <div class="container">
+                    <h2 class="sr-only">Nossos números</h2>
                     <div class="stats-row">
                         <div class="stat-item"><span class="stat-item__number" data-count="20">0</span><span class="stat-item__suffix">+</span><span class="stat-item__label">Anos de experiência</span></div>
                         <div class="stat-item"><span class="stat-item__number" data-count="150">0</span><span class="stat-item__suffix">mil+</span><span class="stat-item__label">Exames realizados</span></div>
@@ -275,108 +272,97 @@
             <section class="section section--soft">
                 <div class="container">
                     <div class="exames-grid">
-
                         <div class="exam-card">
                             <div class="exam-card__icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
                             <h3 class="exam-card__title">Ressonância Magnética</h3>
                             <p class="exam-card__desc">Imagens detalhadas sem radiação, ideal para tecidos moles e articulações.</p>
                             <div class="exam-card__actions">
-                                <a href="https://api.whatsapp.com/send?phone=558532545885&text=Olá!%20Gostaria%20de%20agendar%20uma%20Ressonância%20Magnética." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
+                                <a href="https://api.whatsapp.com/send?phone=558532545885&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20Resson%C3%A2ncia%20Magn%C3%A9tica." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
                                 <a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Resultado</a>
-                            <a href="#exames/ressonancia-magnetica" class="btn btn--info spa-exame">Saiba Mais</a>
+                                <a href="#exames/ressonancia-magnetica" class="btn btn--info spa-exame">Saiba Mais</a>
                             </div>
                         </div>
-
                         <div class="exam-card">
                             <div class="exam-card__icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
                             <h3 class="exam-card__title">Tomografia Computadorizada</h3>
                             <p class="exam-card__desc">Diagnósticos rápidos com tecnologia multidetectores.</p>
                             <div class="exam-card__actions">
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Olá!%20Gostaria%20de%20agendar%20uma%20Tomografia." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
+                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20Tomografia." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
                                 <a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Resultado</a>
-                            <a href="#exames/tomografia-computadorizada" class="btn btn--info spa-exame">Saiba Mais</a>
+                                <a href="#exames/tomografia-computadorizada" class="btn btn--info spa-exame">Saiba Mais</a>
                             </div>
                         </div>
-
                         <div class="exam-card">
                             <div class="exam-card__icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/><path d="m20 4-4 4"/></svg></div>
                             <h3 class="exam-card__title">Biópsia, Punção e Marcação Cirúrgica</h3>
                             <p class="exam-card__desc">Biópsias, punções (PAAF) e marcações pré-cirúrgicas guiadas por imagem para máxima segurança.</p>
                             <div class="exam-card__actions">
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Olá!%20Gostaria%20de%20agendar%20uma%20Biópsia." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
+                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20Bi%C3%B3psia." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
                                 <a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Resultado</a>
                                 <a href="#exames/biopsia-puncao-marcacao" class="btn btn--info spa-exame">Saiba Mais</a>
                             </div>
                         </div>
-
                         <div class="exam-card">
                             <div class="exam-card__icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
                             <h3 class="exam-card__title">Ultrassonografia Geral</h3>
                             <p class="exam-card__desc">Exame não invasivo para avaliação de órgãos e estruturas.</p>
                             <div class="exam-card__actions">
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Olá!%20Gostaria%20de%20agendar%20uma%20Ultrassonografia." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
+                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20Ultrassonografia." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
                                 <a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Resultado</a>
-                            <a href="#exames/ultrassonografia-geral" class="btn btn--info spa-exame">Saiba Mais</a>
+                                <a href="#exames/ultrassonografia-geral" class="btn btn--info spa-exame">Saiba Mais</a>
                             </div>
                         </div>
-
                         <div class="exam-card">
                             <div class="exam-card__icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
                             <h3 class="exam-card__title">Raio-X Digital</h3>
                             <p class="exam-card__desc">Menor exposição à radiação e imagens de alta qualidade.</p>
                             <div class="exam-card__actions">
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Olá!%20Gostaria%20de%20agendar%20um%20Raio-X." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
+                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20Raio-X." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
                                 <a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Resultado</a>
-                            <a href="#exames/raio-x-digital" class="btn btn--info spa-exame">Saiba Mais</a>
+                                <a href="#exames/raio-x-digital" class="btn btn--info spa-exame">Saiba Mais</a>
                             </div>
                         </div>
-
                         <div class="exam-card">
                             <div class="exam-card__icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
                             <h3 class="exam-card__title">Mamografia Digital</h3>
                             <p class="exam-card__desc">Detecção precoce com tecnologia digital de alta definição.</p>
                             <div class="exam-card__actions">
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Olá!%20Gostaria%20de%20agendar%20uma%20Mamografia." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
+                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20Mamografia." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
                                 <a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Resultado</a>
-                            <a href="#exames/mamografia-digital" class="btn btn--info spa-exame">Saiba Mais</a>
+                                <a href="#exames/mamografia-digital" class="btn btn--info spa-exame">Saiba Mais</a>
                             </div>
                         </div>
-
                         <div class="exam-card">
                             <div class="exam-card__icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
                             <h3 class="exam-card__title">Ultrassonografia com Doppler</h3>
                             <p class="exam-card__desc">Avaliação detalhada do fluxo sanguíneo nos vasos em tempo real para diagnósticos vasculares precisos.</p>
                             <div class="exam-card__actions">
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Olá!%20Gostaria%20de%20agendar%20um%20Doppler." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
+                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20Doppler." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
                                 <a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Resultado</a>
-                            <a href="#exames/ultrassonografia-doppler" class="btn btn--info spa-exame">Saiba Mais</a>
+                                <a href="#exames/ultrassonografia-doppler" class="btn btn--info spa-exame">Saiba Mais</a>
                             </div>
                         </div>
-
                         <div class="exam-card">
                             <div class="exam-card__icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
                             <h3 class="exam-card__title">Densitometria Óssea</h3>
                             <p class="exam-card__desc">Avaliação da densidade mineral óssea para diagnóstico de osteoporose.</p>
                             <div class="exam-card__actions">
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Olá!%20Gostaria%20de%20agendar%20uma%20Densitometria." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
+                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20Densitometria." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
                                 <a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Resultado</a>
-                            <a href="#exames/densitometria-ossea" class="btn btn--info spa-exame">Saiba Mais</a>
+                                <a href="#exames/densitometria-ossea" class="btn btn--info spa-exame">Saiba Mais</a>
                             </div>
                         </div>
-
                         <div class="exam-card">
                             <div class="exam-card__icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
                             <h3 class="exam-card__title">Mamotomia</h3>
                             <p class="exam-card__desc">Procedimento de biópsia minimamente invasivo guiado por imagem com alta precisão.</p>
                             <div class="exam-card__actions">
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Olá!%20Gostaria%20de%20agendar%20uma%20Mamotomia." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
+                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20Mamotomia." target="_blank" rel="noopener noreferrer" class="btn btn--primary">Agendar</a>
                                 <a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Resultado</a>
-                            <a href="#exames/mamotomia" class="btn btn--info spa-exame">Saiba Mais</a>
+                                <a href="#exames/mamotomia" class="btn btn--info spa-exame">Saiba Mais</a>
                             </div>
                         </div>
-
                     </div>
-
                     <div class="section-cta">
                         <p>Não encontrou o exame que procura?</p>
                         <a href="#contato" class="btn btn--primary btn--touch spa-link" data-page="contato">Fale Conosco</a>
@@ -385,251 +371,152 @@
             </section>
         </div>
 
-
         <!-- PAGE: SOBRE -->
         <div class="page" data-page="sobre">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Institucional</span><h1 class="page-header__title">Quem Somos</h1><p class="page-header__sub">Tradição e inovação há mais de 20 anos.</p></div></div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="about">
-                        <div class="about__image">
-                            <div class="about__image-placeholder"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.3"><rect x="2" y="2" width="20" height="20" rx="4"/><circle cx="12" cy="10" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg><span>Foto Institucional</span></div>
-                            <div class="about__experience"><span class="about__experience-number">20+</span><span class="about__experience-text">anos de<br>excelência</span></div>
-                        </div>
-                        <div class="about__content">
-                            <p class="about__text">A <strong>Radiogênesis</strong> é referência em diagnóstico por imagem há mais de 20 anos. Combinamos tecnologia de ponta com atendimento humanizado.</p>
-                            <p class="about__text">Nossas três unidades contam com aparelhos de última geração e uma equipe de médicos especialistas comprometidos com qualidade.</p>
-                            <div class="about__features">
-                                <div class="about__feature"><div class="about__feature-icon">✓</div><span>Equipamentos de última geração</span></div>
-                                <div class="about__feature"><div class="about__feature-icon">✓</div><span>Equipe médica especializada</span></div>
-                                <div class="about__feature"><div class="about__feature-icon">✓</div><span>Laudos em até 3 dias úteis</span></div>
-                                <div class="about__feature"><div class="about__feature-icon">✓</div><span>Atendimento humanizado</span></div>
-                            </div>
-                        </div>
+            <section class="section section--soft"><div class="container"><div class="about">
+                <div class="about__image">
+    <div class="about__video-wrapper">
+        <video
+            src="vid/radiogenesis.mp4"
+            controls
+            preload="none"
+            playsinline
+            poster="img/OpenGraph/og-image.webp"
+            aria-label="Vídeo institucional Radiogênesis"
+            style="width:100%;border-radius:var(--radius-xl);display:block;box-shadow:var(--shadow-lg);">
+            Seu navegador não suporta vídeo HTML5.
+        </video>
+    </div>
+    <div class="about__experience">
+        <span class="about__experience-number">20+</span>
+        <span class="about__experience-text">anos de<br>excelência</span>
+    </div>
+</div>
+                <div class="about__content">
+                    <p class="about__text">A <strong>Radiogênesis</strong> é referência em diagnóstico por imagem há mais de 20 anos. Combinamos tecnologia de ponta com atendimento humanizado.</p>
+                    <p class="about__text">Nossas três unidades contam com aparelhos de última geração e uma equipe de médicos especialistas comprometidos com qualidade.</p>
+                    <div class="about__features">
+                        <div class="about__feature"><div class="about__feature-icon">✓</div><span>Equipamentos de última geração</span></div>
+                        <div class="about__feature"><div class="about__feature-icon">✓</div><span>Equipe médica especializada</span></div>
+                        <div class="about__feature"><div class="about__feature-icon">✓</div><span>Laudos em até 3 dias úteis</span></div>
+                        <div class="about__feature"><div class="about__feature-icon">✓</div><span>Atendimento humanizado</span></div>
                     </div>
                 </div>
-            </section>
+            </div></div></section>
         </div>
-
 
         <!-- PAGE: EQUIPE -->
         <div class="page" data-page="equipe">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Corpo Clínico</span><h1 class="page-header__title">Equipe Médica</h1><p class="page-header__sub">Profissionais dedicados ao diagnóstico preciso.</p></div></div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="team-grid">
-                        <div class="team-card"><div class="team-card__photo"><img loading="lazy" src="img/Equipe-Medica/Dr Eduardo Portela.webp" alt="Dr. Eduardo Portela" class="team-img"></div><div class="team-card__info"><h3 class="team-card__name">Dr. Eduardo Portela</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/5579</p></div></div>
-                        <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Adriana Moreira Pontes</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/3820</p></div></div>
-                        <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Ana Mª Leopercio Pontes</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/4575</p></div></div>
-                        <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Núbia Moreira Melo</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/3152</p></div></div>
-                        <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dr. Rodrigo Martins Nogueira</h3><p class="team-card__role">Radiologista</p><p class="team-card__crm">CRM/6495</p></div></div>
-                        <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dr. Ricardo Mendonça Rocha</h3><p class="team-card__role">Radiologista</p><p class="team-card__crm">CRM/6759</p></div></div>
-                    </div>
-                </div>
-            </section>
+            <section class="section section--soft"><div class="container"><div class="team-grid">
+                <div class="team-card"><div class="team-card__photo"><img loading="lazy" src="img/Equipe-Medica/Dr Eduardo Portela.webp" alt="Dr. Eduardo Portela" class="team-img"></div><div class="team-card__info"><h3 class="team-card__name">Dr. Eduardo Portela</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/5579</p></div></div>
+                <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Adriana Moreira Pontes</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/3820</p></div></div>
+                <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Ana Mª Leopercio Pontes</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/4575</p></div></div>
+                <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Núbia Moreira Melo</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/3152</p></div></div>
+                <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dr. Rodrigo Martins Nogueira</h3><p class="team-card__role">Radiologista</p><p class="team-card__crm">CRM/6495</p></div></div>
+                <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dr. Ricardo Mendonça Rocha</h3><p class="team-card__role">Radiologista</p><p class="team-card__crm">CRM/6759</p></div></div>
+            </div></div></section>
         </div>
 
 
         <!-- PAGE: UNIDADES -->
         <div class="page" data-page="unidades">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Localização</span><h1 class="page-header__title">Nossas Unidades</h1><p class="page-header__sub">Três endereços para melhor atendê-lo.</p></div></div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="units-grid">
-                        <div class="unit-card">
-                            <div class="unit-card__header"><div class="unit-card__badge unit-card__badge--centro">Unidade Medical</div></div>
-                            <div class="unit-card__map"><img loading="lazy" src="img/unidades/medical.webp" alt="Fachada da Unidade Medical" class="unit-img" decoding="async"></div>
-                            <div class="unit-card__body">
-                                <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Endereço</strong><p>Rua Antônio Augusto, 1271 - Aldeota,<br>Fortaleza/CE — CEP: 60110-370</p></div></div>
-                                <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><strong>Horário</strong><p>Seg–Sex: 7h às 19h<br>Sábado: 7h às 12h</p></div></div>
-                                <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><strong>Telefone</strong><p><a href="tel:+558532545885">(85) 3254-5885</a> &nbsp;·&nbsp; <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" style="color:var(--primary-500);display:inline-flex;align-items:center;gap:4px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--primary-500)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>(85) 3254-5885</a></p></div></div>
-                            </div>
-                            <div class="unit-card__footer">
-                                <a href="https://maps.google.com/maps?ll=-3.731614,-38.513707&z=14&t=m&hl=pt-BR&gl=BR&mapclient=embed&cid=15627205103982469363" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm btn--touch">Como Chegar</a>
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm btn--touch">Agendar</a>
-                            </div>
-                        </div>
-                        <div class="unit-card">
-                            <div class="unit-card__header"><div class="unit-card__badge unit-card__badge--norte">Unidade Hospital Gênesis</div></div>
-                            <div class="unit-card__map"><img loading="lazy" src="img/unidades/hospital.webp" alt="Fachada da Unidade Hospital Gênesis" class="unit-img" decoding="async"></div>
-                            <div class="unit-card__body">
-                                <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Endereço</strong><p>Av. Santos Dumont, 1168 - Aldeota,<br>Fortaleza/CE — CEP: 60150-160</p></div></div>
-                                <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><strong>Horário</strong><p>Seg–Sex: 8h às 18h</p></div></div>
-                                <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><strong>Telefone</strong><p><a href="tel:+558532545885">(85) 3254-5885</a> &nbsp;·&nbsp; <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" style="color:var(--primary-500);display:inline-flex;align-items:center;gap:4px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--primary-500)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>(85) 3254-5885</a></p></div></div>
-                            </div>
-                            <div class="unit-card__footer">
-                                <a href="https://maps.google.com/maps/place/Hospital+G%C3%AAnesis/@-3.73149,-38.51325,14z/data=!4m6!3m5!1s0x7c748596559104b:0x9306fceeb30e8945!8m2!3d-3.7314903!4d-38.5132499!16s%2Fg%2F11clycm90j?hl=pt-BR&entry=ttu" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm btn--touch">Como Chegar</a>
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm btn--touch">Agendar</a>
-                            </div>
-                        </div>
-                        <div class="unit-card">
-                            <div class="unit-card__header"><div class="unit-card__badge unit-card__badge--sul">Unidade Bs Tower</div></div>
-                            <div class="unit-card__map"><img loading="lazy" src="img/unidades/bs tower.webp" alt="Fachada da Unidade Bs Tower" class="unit-img" decoding="async"></div>
-                            <div class="unit-card__body">
-                                <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Endereço</strong><p>Rua Gonçalves Lêdo, 777 - Aldeota,<br>Fortaleza/CE — CEP: 60110-260</p></div></div>
-                                <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><strong>Horário</strong><p>Seg–Sáb: 7h às 13h</p></div></div>
-                                <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><strong>Telefone</strong><p><a href="tel:+558532545885">(85) 3254-5885</a> &nbsp;·&nbsp; <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" style="color:var(--primary-500);display:inline-flex;align-items:center;gap:4px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--primary-500)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>(85) 3254-5885</a></p></div></div>
-                            </div>
-                            <div class="unit-card__footer">
-                                <a href="https://maps.google.com/maps?ll=-3.73078,-38.515765&z=15&t=m&hl=pt-BR&gl=BR&mapclient=embed&q=R.+Gon%C3%A7alves+L%C3%AAdo,+777" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm btn--touch">Como Chegar</a>
-                                <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm btn--touch">Agendar</a>
-                            </div>
-                        </div>
+            <section class="section section--soft"><div class="container"><div class="units-grid">
+
+                <div class="unit-card">
+                    <div class="unit-card__header"><div class="unit-card__badge unit-card__badge--centro">Unidade Medical</div></div>
+                    <div class="unit-card__map"><img loading="lazy" src="img/unidades/medical.webp" alt="Fachada da Unidade Medical" class="unit-img" decoding="async"></div>
+                    <div class="unit-card__body">
+                        <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Endereço</strong><p>Rua Antônio Augusto, 1271 - Aldeota,<br>Fortaleza/CE — CEP: 60110-370</p></div></div>
+                        <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><strong>Horário</strong><p>Seg–Sex: 7h às 19h<br>Sábado: 7h às 12h</p></div></div>
+                        <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><strong>Telefone</strong><p><a href="tel:+558532545885">(85) 3254-5885</a> &nbsp;·&nbsp; <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" style="color:var(--primary-500);display:inline-flex;align-items:center;gap:4px;"><svg width="15" height="15" fill="var(--primary-500)" aria-hidden="true"><use href="#icon-whatsapp"/></svg>(85) 3254-5885</a></p></div></div>
+                    </div>
+                    <div class="unit-card__footer">
+                        <a href="https://maps.google.com/maps?ll=-3.731614,-38.513707&z=14&t=m&hl=pt-BR&gl=BR&mapclient=embed&cid=15627205103982469363" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm btn--touch">Como Chegar</a>
+                        <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm btn--touch">Agendar</a>
                     </div>
                 </div>
-            </section>
+
+                <div class="unit-card">
+                    <div class="unit-card__header"><div class="unit-card__badge unit-card__badge--norte">Unidade Hospital Gênesis</div></div>
+                    <div class="unit-card__map"><img loading="lazy" src="img/unidades/hospital.webp" alt="Fachada da Unidade Hospital Gênesis" class="unit-img" decoding="async"></div>
+                    <div class="unit-card__body">
+                        <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Endereço</strong><p>Av. Santos Dumont, 1168 - Aldeota,<br>Fortaleza/CE — CEP: 60150-160</p></div></div>
+                        <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><strong>Horário</strong><p>Seg–Sex: 8h às 18h</p></div></div>
+                        <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><strong>Telefone</strong><p><a href="tel:+558532545885">(85) 3254-5885</a> &nbsp;·&nbsp; <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" style="color:var(--primary-500);display:inline-flex;align-items:center;gap:4px;"><svg width="15" height="15" fill="var(--primary-500)" aria-hidden="true"><use href="#icon-whatsapp"/></svg>(85) 3254-5885</a></p></div></div>
+                    </div>
+                    <div class="unit-card__footer">
+                        <a href="https://maps.google.com/maps/place/Hospital+G%C3%AAnesis/@-3.73149,-38.51325,14z/data=!4m6!3m5!1s0x7c748596559104b:0x9306fceeb30e8945!8m2!3d-3.7314903!4d-38.5132499!16s%2Fg%2F11clycm90j?hl=pt-BR&entry=ttu" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm btn--touch">Como Chegar</a>
+                        <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm btn--touch">Agendar</a>
+                    </div>
+                </div>
+
+                <div class="unit-card">
+                    <div class="unit-card__header"><div class="unit-card__badge unit-card__badge--sul">Unidade Bs Tower</div></div>
+                    <div class="unit-card__map"><img loading="lazy" src="img/unidades/bs-tower.webp" alt="Fachada da Unidade Bs Tower" class="unit-img" decoding="async"></div>
+                    <div class="unit-card__body">
+                        <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Endereço</strong><p>Rua Gonçalves Lêdo, 777 - Aldeota,<br>Fortaleza/CE — CEP: 60110-260</p></div></div>
+                        <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><strong>Horário</strong><p>Seg–Sáb: 7h às 13h</p></div></div>
+                        <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><strong>Telefone</strong><p><a href="tel:+558532545885">(85) 3254-5885</a> &nbsp;·&nbsp; <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" style="color:var(--primary-500);display:inline-flex;align-items:center;gap:4px;"><svg width="15" height="15" fill="var(--primary-500)" aria-hidden="true"><use href="#icon-whatsapp"/></svg>(85) 3254-5885</a></p></div></div>
+                    </div>
+                    <div class="unit-card__footer">
+                        <a href="https://maps.google.com/maps?ll=-3.73078,-38.515765&z=15&t=m&hl=pt-BR&gl=BR&mapclient=embed&q=R.+Gon%C3%A7alves+L%C3%AAdo,+777" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm btn--touch">Como Chegar</a>
+                        <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm btn--touch">Agendar</a>
+                    </div>
+                </div>
+
+            </div></div></section>
         </div>
 
 
         <!-- PAGE: CONVÊNIOS -->
         <div class="page" data-page="convenios">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Planos Aceitos</span><h1 class="page-header__title">Convênios</h1><p class="page-header__sub">Trabalhamos com os principais planos de saúde.</p></div></div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="convenios-grid">
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/amil.webp" alt="Amil" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Amil</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/banco-central.webp" alt="Banco Central do Brasil" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Banco Central do Brasil</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/bradesco-saude.webp" alt="Bradesco Saúde" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Bradesco Saúde</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/cafaz.webp" alt="Cafaz" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Cafaz</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/camed.webp" alt="Camed" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Camed</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/capesesp.webp" alt="Capesesp" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Capesesp</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/cassi.webp" alt="Cassi" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Cassi</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/famed.webp" alt="Famed" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Famed</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/funcef.webp" alt="Funcef" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Funcef</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/fundacao-assefaz.webp" alt="Fundação Assefaz" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Fundação Assefaz</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/geap-saude.webp" alt="Geap Saúde" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Geap Saúde</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/hapvida.webp" alt="Hapvida" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Hapvida</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/ipm.webp" alt="IPM" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">IPM</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/issec.webp" alt="Issec" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Issec</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/liv-saude.webp" alt="Liv Saúde" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Liv Saúde</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/petrobras.webp" alt="Petrobras Asfor" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Petrobras Asfor</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/postal-saude.webp" alt="Postal Saúde" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Postal Saúde</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/sul-america.webp" alt="SulAmérica" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">SulAmérica</span>
-                        </div>
-                        <div class="convenio-item">
-                            <div class="convenio-item__logo">
-                                <img loading="lazy" src="img/convenios/unimed.webp" alt="Unimed" class="convenio-img" decoding="async">
-                            </div>
-                            <span class="convenio-item__name">Unimed</span>
-                        </div>
-                    </div>
-                    <div class="section-cta"><p>Não encontrou seu convênio?</p><a href="#contato" class="btn btn--primary btn--touch spa-link" data-page="contato">Entre em Contato</a></div>
+            <section class="section section--soft"><div class="container">
+                <div class="convenios-grid">
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/amil.webp" alt="Amil" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Amil</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/banco-central.webp" alt="Banco Central do Brasil" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Banco Central do Brasil</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/bradesco-saude.webp" alt="Bradesco Saúde" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Bradesco Saúde</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/cafaz.webp" alt="Cafaz" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Cafaz</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/camed.webp" alt="Camed" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Camed</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/capesesp.webp" alt="Capesesp" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Capesesp</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/cassi.webp" alt="Cassi" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Cassi</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/famed.webp" alt="Famed" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Famed</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/funcef.webp" alt="Funcef" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Funcef</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/fundacao-assefaz.webp" alt="Fundação Assefaz" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Fundação Assefaz</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/geap-saude.webp" alt="Geap Saúde" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Geap Saúde</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/hapvida.webp" alt="Hapvida" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Hapvida</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/ipm.webp" alt="IPM" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">IPM</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/issec.webp" alt="Issec" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Issec</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/liv-saude.webp" alt="Liv Saúde" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Liv Saúde</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/petrobras.webp" alt="Petrobras Asfor" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Petrobras Asfor</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/postal-saude.webp" alt="Postal Saúde" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Postal Saúde</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/sul-america.webp" alt="SulAmérica" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">SulAmérica</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/unimed.webp" alt="Unimed" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Unimed</span></div>
                 </div>
-            </section>
+                <div class="section-cta"><p>Não encontrou seu convênio?</p><a href="#contato" class="btn btn--primary btn--touch spa-link" data-page="contato">Entre em Contato</a></div>
+            </div></section>
         </div>
-
 
         <!-- PAGE: CONTATO -->
         <div class="page" data-page="contato">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Fale Conosco</span><h1 class="page-header__title">Contato</h1><p class="page-header__sub">Envie sua mensagem ou entre em contato pelos canais abaixo.</p></div></div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="contact-grid">
-                        <div class="contact-info">
-                            <div class="contact-info__card"><div class="contact-info__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.11 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><strong>Telefone</strong><p><a href="tel:+558532545885">(85) 3254-5885</a></p></div></div>
-                            <div class="contact-info__card"><div class="contact-info__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div><div><strong>WhatsApp</strong><p><a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank">(85) 3254.5885</a></p></div></div>
-                            <div class="contact-info__card"><div class="contact-info__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><div><strong>E-mail</strong><p><a href="mailto:contato@radiogenesis.com">contato@radiogenesis.com</a></p></div></div>
-                        </div>
-                        <form class="contact-form" id="contactForm">
-                            <div class="contact-form__row"><div class="form-group"><label for="nome">Nome completo</label><input type="text" id="nome" placeholder="Seu nome" required></div><div class="form-group"><label for="email">E-mail</label><input type="email" id="email" placeholder="seu@email.com" required></div></div>
-                            <div class="contact-form__row"><div class="form-group"><label for="telefone">Telefone</label><input type="tel" id="telefone" placeholder="(85) 90000-0000"></div><div class="form-group"><label for="assunto">Assunto</label><select id="assunto"><option value="">Selecione</option><option>Agendamento</option><option>Resultados</option><option>Convênios</option><option>Outro</option></select></div></div>
-                            <div class="form-group"><label for="mensagem">Mensagem</label><textarea id="mensagem" rows="5" placeholder="Escreva sua mensagem..." required></textarea></div>
-                            <button type="submit" class="btn btn--primary btn--lg btn--touch">Enviar Mensagem →</button>
-                        </form>
-                    </div>
+            <section class="section section--soft"><div class="container"><div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-info__card"><div class="contact-info__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.11 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><strong>Telefone</strong><p><a href="tel:+558532545885">(85) 3254-5885</a></p></div></div>
+                    <div class="contact-info__card"><div class="contact-info__icon"><svg width="24" height="24" fill="currentColor" aria-hidden="true"><use href="#icon-whatsapp"/></svg></div><div><strong>WhatsApp</strong><p><a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank">(85) 3254.5885</a></p></div></div>
+                    <div class="contact-info__card"><div class="contact-info__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><div><strong>E-mail</strong><p><a href="mailto:contato@radiogenesis.com">contato@radiogenesis.com</a></p></div></div>
                 </div>
-            </section>
+                <form class="contact-form" id="contactForm">
+                    <div class="contact-form__row"><div class="form-group"><label for="nome">Nome completo</label><input type="text" id="nome" placeholder="Seu nome" required></div><div class="form-group"><label for="email">E-mail</label><input type="email" id="email" placeholder="seu@email.com" required></div></div>
+                    <div class="contact-form__row"><div class="form-group"><label for="telefone">Telefone</label><input type="tel" id="telefone" placeholder="(85) 90000-0000"></div><div class="form-group"><label for="assunto">Assunto</label><select id="assunto"><option value="">Selecione</option><option>Agendamento</option><option>Resultados</option><option>Convênios</option><option>Outro</option></select></div></div>
+                    <div class="form-group"><label for="mensagem">Mensagem</label><textarea id="mensagem" rows="5" placeholder="Escreva sua mensagem..." required></textarea></div>
+                    <button type="submit" class="btn btn--primary btn--lg btn--touch">Enviar Mensagem →</button>
+                </form>
+            </div></div></section>
         </div>
-
 
         <!-- PAGE: OUVIDORIA -->
         <div class="page" data-page="ouvidoria">
@@ -637,23 +524,17 @@
             <section class="section section--soft"><div class="container"><div class="ouvidoria-card"><div class="ouvidoria__icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><p class="ouvidoria__text">A Ouvidoria da Radiogênesis é o canal dedicado para ouvir suas sugestões, elogios ou reclamações.</p><div class="ouvidoria__channels"><div class="ouvidoria__channel"><strong>E-mail:</strong><a href="mailto:ouvidoria@radiogenesis.com">ouvidoria@radiogenesis.com</a></div><div class="ouvidoria__channel"><strong>Telefone:</strong><a href="tel:+5585981536275">(85) 98153-6275</a></div><div class="ouvidoria__channel"><strong>Prazo:</strong><span>Até 5 dias úteis</span></div></div></div></div></section>
         </div>
 
-
         <!-- PAGE: TRABALHE CONOSCO -->
         <div class="page" data-page="trabalhe-conosco">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Carreiras</span><h1 class="page-header__title">Trabalhe Conosco</h1><p class="page-header__sub">Venha fazer parte do nosso time.</p></div></div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="trabalhe-card">
-                        <div class="trabalhe-card__icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-                        <h2>Junte-se à nossa equipe</h2>
-                        <p>Envie seu currículo e venha crescer conosco.</p>
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rhradiogenesis@gmail.com" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg btn--touch">Enviar Currículo</a>
-                        <small>Ou use seu app de e-mail padrão: <a href="mailto:rhradiogenesis@gmail.com" class="link-footer">rhradiogenesis@gmail.com</a></small>
-                    </div>
-                </div>
-            </section>
+            <section class="section section--soft"><div class="container"><div class="trabalhe-card">
+                <div class="trabalhe-card__icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                <h2>Junte-se à nossa equipe</h2>
+                <p>Envie seu currículo e venha crescer conosco.</p>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rhradiogenesis@gmail.com" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg btn--touch">Enviar Currículo</a>
+                <small>Ou use seu app de e-mail padrão: <a href="mailto:rhradiogenesis@gmail.com" class="link-footer">rhradiogenesis@gmail.com</a></small>
+            </div></div></section>
         </div>
-
 
         <!-- PAGE: LAUDO -->
         <div class="page" data-page="laudo">
@@ -661,6 +542,9 @@
             <section class="section section--soft"><div class="container"><div class="laudo-card"><div class="laudo-card__icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h2>Acesse seus Resultados</h2><p>Insira o protocolo e a senha do comprovante.</p><form class="laudo-form-v2" id="laudoForm"><div class="form-group"><label for="laudoProtocolo">Nº do Protocolo</label><input type="text" id="laudoProtocolo" placeholder="Ex: 00012345" required></div><div class="form-group"><label for="laudoSenha">Senha</label><input type="password" id="laudoSenha" placeholder="••••••" required></div><button type="submit" class="btn btn--primary btn--lg btn--touch btn--block">Acessar Resultados →</button></form><small class="laudo-card__help">Dúvidas? <a href="tel:+558532545885">(85) 3254.5885</a></small></div></div></section>
         </div>
 
+
+        <!-- SUBPÁGINAS DE EXAMES -->
+        <!-- Padrão reutilizável para cada subpágina -->
 
         <!-- SUBPÁGINA: Ressonância Magnética -->
         <div class="page exame-sub" data-page="exames/ressonancia-magnetica" data-exame="ressonancia-magnetica">
@@ -683,11 +567,7 @@
                             <span>Imagem Ilustrativa</span>
                         </div>
                         <div class="exame-sub__image-slot">
-                            <!-- <img loading="lazy" src="img/exames/NOME-DO-EXAME.jpg" alt="Imagem do exame"> -->
-                            <div class="exame-sub__image-placeholder">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                                <p>Espaço reservado para imagem do exame</p>
-                            </div>
+                            <img loading="lazy" src="img/exames/ressonancia-magnetica.webp" alt="Ressonância Magnética">
                         </div>
                     </div>
                     <div class="exame-sub__grid">
@@ -741,11 +621,7 @@
                             <span>Imagem Ilustrativa</span>
                         </div>
                         <div class="exame-sub__image-slot">
-                            <!-- <img loading="lazy" src="img/exames/NOME-DO-EXAME.jpg" alt="Imagem do exame"> -->
-                            <div class="exame-sub__image-placeholder">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                                <p>Espaço reservado para imagem do exame</p>
-                            </div>
+                            <img loading="lazy" src="img/exames/tomografia-computadorizada.webp" alt="Tomografia Computadorizada">
                         </div>
                     </div>
                     <div class="exame-sub__grid">
@@ -778,64 +654,25 @@
                 </div>
             </section>
         </div>
+
         <!-- SUBPÁGINA: Biópsia, Punção e Marcação Cirúrgica -->
-        <div class="page exame-sub" data-page="exames/biopsia-puncao-marcacao" data-exame="biopsia-puncao-marcacao">
-            <div class="exame-sub__header page-header">
-                <div class="container">
-                    <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        Voltar para Exames
-                    </button>
-                    <h1 class="page-header__title" style="margin-top:16px">Biópsia, Punção e Marcação Cirúrgica</h1>
-                    <p class="page-header__sub">Procedimentos minimamente invasivos realizados sob guia de imagem para coleta de amostras de tecido, aspiração de líquidos ou marcação de lesões para cirurgia. Garantem precisão diagnóstica com mínimo desconforto.</p>
-                    <div class="exame-sub__tags"><span class="exame-sub__tag">Biópsia</span><span class="exame-sub__tag">Punção</span><span class="exame-sub__tag">Marcação</span><span class="exame-sub__tag">Guia por imagem</span></div>
+        <div class="page exame-sub" data-page="exames/biopsia-puncao-marcacao">
+            <div class="exame-sub__header page-header"><div class="container">
+                <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
+                <h1 class="page-header__title" style="margin-top:16px">Biópsia, Punção e Marcação Cirúrgica</h1>
+                <p class="page-header__sub">Procedimentos minimamente invasivos realizados sob guia de imagem para coleta de amostras de tecido, aspiração de líquidos ou marcação de lesões para cirurgia. Garantem precisão diagnóstica com mínimo desconforto.</p>
+                <div class="exame-sub__tags"><span class="exame-sub__tag">Biópsia</span><span class="exame-sub__tag">Punção</span><span class="exame-sub__tag">Marcação</span><span class="exame-sub__tag">Guia por imagem</span></div>
+            </div></div>
+            <section class="section section--soft"><div class="container">
+                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><div class="exame-sub__image-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Espaço reservado para imagem do exame</p></div></div></div>
+                <div class="exame-sub__grid">
+                    <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Investigação de nódulos suspeitos em mama, tireoide, fígado e outros órgãos</li><li>Coleta de material para análise histopatológica ou citológica</li><li>Punção aspirativa de cistos e abscessos</li><li>Marcação de lesões não palpáveis antes de cirurgias</li><li>Estadiamento de doenças oncológicas</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Distúrbios graves de coagulação não corrigidos</li><li>Uso de anticoagulantes (pode ser necessária suspensão prévia)</li><li>Infecção ativa na região a ser puncionada</li><li>Impossibilidade de cooperação do paciente</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Exames de coagulação podem ser solicitados previamente. Informe ao médico sobre uso de anticoagulantes, AAS ou outros medicamentos. Jejum de 4 horas em alguns procedimentos.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 20 a 60 minutos, incluindo preparo e observação pós-procedimento.</span></div></div>
                 </div>
-            </div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="exame-sub__image-card">
-                        <div class="exame-sub__image-card-header">
-                            <div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-                            <span>Imagem Ilustrativa</span>
-                        </div>
-                        <div class="exame-sub__image-slot">
-                            <!-- <img loading="lazy" src="img/exames/NOME-DO-EXAME.jpg" alt="Imagem do exame"> -->
-                            <div class="exame-sub__image-placeholder">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                                <p>Espaço reservado para imagem do exame</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="exame-sub__grid">
-                        <div class="exame-sub__card exame-sub__card--green">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Indicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--green"><li>Investigação de nódulos suspeitos em mama, tireoide, fígado e outros órgãos</li><li>Coleta de material para análise histopatológica ou citológica</li><li>Punção aspirativa de cistos e abscessos</li><li>Marcação de lesões não palpáveis antes de cirurgias</li><li>Estadiamento de doenças oncológicas</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--red">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                                <h2>Contraindicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--red"><li>Distúrbios graves de coagulação não corrigidos</li><li>Uso de anticoagulantes (pode ser necessária suspensão prévia)</li><li>Infecção ativa na região a ser puncionada</li><li>Impossibilidade de cooperação do paciente</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--full">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Preparo para o Exame</h2>
-                            </div>
-                            <p class="exame-sub__preparo-text">Exames de coagulação podem ser solicitados previamente. Informe ao médico sobre uso de anticoagulantes, AAS ou outros medicamentos. Jejum de 4 horas em alguns procedimentos.</p>
-                            <div class="exame-sub__duracao">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span><strong>Duração estimada:</strong> 20 a 60 minutos, incluindo preparo e observação pós-procedimento.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div></section>
         </div>
+
         <!-- SUBPÁGINA: Raio-X Digital -->
         <div class="page exame-sub" data-page="exames/raio-x-digital" data-exame="raio-x-digital">
             <div class="exame-sub__header page-header">
@@ -857,11 +694,7 @@
                             <span>Imagem Ilustrativa</span>
                         </div>
                         <div class="exame-sub__image-slot">
-                            <!-- <img loading="lazy" src="img/exames/NOME-DO-EXAME.jpg" alt="Imagem do exame"> -->
-                            <div class="exame-sub__image-placeholder">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                                <p>Espaço reservado para imagem do exame</p>
-                            </div>
+                            <img loading="lazy" src="img/exames/raio-x-digital.webp" alt="Raio-X Digital">
                         </div>
                     </div>
                     <div class="exame-sub__grid">
@@ -894,7 +727,8 @@
                 </div>
             </section>
         </div>
-        <!-- SUBPÁGINA: Mamografia Digital -->
+
+       <!-- SUBPÁGINA: Mamografia Digital -->
         <div class="page exame-sub" data-page="exames/mamografia-digital" data-exame="mamografia-digital">
             <div class="exame-sub__header page-header">
                 <div class="container">
@@ -915,11 +749,7 @@
                             <span>Imagem Ilustrativa</span>
                         </div>
                         <div class="exame-sub__image-slot">
-                            <!-- <img loading="lazy" src="img/exames/NOME-DO-EXAME.jpg" alt="Imagem do exame"> -->
-                            <div class="exame-sub__image-placeholder">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                                <p>Espaço reservado para imagem do exame</p>
-                            </div>
+                            <img loading="lazy" src="img/exames/mamografia-digital.webp" alt="Mamografia Digital">
                         </div>
                     </div>
                     <div class="exame-sub__grid">
@@ -952,7 +782,8 @@
                 </div>
             </section>
         </div>
-        <!-- SUBPÁGINA: Ultrassonografia com Doppler -->
+
+       <!-- SUBPÁGINA: Ultrassonografia com Doppler -->
         <div class="page exame-sub" data-page="exames/ultrassonografia-doppler" data-exame="ultrassonografia-doppler">
             <div class="exame-sub__header page-header">
                 <div class="container">
@@ -973,11 +804,7 @@
                             <span>Imagem Ilustrativa</span>
                         </div>
                         <div class="exame-sub__image-slot">
-                            <!-- <img loading="lazy" src="img/exames/NOME-DO-EXAME.jpg" alt="Imagem do exame"> -->
-                            <div class="exame-sub__image-placeholder">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                                <p>Espaço reservado para imagem do exame</p>
-                            </div>
+                            <img loading="lazy" src="img/exames/ultrassonografia-doppler.webp" alt="Ultrassonografia com Doppler">
                         </div>
                     </div>
                     <div class="exame-sub__grid">
@@ -1010,6 +837,7 @@
                 </div>
             </section>
         </div>
+
         <!-- SUBPÁGINA: Densitometria Óssea -->
         <div class="page exame-sub" data-page="exames/densitometria-ossea" data-exame="densitometria-ossea">
             <div class="exame-sub__header page-header">
@@ -1031,11 +859,7 @@
                             <span>Imagem Ilustrativa</span>
                         </div>
                         <div class="exame-sub__image-slot">
-                            <!-- <img loading="lazy" src="img/exames/NOME-DO-EXAME.jpg" alt="Imagem do exame"> -->
-                            <div class="exame-sub__image-placeholder">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                                <p>Espaço reservado para imagem do exame</p>
-                            </div>
+                            <img loading="lazy" src="img/exames/densitometria-ossea.webp" alt="Densitometria Óssea">
                         </div>
                     </div>
                     <div class="exame-sub__grid">
@@ -1068,6 +892,7 @@
                 </div>
             </section>
         </div>
+
         <!-- SUBPÁGINA: Mamotomia -->
         <div class="page exame-sub" data-page="exames/mamotomia" data-exame="mamotomia">
             <div class="exame-sub__header page-header">
@@ -1089,11 +914,7 @@
                             <span>Imagem Ilustrativa</span>
                         </div>
                         <div class="exame-sub__image-slot">
-                            <!-- <img loading="lazy" src="img/exames/NOME-DO-EXAME.jpg" alt="Imagem do exame"> -->
-                            <div class="exame-sub__image-placeholder">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                                <p>Espaço reservado para imagem do exame</p>
-                            </div>
+                            <img loading="lazy" src="img/exames/mamotomia.webp" alt="Mamotomia">
                         </div>
                     </div>
                     <div class="exame-sub__grid">
@@ -1126,6 +947,7 @@
                 </div>
             </section>
         </div>
+
         <!-- SUBPÁGINA: Ultrassonografia Geral -->
         <div class="page exame-sub" data-page="exames/ultrassonografia-geral" data-exame="ultrassonografia-geral">
             <div class="exame-sub__header page-header">
@@ -1147,11 +969,7 @@
                             <span>Imagem Ilustrativa</span>
                         </div>
                         <div class="exame-sub__image-slot">
-                            <!-- <img loading="lazy" src="img/exames/NOME-DO-EXAME.jpg" alt="Imagem do exame"> -->
-                            <div class="exame-sub__image-placeholder">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                                <p>Espaço reservado para imagem do exame</p>
-                            </div>
+                            <img loading="lazy" src="img/exames/ultrassonografia-geral.webp" alt="Ultrassonografia Geral">
                         </div>
                     </div>
                     <div class="exame-sub__grid">
@@ -1200,17 +1018,17 @@
                         <a href="https://www.instagram.com/clinicaradiogenesis" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg></a>
                     </div>
                 </div>
-                <div class="footer__col"><h4 class="footer__heading">Exames</h4><ul class="footer__links"><li><a href="#exames" class="spa-link" data-page="exames">Ressonância</a></li><li><a href="#exames" class="spa-link" data-page="exames">Tomografia</a></li><li><a href="#exames" class="spa-link" data-page="exames">Ultrassom</a></li><li><a href="#exames" class="spa-link" data-page="exames">Raio-X</a></li><li><a href="#exames" class="spa-link" data-page="exames">Mamografia</a></li></ul></div>
+                <div class="footer__col"><h4 class="footer__heading">Exames</h4><ul class="footer__links"><li><a href="#exames/ressonancia-magnetica" class="spa-exame">Ressonância</a></li><li><a href="#exames/tomografia-computadorizada" class="spa-exame">Tomografia</a></li><li><a href="#exames/ultrassonografia-geral" class="spa-exame">Ultrassom</a></li><li><a href="#exames/raio-x-digital" class="spa-exame">Raio-X</a></li><li><a href="#exames/mamografia-digital" class="spa-exame">Mamografia</a></li></ul></div>
                 <div class="footer__col"><h4 class="footer__heading">Institucional</h4><ul class="footer__links"><li><a href="#sobre" class="spa-link" data-page="sobre">Sobre Nós</a></li><li><a href="#equipe" class="spa-link" data-page="equipe">Equipe</a></li><li><a href="#unidades" class="spa-link" data-page="unidades">Unidades</a></li><li><a href="#convenios" class="spa-link" data-page="convenios">Convênios</a></li><li><a href="#ouvidoria" class="spa-link" data-page="ouvidoria">Ouvidoria</a></li><li><a href="#trabalhe-conosco" class="spa-link" data-page="trabalhe-conosco">Trabalhe Conosco</a></li></ul></div>
-                <div class="footer__col"><h4 class="footer__heading">Atendimento</h4><ul class="footer__links"><li><a href="#laudo" class="spa-link" data-page="laudo">Laudo Online</a></li><li><a href="https://radiogenesis.naja.app/portal/login" target="_blank" rel="noopener noreferrer">Resultado de Exames</a></li><li><a href="#contato" class="spa-link" data-page="contato">Contato</a></li><li><a href="tel:+558532545885">(85) 3254.5885</a></li></ul><div class="footer__hours"><h4 class="footer__heading">Horário</h4><p>Seg–Sex: 7h às 19h</p><p>Sáb: 7h às 12h</p></div></div>
+                <div class="footer__col"><h4 class="footer__heading">Atendimento</h4><ul class="footer__links"><li><a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer">Laudo Online</a></li><li><a href="https://radiogenesis.naja.app/portal/login" target="_blank" rel="noopener noreferrer">Resultado de Exames</a></li><li><a href="#contato" class="spa-link" data-page="contato">Contato</a></li><li><a href="tel:+558532545885">(85) 3254.5885</a></li></ul><div class="footer__hours"><h4 class="footer__heading">Horário</h4><p>Seg–Sex: 7h às 19h</p><p>Sáb: 7h às 12h</p></div></div>
             </div>
-            <div class="footer__bottom"><p>© 2026 Radiogênesis — Todos os direitos reservados.</p><div class="footer__bottom-links"><a href="#">Privacidade</a><a href="#">LGPD</a></div></div>
+            <div class="footer__bottom"><p>© 2026 Radiogênesis — Todos os direitos reservados.</p></div>
         </div>
     </footer>
 
     <!-- ===== FLOAT ELEMENTS ===== -->
     <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <svg width="28" height="28" fill="currentColor" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
     </a>
 
     <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
@@ -1225,9 +1043,11 @@
         </div>
     </div>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js" defer></script>
-    <script defer>
-    document.addEventListener('DOMContentLoaded', function() {
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    <script>
+    window.addEventListener('load', function() {
+        if (window.VLibras) {
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        }
     });
     </script>
 
@@ -1236,11 +1056,8 @@
     (function() {
         const toggle = document.getElementById('themeToggle');
         const root   = document.documentElement;
-
-        // Aplica tema salvo ou preferência do sistema
-        const saved = localStorage.getItem('rg-theme');
+        const saved  = localStorage.getItem('rg-theme');
         if (saved === 'dark') root.setAttribute('data-theme', 'dark');
-
         toggle.addEventListener('click', function() {
             const isDark = root.getAttribute('data-theme') === 'dark';
             if (isDark) {
@@ -1251,7 +1068,6 @@
                 localStorage.setItem('rg-theme', 'dark');
             }
         });
-
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
             if (!localStorage.getItem('rg-theme')) {
                 e.matches ? root.setAttribute('data-theme', 'dark') : root.removeAttribute('data-theme');
@@ -1260,5 +1076,6 @@
     })();
     </script>
 
-    <script src="script.js" defer></script></body>
+    <script src="script.js" defer></script>
+</body>
 </html>
