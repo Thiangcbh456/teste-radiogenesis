@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 history.pushState(null, '', `#${pageId}`);
             }
         }, delay);
+        document.dispatchEvent(new CustomEvent('spaNavigate', { detail: { pageId } }));
         closeMobileMenu();
     }
 
@@ -165,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateActiveNav(navPage);
                 if (hash === 'inicio') { countersAnimated = false; animateCounters(); }
                 if (hash === 'convenios') initConvenioLogos();
+                document.dispatchEvent(new CustomEvent('spaNavigate', { detail: { pageId: hash } }));
             }, 10);
         } else {
             window.location.hash = '#inicio';
@@ -426,7 +428,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function goTo(index) {
             const slides = getActiveSlides();
-            const dots   = getActiveDots();
+            if (!slides.length) return;
+            const dots = getActiveDots();
             slides[current].classList.remove('active');
             if (dots[current]) {
                 dots[current].classList.remove('active');
@@ -465,13 +468,17 @@ document.addEventListener('DOMContentLoaded', () => {
             carouselResizeTimer = setTimeout(() => {
                 clearInterval(timer);
                 initCarousel();
-                startTimer();
+                if (isOnInicio()) startTimer();
             }, 200);
         });
 
         function next()       { goTo(current + 1); }
         function startTimer() { timer = setInterval(next, 5000); }
-        function resetTimer() { clearInterval(timer); startTimer(); }
+        function resetTimer() { clearInterval(timer); if (isOnInicio()) startTimer(); }
+        function isOnInicio() {
+            const active = document.querySelector('.page.active');
+            return active && active.dataset.page === 'inicio';
+        }
 
         allDots.forEach(dot => {
             dot.addEventListener('click', () => {
@@ -481,9 +488,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // Pausa quando a aba fica oculta, retoma só se estiver no início
         document.addEventListener('visibilitychange', () => {
-            if (document.hidden) clearInterval(timer);
-            else startTimer();
+            if (document.hidden) {
+                clearInterval(timer);
+            } else {
+                if (isOnInicio() && !isPerfLow) startTimer();
+            }
+        });
+
+        // Pausa ou retoma conforme a página ativa do SPA
+        document.addEventListener('spaNavigate', (e) => {
+            if (e.detail.pageId === 'inicio') {
+                if (!document.hidden && !isPerfLow) {
+                    clearInterval(timer);
+                    startTimer();
+                }
+            } else {
+                clearInterval(timer);
+            }
         });
 
         const isPerfLow = document.documentElement.classList.contains('perf-low');
