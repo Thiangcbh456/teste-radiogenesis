@@ -96,8 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const navId = pageId.startsWith('exames/') ? 'exames' : pageId;
                     updateActiveNav(navId);
 
-                    /* FIX BUG 4 — resetar flag antes de animar,
-                       senão contadores não rodam ao voltar para Início */
                     if (pageId === 'inicio') {
                         countersAnimated = false;
                         setTimeout(animateCounters, 300);
@@ -124,16 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updatePageTitle(pageId) {
         const titles = {
-            'inicio': 'Radiogênesis | Diagnóstico por Imagem',
-            'exames': 'Exames | Radiogênesis',
-            'sobre': 'Sobre Nós | Radiogênesis',
-            'equipe': 'Equipe Médica | Radiogênesis',
-            'unidades': 'Unidades | Radiogênesis',
-            'convenios': 'Convênios | Radiogênesis',
-            'contato': 'Contato | Radiogênesis',
-            'ouvidoria': 'Ouvidoria | Radiogênesis',
-            'trabalhe-conosco': 'Trabalhe Conosco | Radiogênesis',
-            'laudo': 'Laudo Online | Radiogênesis',
+            'inicio':             'Radiogênesis | Diagnóstico por Imagem',
+            'exames':             'Exames | Radiogênesis',
+            'sobre':              'Sobre Nós | Radiogênesis',
+            'equipe':             'Equipe Médica | Radiogênesis',
+            'unidades':           'Unidades | Radiogênesis',
+            'convenios':          'Convênios | Radiogênesis',
+            'contato':            'Contato | Radiogênesis',
+            'ouvidoria':          'Ouvidoria | Radiogênesis',
+            'trabalhe-conosco':   'Trabalhe Conosco | Radiogênesis',
+            'politica-de-privacidade': 'Política de Privacidade | Radiogênesis',
             'exames/ressonancia-magnetica':      'Ressonância Magnética | Radiogênesis',
             'exames/tomografia-computadorizada': 'Tomografia Computadorizada | Radiogênesis',
             'exames/biopsia-puncao-marcacao':    'Biópsia, Punção e Marcação | Radiogênesis',
@@ -181,12 +179,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ================================================
        4. DELEGAÇÃO DE EVENTOS (Cliques SPA)
-       — Unificado: trata .spa-link e .spa-exame num só listener
        ================================================ */
     document.addEventListener('click', (e) => {
-        const spaLink  = e.target.closest('.spa-link');
+        const spaLink   = e.target.closest('.spa-link');
         const exameLink = e.target.closest('.spa-exame');
-        const backBtn  = e.target.closest('[data-back]');
+        const backBtn   = e.target.closest('[data-back]');
 
         if (spaLink) {
             e.preventDefault();
@@ -202,11 +199,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
     /* ================================================
        5. MENU MOBILE
        ================================================ */
-
     const menuResizeObserver = new ResizeObserver(entries => {
         for (const entry of entries) {
             if (mobileMenu && mobileMenu.classList.contains('open')) {
@@ -276,11 +271,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 150);
     });
 
-    // Safety reset — fecha o menu se o usuário navegar pelo histórico
     window.addEventListener('popstate', () => {
         closeMobileMenu();
     });
-
 
     /* ================================================
        6. SCROLL
@@ -304,7 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
         backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
-
     /* ================================================
        7. CONTADORES
        ================================================ */
@@ -315,12 +307,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (counterElements.length === 0) return;
         countersAnimated = true;
         counterElements.forEach(counter => {
-            const target = parseInt(counter.dataset.count);
+            const target   = parseInt(counter.dataset.count);
             const duration = 2000;
-            const start = performance.now();
+            const start    = performance.now();
             function tick(now) {
                 const progress = Math.min((now - start) / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 3);
+                const eased    = 1 - Math.pow(1 - progress, 3);
                 counter.textContent = Math.floor(eased * target);
                 if (progress < 1) requestAnimationFrame(tick);
                 else counter.textContent = target;
@@ -328,7 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(tick);
         });
     }
-
 
     /* ================================================
        8. FORMULÁRIOS E MÁSCARAS
@@ -342,29 +333,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const msg   = document.getElementById('mensagem').value.trim();
             if (!nome || !email || !msg) return showToast('Preencha todos os campos.', 'error');
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showToast('E-mail inválido.', 'error');
-            const btn = this.querySelector('button[type="submit"]');
+            const btn      = this.querySelector('button[type="submit"]');
             const original = btn.innerHTML;
-            btn.innerHTML = '✓ Enviado!';
+            btn.innerHTML  = '✓ Enviado!';
             btn.style.background = 'var(--success)';
-            btn.disabled = true;
+            btn.disabled   = true;
             showToast('Mensagem enviada com sucesso!', 'success');
             setTimeout(() => {
-                btn.innerHTML = original;
+                btn.innerHTML        = original;
                 btn.style.background = '';
-                btn.disabled = false;
+                btn.disabled         = false;
                 this.reset();
             }, 3000);
-        });
-    }
-
-    const laudoForm = document.getElementById('laudoForm');
-    if (laudoForm) {
-        laudoForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const p = document.getElementById('laudoProtocolo').value.trim();
-            const s = document.getElementById('laudoSenha').value.trim();
-            if (!p || !s) return showToast('Preencha protocolo e senha.', 'error');
-            showToast('Redirecionando para o sistema de laudos...', 'success');
         });
     }
 
@@ -372,13 +352,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tel) {
         tel.addEventListener('input', function () {
             let v = this.value.replace(/\D/g, '').slice(0, 11);
-            if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+            if (v.length > 6)      v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
             else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
             else if (v.length > 0) v = `(${v}`;
             this.value = v;
         });
     }
-
 
     /* ================================================
        9. TOAST
@@ -390,13 +369,19 @@ document.addEventListener('DOMContentLoaded', () => {
         toast.className = 'toast';
         toast.innerHTML = `<span>${message}</span><button onclick="this.parentElement.remove()">&times;</button>`;
         Object.assign(toast.style, {
-            position: 'fixed', top: '80px', right: '20px',
-            padding: '12px 20px', borderRadius: '12px',
-            display: 'flex', alignItems: 'center', gap: '10px',
-            zIndex: '9999', color: '#fff',
-            boxShadow: '0 8px 32px rgba(0,0,0,.15)',
-            background: type === 'success' ? '#10B981' : '#EF4444',
-            animation: 'toastIn .4s ease'
+            position:     'fixed',
+            top:          '80px',
+            right:        '20px',
+            padding:      '12px 20px',
+            borderRadius: '12px',
+            display:      'flex',
+            alignItems:   'center',
+            gap:          '10px',
+            zIndex:       '9999',
+            color:        '#fff',
+            boxShadow:    '0 8px 32px rgba(0,0,0,.15)',
+            background:   type === 'success' ? '#10B981' : '#EF4444',
+            animation:    'toastIn .4s ease'
         });
         const closeBtn = toast.querySelector('button');
         closeBtn.style.cssText = 'background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;';
@@ -409,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(styleSheet);
 
     /* ================================================
-       HERO BACKGROUND CAROUSEL
+       10. HERO BACKGROUND CAROUSEL
        ================================================ */
     (function initHeroCarousel() {
         const isMobile = () => window.innerWidth <= 768;
@@ -425,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const label   = document.getElementById('heroSlideLabel');
         let current = 0;
         let timer;
-        let carouselResizeTimer; // FIX: variável local, não polui window
+        let carouselResizeTimer;
 
         function getActiveDots() {
             const slides = getActiveSlides();
@@ -476,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initCarousel();
 
         window.addEventListener('resize', () => {
-            clearTimeout(carouselResizeTimer); // FIX: usa variável local
+            clearTimeout(carouselResizeTimer);
             carouselResizeTimer = setTimeout(() => {
                 clearInterval(timer);
                 initCarousel();
@@ -484,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 200);
         });
 
-        function next() { goTo(current + 1); }
+        function next()       { goTo(current + 1); }
         function startTimer() { timer = setInterval(next, 5000); }
         function resetTimer() { clearInterval(timer); startTimer(); }
 
@@ -505,9 +490,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isPerfLow) startTimer();
     })();
 
-
     /* ================================================
-       VLIBRAS
+       11. VLIBRAS
        ================================================ */
     (function watchVLibras() {
 

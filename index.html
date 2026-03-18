@@ -195,8 +195,6 @@
                             <button class="hero__carousel-dot" data-index="6" aria-label="Slide 7"></button>
                             <button class="hero__carousel-dot" data-index="7" aria-label="Slide 8"></button>
                             <button class="hero__carousel-dot" data-index="8" aria-label="Slide 9"></button>
-                            <button class="hero__carousel-dot" data-index="9" aria-label="Slide 10"></button>
-                            <button class="hero__carousel-dot" data-index="10" aria-label="Slide 11"></button>
                         </div>
                     </div>
                     <div class="hero__visual"></div>
@@ -535,12 +533,6 @@
             </div></div></section>
         </div>
 
-        <!-- PAGE: LAUDO -->
-        <div class="page" data-page="laudo">
-            <div class="page-header page-header--gradient"><div class="container"><span class="section__badge section__badge--light">Resultados</span><h1 class="page-header__title">Laudo Online</h1><p class="page-header__sub">Acesse com seu protocolo de atendimento.</p></div></div>
-            <section class="section section--soft"><div class="container"><div class="laudo-card"><div class="laudo-card__icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h2>Acesse seus Resultados</h2><p>Insira o protocolo e a senha do comprovante.</p><form class="laudo-form-v2" id="laudoForm"><div class="form-group"><label for="laudoProtocolo">Nº do Protocolo</label><input type="text" id="laudoProtocolo" placeholder="Ex: 00012345" required></div><div class="form-group"><label for="laudoSenha">Senha</label><input type="password" id="laudoSenha" placeholder="••••••" required></div><button type="submit" class="btn btn--primary btn--lg btn--touch btn--block">Acessar Resultados →</button></form><small class="laudo-card__help">Dúvidas? <a href="tel:+558532545885">(85) 3254.5885</a></small></div></div></section>
-        </div>
-
 
         <!-- SUBPÁGINAS DE EXAMES -->
         <!-- Padrão reutilizável para cada subpágina -->
@@ -653,15 +645,13 @@
         </div>
 
         <!-- SUBPÁGINA: Biópsia, Punção e Marcação Cirúrgica -->
-        <div class="page exame-sub" data-page="exames/biopsia-puncao-marcacao">
-            <div class="exame-sub__header page-header"><div class="container">
+                <div class="page exame-sub" data-page="exames/biopsia-puncao-marcacao" data-exame="biopsia-puncao-marcacao">            <div class="exame-sub__header page-header"><div class="container">
                 <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
                 <h1 class="page-header__title" style="margin-top:16px">Biópsia, Punção e Marcação Cirúrgica</h1>
                 <p class="page-header__sub">Procedimentos minimamente invasivos realizados sob guia de imagem para coleta de amostras de tecido, aspiração de líquidos ou marcação de lesões para cirurgia. Garantem precisão diagnóstica com mínimo desconforto.</p>
             </div></div>
             <section class="section section--soft"><div class="container">
-                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><div class="exame-sub__image-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Espaço reservado para imagem do exame</p></div></div></div>
-                <div class="exame-sub__grid">
+            <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/biopsia-puncao-marcacao.webp" alt="Biópsia, Punção e Marcação Cirúrgica"></div></div>                <div class="exame-sub__grid">
                     <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Investigação de nódulos suspeitos em mama, tireoide, fígado e outros órgãos</li><li>Coleta de material para análise histopatológica ou citológica</li><li>Punção aspirativa de cistos e abscessos</li><li>Marcação de lesões não palpáveis antes de cirurgias</li><li>Estadiamento de doenças oncológicas</li></ul></div>
                     <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Distúrbios graves de coagulação não corrigidos</li><li>Uso de anticoagulantes (pode ser necessária suspensão prévia)</li><li>Infecção ativa na região a ser puncionada</li><li>Impossibilidade de cooperação do paciente</li></ul></div>
                     <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Exames de coagulação podem ser solicitados previamente. Informe ao médico sobre uso de anticoagulantes, AAS ou outros medicamentos. Jejum de 4 horas em alguns procedimentos.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 20 a 60 minutos, incluindo preparo e observação pós-procedimento.</span></div></div>
@@ -992,7 +982,84 @@
                 </div>
             </section>
         </div>
+        <!-- PAGE: POLÍTICA DE PRIVACIDADE -->
+<div class="page" data-page="politica-de-privacidade">
+    <div class="page-header">
+        <div class="container">
+            <span class="section__badge section__badge--light">Transparência</span>
+            <h1 class="page-header__title">Política de Privacidade e Termos de Uso</h1>
+            <p class="page-header__sub">Efetiva a partir de setembro de 2020.</p>
+        </div>
+    </div>
+    <section class="section section--soft">
+        <div class="container">
+            <div class="privacy-card">
 
+                <div class="privacy-block">
+                    <h2 class="privacy-title">Política de Privacidade</h2>
+                    <p>A sua privacidade é importante para nós. É política do Radiogênesis respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site Radiogênesis, e outros sites que possuímos e operamos.</p>
+                    <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemos por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.</p>
+                    <p>Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemos dentro de meios comercialmente aceitáveis para evitar perdas e roubos, bem como acesso, divulgação, cópia, uso ou modificação não autorizados.</p>
+                    <p>Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei.</p>
+                    <p>O nosso site pode ter links para sites externos que não são operados por nós. Esteja ciente de que não temos controle sobre o conteúdo e práticas desses sites e não podemos aceitar responsabilidade por suas respectivas políticas de privacidade.</p>
+                    <p>Você é livre para recusar a nossa solicitação de informações pessoais, entendendo que talvez não possamos fornecer alguns dos serviços desejados.</p>
+                    <p>O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais. Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contato conosco.</p>
+                </div>
+
+                <div class="privacy-divider"></div>
+
+                <div class="privacy-block">
+                    <h2 class="privacy-title">Termos de Uso</h2>
+
+                    <div class="privacy-section">
+                        <h3 class="privacy-section__title"><span class="privacy-section__num">1</span>Termos</h3>
+                        <p>Ao acessar ao site Radiogênesis, concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis. Se você não concordar com algum desses termos, está proibido de usar ou acessar este site. Os materiais contidos neste site são protegidos pelas leis de direitos autorais e marcas comerciais aplicáveis.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3 class="privacy-section__title"><span class="privacy-section__num">2</span>Uso de Licença</h3>
+                        <p>É concedida permissão para baixar temporariamente uma cópia dos materiais (informações ou software) no site Radiogênesis, apenas para visualização transitória pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título e, sob esta licença, você não pode:</p>
+                        <ul class="privacy-list">
+                            <li>Modificar ou copiar os materiais;</li>
+                            <li>Usar os materiais para qualquer finalidade comercial ou para exibição pública (comercial ou não comercial);</li>
+                            <li>Tentar descompilar ou fazer engenharia reversa de qualquer software contido no site Radiogênesis;</li>
+                            <li>Remover quaisquer direitos autorais ou outras notações de propriedade dos materiais;</li>
+                            <li>Transferir os materiais para outra pessoa ou espelhar os materiais em qualquer outro servidor.</li>
+                        </ul>
+                        <p>Esta licença será automaticamente rescindida se você violar alguma dessas restrições e poderá ser rescindida pelo Radiogênesis a qualquer momento. Ao encerrar a visualização desses materiais ou após o término desta licença, você deve apagar todos os materiais baixados em sua posse, seja em formato eletrônico ou impresso.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3 class="privacy-section__title"><span class="privacy-section__num">3</span>Isenção de Responsabilidade</h3>
+                        <p>Os materiais no site da Radiogênesis são fornecidos "como estão". O Radiogênesis não oferece garantias, expressas ou implícitas, e isenta todas as outras garantias, incluindo, sem limitação, garantias implícitas ou condições de comercialização, adequação a um fim específico ou não violação de propriedade intelectual ou outra violação de direitos.</p>
+                        <p>Além disso, o Radiogênesis não garante ou faz qualquer representação relativa à precisão, aos resultados prováveis ou à confiabilidade do uso dos materiais em seu site ou de outra forma relacionado a esses materiais ou em sites vinculados a este site.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3 class="privacy-section__title"><span class="privacy-section__num">4</span>Limitações</h3>
+                        <p>Em nenhum caso o Radiogênesis ou seus fornecedores serão responsáveis por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucro ou devido a interrupção dos negócios) decorrentes do uso ou da incapacidade de usar os materiais em Radiogênesis, mesmo que o Radiogênesis ou um representante autorizado tenha sido notificado oralmente ou por escrito da possibilidade de tais danos.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3 class="privacy-section__title"><span class="privacy-section__num">5</span>Precisão dos Materiais</h3>
+                        <p>Os materiais exibidos no site da Radiogênesis podem incluir erros técnicos, tipográficos ou fotográficos. O Radiogênesis não garante que qualquer material em seu site seja preciso, completo ou atual, e pode fazer alterações nos materiais a qualquer momento, sem aviso prévio.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3 class="privacy-section__title"><span class="privacy-section__num">6</span>Links</h3>
+                        <p>O Radiogênesis não analisou todos os sites vinculados ao seu site e não é responsável pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso por Radiogênesis do site. O uso de qualquer site vinculado é por conta e risco do usuário.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3 class="privacy-section__title"><span class="privacy-section__num">7</span>Modificações</h3>
+                        <p>O Radiogênesis pode revisar estes termos de serviço do site a qualquer momento, sem aviso prévio. Ao usar este site, você concorda em ficar vinculado à versão atual desses termos de serviço.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+        </div>
     </main>
 
 
@@ -1010,9 +1077,12 @@
                 </div>
                 <div class="footer__col"><h4 class="footer__heading">Exames</h4><ul class="footer__links"><li><a href="#exames/ressonancia-magnetica" class="spa-exame">Ressonância</a></li><li><a href="#exames/tomografia-computadorizada" class="spa-exame">Tomografia</a></li><li><a href="#exames/ultrassonografia-geral" class="spa-exame">Ultrassom</a></li><li><a href="#exames/raio-x-digital" class="spa-exame">Raio-X</a></li><li><a href="#exames/mamografia-digital" class="spa-exame">Mamografia</a></li></ul></div>
                 <div class="footer__col"><h4 class="footer__heading">Institucional</h4><ul class="footer__links"><li><a href="#sobre" class="spa-link" data-page="sobre">Sobre Nós</a></li><li><a href="#equipe" class="spa-link" data-page="equipe">Equipe</a></li><li><a href="#unidades" class="spa-link" data-page="unidades">Unidades</a></li><li><a href="#convenios" class="spa-link" data-page="convenios">Convênios</a></li><li><a href="#ouvidoria" class="spa-link" data-page="ouvidoria">Ouvidoria</a></li><li><a href="#trabalhe-conosco" class="spa-link" data-page="trabalhe-conosco">Trabalhe Conosco</a></li></ul></div>
-                <div class="footer__col"><h4 class="footer__heading">Atendimento</h4><ul class="footer__links"><li><a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer">Laudo Online</a></li><li><a href="https://radiogenesis.naja.app/portal/login" target="_blank" rel="noopener noreferrer">Resultado de Exames</a></li><li><a href="#contato" class="spa-link" data-page="contato">Contato</a></li><li><a href="tel:+558532545885">(85) 3254.5885</a></li></ul><div class="footer__hours"><h4 class="footer__heading">Horário</h4><p>Seg–Sex: 7h às 19h</p><p>Sáb: 7h às 12h</p></div></div>
-            </div>
-            <div class="footer__bottom"><p>© 2026 Radiogênesis — Todos os direitos reservados.</p></div>
+                <div class="footer__col"><h4 class="footer__heading">Atendimento</h4><ul class="footer__links"><li><a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer">Laudo Online</a></li><li><a href="https://radiogenesis.naja.app/portal/login" target="_blank" rel="noopener noreferrer">Resultado de Exames</a></li><li><a href="#contato" class="spa-link" data-page="contato">Contato</a></li><li><a href="tel:+558532545885">(85) 3254.5885</a></li></ul><div class="footer__hours"><h4 class="footer__heading">Horários</h4><p>Seg–Sex: 7h às 18h</p><p>Sáb: 7h às 12h</p></div></div>            <div class="footer__bottom">
+    <p>© 2026 Radiogênesis — Todos os direitos reservados.</p>
+    <div class="footer__bottom-links">
+        <a href="#politica-de-privacidade" class="spa-link" data-page="politica-de-privacidade">Política de Privacidade</a>
+    </div>
+</div>
         </div>
     </footer>
 
