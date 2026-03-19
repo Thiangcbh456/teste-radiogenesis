@@ -13,6 +13,7 @@
     <meta property="og:image:height" content="1080">
     <meta property="og:locale"       content="pt_BR">
     <title>Radiogênesis | Diagnóstico por Imagem</title>
+    <link rel="canonical" href="https://teste-radiogenesis.netlify.app/">
     <link rel="preload" as="image" href="img/inicio/medical.webp" media="(min-width: 769px)">
     <link rel="preload" as="image" href="img/mobile/medical0.webp" media="(max-width: 768px)">
     <link rel="preload" as="image" href="img/unidades/medical.webp" media="(min-width: 769px)">
@@ -367,13 +368,14 @@
             </section>
         </div>
 
-        <!-- PAGE: SOBRE -->
+       <!-- PAGE: SOBRE -->
         <div class="page" data-page="sobre">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Institucional</span><h1 class="page-header__title">Quem Somos</h1><p class="page-header__sub">Tradição e inovação há mais de 20 anos.</p></div></div>
             <section class="section section--soft"><div class="container"><div class="about">
                 <div class="about__image">
                     <div class="about__video-wrapper">
-                        <video src="vid/radiogenesis.mp4" controls preload="none" playsinline poster="img/OpenGraph/og-image.webp" aria-label="Vídeo institucional Radiogênesis" style="width:100%;border-radius:var(--radius-xl);display:block;box-shadow:var(--shadow-lg);">
+                        <p id="video-desc" class="sr-only">Vídeo institucional da Radiogênesis mostrando as instalações, equipamentos de diagnóstico por imagem e a equipe médica das unidades em Fortaleza.</p>
+                        <video src="vid/radiogenesis.mp4" controls preload="none" playsinline poster="img/OpenGraph/og-image.webp" aria-label="Vídeo institucional Radiogênesis" aria-describedby="video-desc" style="width:100%;border-radius:var(--radius-xl);display:block;box-shadow:var(--shadow-lg);">
                             Seu navegador não suporta vídeo HTML5.
                         </video>
                     </div>
@@ -731,6 +733,7 @@
     </button>
 
     <!-- VLIBRAS REMOVIDO — era fonte de lentidão, especialmente em iPhone -->
+     
 
     <script>
     // ---- TEMA ESCURO ----

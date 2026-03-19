@@ -538,6 +538,9 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(carouselResizeTimer);
             carouselResizeTimer = setTimeout(() => {
                 clearInterval(timer);
+                // Zera current antes de reiniciar para evitar
+                // dessincronismo entre dots e slides ao girar o celular
+                current = 0;
                 initCarousel();
                 if (isOnInicio()) startTimer();
             }, 200);
@@ -581,6 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isPerfLow = document.documentElement.classList.contains('perf-low');
         if (!isPerfLow) startTimer();
     })();
+    
 
 
 });
