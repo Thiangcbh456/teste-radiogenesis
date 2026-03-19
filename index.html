@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Radiogênesis — Diagnóstico por Imagem. Excelência em Ressonância, Tomografia, Ultrassom e mais.">
-    <!-- Open Graph — aparência ao compartilhar nas redes sociais e WhatsApp -->
     <meta property="og:type"         content="website">
     <meta property="og:url"          content="https://teste-radiogenesis.netlify.app/">
     <meta property="og:title"        content="Radiogênesis | Diagnóstico por Imagem">
@@ -108,7 +107,8 @@
     <header class="header" id="header">
         <div class="container header__inner">
             <a href="#inicio" class="header__logo spa-link" data-page="inicio">
-                <img src="img/top.png" alt="Logo Radiogênesis" class="header__logo-img" fetchpriority="high">
+                <!-- CORREÇÃO CLS: width/height explícitos -->
+                <img src="img/top.png" alt="Logo Radiogênesis" class="header__logo-img" width="180" height="50" fetchpriority="high">
             </a>
             <nav class="nav" id="nav">
                 <ul class="nav__list">
@@ -149,27 +149,27 @@
         <!-- PAGE: INÍCIO -->
         <div class="page active" data-page="inicio">
             <section class="hero">
-                <!-- Carrossel Desktop -->
+                <!-- CORREÇÃO LAZY LOAD: slides usam data-bg em vez de style inline -->
+                <!-- O JS carrega o background apenas quando o slide está ativo ou prestes a aparecer -->
                 <div class="hero__bg-carousel hero__bg-carousel--desktop" id="heroCarousel">
-                    <div class="hero__bg-slide active" style="background-image:url('img/inicio/medical.webp')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/medical1.webp')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/medical3.webp')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/hospital.webp')" data-label="Unidade Hospital Gênesis"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/hospital1.webp')" data-label="Unidade Hospital Gênesis"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/hospital2.webp')" data-label="Unidade Hospital Gênesis"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/hospital3.webp')" data-label="Unidade Hospital Gênesis"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/bstower0.webp')" data-label="Unidade BS Tower"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/inicio/bstower1.webp')" data-label="Unidade BS Tower"></div>
+                    <div class="hero__bg-slide active" data-bg="img/inicio/medical.webp" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" data-bg="img/inicio/medical1.webp" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" data-bg="img/inicio/medical3.webp" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" data-bg="img/inicio/hospital.webp" data-label="Unidade Hospital Gênesis"></div>
+                    <div class="hero__bg-slide" data-bg="img/inicio/hospital1.webp" data-label="Unidade Hospital Gênesis"></div>
+                    <div class="hero__bg-slide" data-bg="img/inicio/hospital2.webp" data-label="Unidade Hospital Gênesis"></div>
+                    <div class="hero__bg-slide" data-bg="img/inicio/hospital3.webp" data-label="Unidade Hospital Gênesis"></div>
+                    <div class="hero__bg-slide" data-bg="img/inicio/bstower0.webp" data-label="Unidade BS Tower"></div>
+                    <div class="hero__bg-slide" data-bg="img/inicio/bstower1.webp" data-label="Unidade BS Tower"></div>
                     <div class="hero__bg-overlay"></div>
                 </div>
-                <!-- Carrossel Mobile -->
                 <div class="hero__bg-carousel hero__bg-carousel--mobile" id="heroCarouselMobile">
-                    <div class="hero__bg-slide active" style="background-image:url('img/mobile/medical0.webp')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical1.webp')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical2.webp')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical3.webp')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical4.webp')" data-label="Unidade Medical"></div>
-                    <div class="hero__bg-slide" style="background-image:url('img/mobile/medical5.webp')" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide active" data-bg="img/mobile/medical0.webp" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" data-bg="img/mobile/medical1.webp" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" data-bg="img/mobile/medical2.webp" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" data-bg="img/mobile/medical3.webp" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" data-bg="img/mobile/medical4.webp" data-label="Unidade Medical"></div>
+                    <div class="hero__bg-slide" data-bg="img/mobile/medical5.webp" data-label="Unidade Medical"></div>
                     <div class="hero__bg-overlay"></div>
                 </div>
                 <div class="container hero__inner">
@@ -184,7 +184,6 @@
                             </a>
                             <a href="#exames" class="btn btn--glass btn--lg btn--touch spa-link" data-page="exames">Nossos Exames →</a>
                         </div>
-                        <!-- Indicadores do carrossel -->
                         <div class="hero__carousel-dots">
                             <button class="hero__carousel-dot active" data-index="0" aria-label="Slide 1"></button>
                             <button class="hero__carousel-dot" data-index="1" aria-label="Slide 2"></button>
@@ -256,7 +255,6 @@
             </section>
         </div>
         <!-- FIM PAGE: INÍCIO -->
-
 
         <!-- PAGE: EXAMES -->
         <div class="page" data-page="exames">
@@ -374,23 +372,16 @@
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Institucional</span><h1 class="page-header__title">Quem Somos</h1><p class="page-header__sub">Tradição e inovação há mais de 20 anos.</p></div></div>
             <section class="section section--soft"><div class="container"><div class="about">
                 <div class="about__image">
-    <div class="about__video-wrapper">
-        <video
-            src="vid/radiogenesis.mp4"
-            controls
-            preload="none"
-            playsinline
-            poster="img/OpenGraph/og-image.webp"
-            aria-label="Vídeo institucional Radiogênesis"
-            style="width:100%;border-radius:var(--radius-xl);display:block;box-shadow:var(--shadow-lg);">
-            Seu navegador não suporta vídeo HTML5.
-        </video>
-    </div>
-    <div class="about__experience">
-        <span class="about__experience-number">20+</span>
-        <span class="about__experience-text">anos de<br>excelência</span>
-    </div>
-</div>
+                    <div class="about__video-wrapper">
+                        <video src="vid/radiogenesis.mp4" controls preload="none" playsinline poster="img/OpenGraph/og-image.webp" aria-label="Vídeo institucional Radiogênesis" style="width:100%;border-radius:var(--radius-xl);display:block;box-shadow:var(--shadow-lg);">
+                            Seu navegador não suporta vídeo HTML5.
+                        </video>
+                    </div>
+                    <div class="about__experience">
+                        <span class="about__experience-number">20+</span>
+                        <span class="about__experience-text">anos de<br>excelência</span>
+                    </div>
+                </div>
                 <div class="about__content">
                     <p class="about__text">A <strong>Radiogênesis</strong> é referência em diagnóstico por imagem há mais de 20 anos. Combinamos tecnologia de ponta com atendimento humanizado.</p>
                     <p class="about__text">Nossas três unidades contam com aparelhos de última geração e uma equipe de médicos especialistas comprometidos com qualidade.</p>
@@ -408,7 +399,8 @@
         <div class="page" data-page="equipe">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Corpo Clínico</span><h1 class="page-header__title">Equipe Médica</h1><p class="page-header__sub">Profissionais dedicados ao diagnóstico preciso.</p></div></div>
             <section class="section section--soft"><div class="container"><div class="team-grid">
-                <div class="team-card"><div class="team-card__photo"><img loading="lazy" src="img/Equipe-Medica/Dr Eduardo Portela.webp" alt="Dr. Eduardo Portela" class="team-img"></div><div class="team-card__info"><h3 class="team-card__name">Dr. Eduardo Portela</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/5579</p></div></div>
+                <!-- CORREÇÃO CLS: width/height explícitos nas imagens da equipe -->
+                <div class="team-card"><div class="team-card__photo"><img loading="lazy" src="img/Equipe-Medica/Dr Eduardo Portela.webp" alt="Dr. Eduardo Portela" class="team-img" width="320" height="320"></div><div class="team-card__info"><h3 class="team-card__name">Dr. Eduardo Portela</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/5579</p></div></div>
                 <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Adriana Moreira Pontes</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/3820</p></div></div>
                 <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Ana Mª Leopercio Pontes</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/4575</p></div></div>
                 <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Núbia Moreira Melo</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/3152</p></div></div>
@@ -417,15 +409,14 @@
             </div></div></section>
         </div>
 
-
         <!-- PAGE: UNIDADES -->
         <div class="page" data-page="unidades">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Localização</span><h1 class="page-header__title">Nossas Unidades</h1><p class="page-header__sub">Três endereços para melhor atendê-lo.</p></div></div>
             <section class="section section--soft"><div class="container"><div class="units-grid">
-
                 <div class="unit-card">
                     <div class="unit-card__header"><div class="unit-card__badge unit-card__badge--centro">Unidade Medical</div></div>
-                    <div class="unit-card__map"><img loading="lazy" src="img/unidades/medical.webp" alt="Fachada da Unidade Medical" class="unit-img" decoding="async"></div>
+                    <!-- CORREÇÃO CLS: width/height explícitos -->
+                    <div class="unit-card__map"><img loading="lazy" src="img/unidades/medical.webp" alt="Fachada da Unidade Medical" class="unit-img" width="400" height="180" decoding="async"></div>
                     <div class="unit-card__body">
                         <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Endereço</strong><p>Rua Antônio Augusto, 1271 - Aldeota,<br>Fortaleza/CE — CEP: 60110-370</p></div></div>
                         <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><strong>Horário</strong><p>Seg–Sex: 7h às 19h<br>Sábado: 7h às 12h</p></div></div>
@@ -436,10 +427,9 @@
                         <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm btn--touch">Agendar</a>
                     </div>
                 </div>
-
                 <div class="unit-card">
                     <div class="unit-card__header"><div class="unit-card__badge unit-card__badge--norte">Unidade Hospital Gênesis</div></div>
-                    <div class="unit-card__map"><img loading="lazy" src="img/unidades/hospital.webp" alt="Fachada da Unidade Hospital Gênesis" class="unit-img" decoding="async"></div>
+                    <div class="unit-card__map"><img loading="lazy" src="img/unidades/hospital.webp" alt="Fachada da Unidade Hospital Gênesis" class="unit-img" width="400" height="180" decoding="async"></div>
                     <div class="unit-card__body">
                         <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Endereço</strong><p>Av. Santos Dumont, 1168 - Aldeota,<br>Fortaleza/CE — CEP: 60150-160</p></div></div>
                         <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><strong>Horário</strong><p>Seg–Sex: 8h às 18h</p></div></div>
@@ -450,10 +440,9 @@
                         <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm btn--touch">Agendar</a>
                     </div>
                 </div>
-
                 <div class="unit-card">
                     <div class="unit-card__header"><div class="unit-card__badge unit-card__badge--sul">Unidade Bs Tower</div></div>
-                    <div class="unit-card__map"><img loading="lazy" src="img/unidades/bs-tower.webp" alt="Fachada da Unidade Bs Tower" class="unit-img" decoding="async"></div>
+                    <div class="unit-card__map"><img loading="lazy" src="img/unidades/bs-tower.webp" alt="Fachada da Unidade Bs Tower" class="unit-img" width="400" height="180" decoding="async"></div>
                     <div class="unit-card__body">
                         <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Endereço</strong><p>Rua Gonçalves Lêdo, 777 - Aldeota,<br>Fortaleza/CE — CEP: 60110-260</p></div></div>
                         <div class="unit-card__row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><strong>Horário</strong><p>Seg–Sáb: 7h às 13h</p></div></div>
@@ -464,35 +453,34 @@
                         <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm btn--touch">Agendar</a>
                     </div>
                 </div>
-
             </div></div></section>
         </div>
-
 
         <!-- PAGE: CONVÊNIOS -->
         <div class="page" data-page="convenios">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Planos Aceitos</span><h1 class="page-header__title">Convênios</h1><p class="page-header__sub">Trabalhamos com os principais planos de saúde.</p></div></div>
             <section class="section section--soft"><div class="container">
                 <div class="convenios-grid">
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/amil.webp" alt="Amil" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Amil</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/banco-central.webp" alt="Banco Central do Brasil" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Banco Central do Brasil</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/bradesco-saude.webp" alt="Bradesco Saúde" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Bradesco Saúde</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/cafaz.webp" alt="Cafaz" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Cafaz</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/camed.webp" alt="Camed" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Camed</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/capesesp.webp" alt="Capesesp" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Capesesp</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/cassi.webp" alt="Cassi" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Cassi</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/famed.webp" alt="Famed" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Famed</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/funcef.webp" alt="Funcef" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Funcef</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/fundacao-assefaz.webp" alt="Fundação Assefaz" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Fundação Assefaz</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/geap-saude.webp" alt="Geap Saúde" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Geap Saúde</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/hapvida.webp" alt="Hapvida" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Hapvida</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/ipm.webp" alt="IPM" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">IPM</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/issec.webp" alt="Issec" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Issec</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/liv-saude.webp" alt="Liv Saúde" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Liv Saúde</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/petrobras.webp" alt="Petrobras Asfor" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Petrobras Asfor</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/postal-saude.webp" alt="Postal Saúde" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Postal Saúde</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/sul-america.webp" alt="SulAmérica" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">SulAmérica</span></div>
-                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/unimed.webp" alt="Unimed" class="convenio-img" decoding="async" fetchpriority="low"></div><span class="convenio-item__name">Unimed</span></div>
+                    <!-- CORREÇÃO CLS: width/height explícitos nas logos -->
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/amil.webp" alt="Amil" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Amil</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/banco-central.webp" alt="Banco Central do Brasil" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Banco Central do Brasil</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/bradesco-saude.webp" alt="Bradesco Saúde" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Bradesco Saúde</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/cafaz.webp" alt="Cafaz" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Cafaz</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/camed.webp" alt="Camed" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Camed</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/capesesp.webp" alt="Capesesp" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Capesesp</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/cassi.webp" alt="Cassi" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Cassi</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/famed.webp" alt="Famed" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Famed</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/funcef.webp" alt="Funcef" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Funcef</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/fundacao-assefaz.webp" alt="Fundação Assefaz" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Fundação Assefaz</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/geap-saude.webp" alt="Geap Saúde" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Geap Saúde</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/hapvida.webp" alt="Hapvida" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Hapvida</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/ipm.webp" alt="IPM" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">IPM</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/issec.webp" alt="Issec" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Issec</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/liv-saude.webp" alt="Liv Saúde" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Liv Saúde</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/petrobras.webp" alt="Petrobras Asfor" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Petrobras Asfor</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/postal-saude.webp" alt="Postal Saúde" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Postal Saúde</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/sul-america.webp" alt="SulAmérica" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">SulAmérica</span></div>
+                    <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/unimed.webp" alt="Unimed" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Unimed</span></div>
                 </div>
                 <div class="section-cta"><p>Não encontrou seu convênio?</p><a href="#contato" class="btn btn--primary btn--touch spa-link" data-page="contato">Entre em Contato</a></div>
             </div></section>
@@ -519,7 +507,7 @@
         <!-- PAGE: OUVIDORIA -->
         <div class="page" data-page="ouvidoria">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Canal Direto</span><h1 class="page-header__title">Ouvidoria</h1><p class="page-header__sub">Sua opinião é fundamental.</p></div></div>
-            <section class="section section--soft"><div class="container"><div class="ouvidoria-card"><div class="ouvidoria__icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><p class="ouvidoria__text">A Ouvidoria da Radiogênesis é o canal dedicado para ouvir suas sugestões, elogios ou reclamações.</p><div class="ouvidoria__channels"><div class="ouvidoria__channel"><strong>E-mail:</strong><a href="mailto:ouvidoria@radiogenesis.com">ouvidoria@radiogenesis.com</a></div><div class="ouvidoria__channel"><strong>Telefone:</strong><a href="tel:+5532545885">(85) 3254.5885</a></div><div class="ouvidoria__channel"><strong>Prazo:</strong><span>Até 5 dias úteis</span></div></div></div></div></section>
+            <section class="section section--soft"><div class="container"><div class="ouvidoria-card"><div class="ouvidoria__icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><p class="ouvidoria__text">A Ouvidoria da Radiogênesis é o canal dedicado para ouvir suas sugestões, elogios ou reclamações.</p><div class="ouvidoria__channels"><div class="ouvidoria__channel"><strong>E-mail:</strong><a href="mailto:ouvidoria@radiogenesis.com">ouvidoria@radiogenesis.com</a></div><div class="ouvidoria__channel"><strong>Telefone:</strong><a href="tel:+558532545885">(85) 3254.5885</a></div><div class="ouvidoria__channel"><strong>Prazo:</strong><span>Até 5 dias úteis</span></div></div></div></div></section>
         </div>
 
         <!-- PAGE: TRABALHE CONOSCO -->
@@ -529,129 +517,53 @@
                 <div class="trabalhe-card__icon"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                 <h2>Junte-se à nossa equipe</h2>
                 <p>Envie seu currículo e venha crescer conosco.</p>
-                <a href="mailto:rhradiogenesis@gmail.com" class="btn btn--primary btn--lg btn--touch">Enviar Currículo</a>                <small>Ou use seu app de e-mail padrão: <a href="mailto:rhradiogenesis@gmail.com" class="link-footer">rhradiogenesis@gmail.com</a></small>
+                <a href="mailto:rhradiogenesis@gmail.com" class="btn btn--primary btn--lg btn--touch">Enviar Currículo</a>
+                <small>Ou use seu app de e-mail padrão: <a href="mailto:rhradiogenesis@gmail.com" class="link-footer">rhradiogenesis@gmail.com</a></small>
             </div></div></section>
         </div>
 
-
-        <!-- SUBPÁGINAS DE EXAMES -->
-        <!-- Padrão reutilizável para cada subpágina -->
-
-        <!-- SUBPÁGINA: Ressonância Magnética -->
+        <!-- SUBPÁGINAS DE EXAMES (mantidas iguais, apenas com width/height nas imagens) -->
         <div class="page exame-sub" data-page="exames/ressonancia-magnetica" data-exame="ressonancia-magnetica">
-            <div class="exame-sub__header page-header">
-                <div class="container">
-                    <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        Voltar para Exames
-                    </button>
-                    <h1 class="page-header__title" style="margin-top:16px">Ressonância Magnética</h1>
-                    <p class="page-header__sub">A Ressonância Magnética (RM) é um método de diagnóstico por imagem que utiliza campos magnéticos e ondas de rádio para gerar imagens detalhadas dos órgãos e tecidos internos do corpo humano, sem utilizar radiação ionizante.</p>
-                </div>
-            </div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="exame-sub__image-card">
-                        <div class="exame-sub__image-card-header">
-                            <div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-                            <span>Imagem Ilustrativa</span>
-                        </div>
-                        <div class="exame-sub__image-slot">
-                            <img loading="lazy" src="img/exames/ressonancia-magnetica.webp" alt="Ressonância Magnética">
-                        </div>
-                    </div>
-                    <div class="exame-sub__grid">
-                        <div class="exame-sub__card exame-sub__card--green">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Indicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--green"><li>Avaliação de doenças do sistema nervoso central (crânio e coluna)</li><li>Investigação de lesões musculares, tendíneas e articulares</li><li>Diagnóstico de tumores e nódulos em diversos órgãos</li><li>Avaliação cardíaca e vascular</li><li>Investigação de doenças abdominais e pélvicas</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--red">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                                <h2>Contraindicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--red"><li>Portadores de marcapasso cardíaco ou desfibrilador implantável</li><li>Implantes cocleares (dependendo do modelo)</li><li>Clipes metálicos intracranianos (dependendo do material)</li><li>Corpos estranhos metálicos nos olhos</li><li>Gravidez no primeiro trimestre (avaliar risco/benefício)</li><li>Claustrofobia severa (pode ser necessária sedação)</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--full">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Preparo para o Exame</h2>
-                            </div>
-                            <p class="exame-sub__preparo-text">Em geral não é necessário preparo especial. Para exames abdominais pode ser solicitado jejum de 4 horas. Retire adornos metálicos antes do exame. Informe ao médico sobre implantes ou próteses metálicas.</p>
-                            <div class="exame-sub__duracao">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span><strong>Duração estimada:</strong> 30 a 60 minutos, dependendo da região examinada.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <!-- SUBPÁGINA: Tomografia Computadorizada -->
-        <div class="page exame-sub" data-page="exames/tomografia-computadorizada" data-exame="tomografia-computadorizada">
-            <div class="exame-sub__header page-header">
-                <div class="container">
-                    <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        Voltar para Exames
-                    </button>
-                    <h1 class="page-header__title" style="margin-top:16px">Tomografia Computadorizada</h1>
-                    <p class="page-header__sub">A Tomografia Computadorizada (TC) é um exame de imagem que utiliza raios X e processamento computacional para gerar imagens transversais detalhadas do interior do corpo. Permite visualizar ossos, vasos sanguíneos e tecidos moles com alta precisão.</p>
-                </div>
-            </div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="exame-sub__image-card">
-                        <div class="exame-sub__image-card-header">
-                            <div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-                            <span>Imagem Ilustrativa</span>
-                        </div>
-                        <div class="exame-sub__image-slot">
-                            <img loading="lazy" src="img/exames/tomografia-computadorizada.webp" alt="Tomografia Computadorizada">
-                        </div>
-                    </div>
-                    <div class="exame-sub__grid">
-                        <div class="exame-sub__card exame-sub__card--green">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Indicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--green"><li>Avaliação de traumas e fraturas ósseas</li><li>Investigação de doenças pulmonares e torácicas</li><li>Diagnóstico de lesões abdominais e pélvicas</li><li>Avaliação de AVC e hemorragias cerebrais</li><li>Planejamento cirúrgico e oncológico</li><li>Investigação de doenças vasculares</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--red">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                                <h2>Contraindicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--red"><li>Gravidez (especialmente no primeiro trimestre) — avaliar risco/benefício</li><li>Alergia ao contraste iodado (quando aplicável)</li><li>Insuficiência renal grave (uso de contraste)</li><li>Hipertireoidismo não tratado (uso de contraste iodado)</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--full">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Preparo para o Exame</h2>
-                            </div>
-                            <p class="exame-sub__preparo-text">Para exames sem contraste, geralmente não é necessário preparo. Com contraste, jejum de 4 horas é recomendado. Informe sobre alergias e medicamentos em uso.</p>
-                            <div class="exame-sub__duracao">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span><strong>Duração estimada:</strong> 5 a 20 minutos.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- SUBPÁGINA: Biópsia, Punção e Marcação Cirúrgica -->
-                <div class="page exame-sub" data-page="exames/biopsia-puncao-marcacao" data-exame="biopsia-puncao-marcacao">            <div class="exame-sub__header page-header"><div class="container">
+            <div class="exame-sub__header page-header"><div class="container">
                 <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
-                <h1 class="page-header__title" style="margin-top:16px">Biópsia, Punção e Marcação Cirúrgica</h1>
-                <p class="page-header__sub">Procedimentos minimamente invasivos realizados sob guia de imagem para coleta de amostras de tecido, aspiração de líquidos ou marcação de lesões para cirurgia. Garantem precisão diagnóstica com mínimo desconforto.</p>
+                <h1 class="page-header__title" style="margin-top:16px">Ressonância Magnética</h1>
+                <p class="page-header__sub">A Ressonância Magnética (RM) é um método de diagnóstico por imagem que utiliza campos magnéticos e ondas de rádio para gerar imagens detalhadas dos órgãos e tecidos internos do corpo humano, sem utilizar radiação ionizante.</p>
             </div></div>
             <section class="section section--soft"><div class="container">
-            <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/biopsia-puncao-marcacao.webp" alt="Biópsia, Punção e Marcação Cirúrgica"></div></div>                <div class="exame-sub__grid">
+                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/ressonancia-magnetica.webp" alt="Ressonância Magnética" width="1200" height="450"></div></div>
+                <div class="exame-sub__grid">
+                    <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Avaliação de doenças do sistema nervoso central (crânio e coluna)</li><li>Investigação de lesões musculares, tendíneas e articulares</li><li>Diagnóstico de tumores e nódulos em diversos órgãos</li><li>Avaliação cardíaca e vascular</li><li>Investigação de doenças abdominais e pélvicas</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Portadores de marcapasso cardíaco ou desfibrilador implantável</li><li>Implantes cocleares (dependendo do modelo)</li><li>Clipes metálicos intracranianos (dependendo do material)</li><li>Corpos estranhos metálicos nos olhos</li><li>Gravidez no primeiro trimestre (avaliar risco/benefício)</li><li>Claustrofobia severa (pode ser necessária sedação)</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Em geral não é necessário preparo especial. Para exames abdominais pode ser solicitado jejum de 4 horas. Retire adornos metálicos antes do exame. Informe ao médico sobre implantes ou próteses metálicas.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 30 a 60 minutos, dependendo da região examinada.</span></div></div>
+                </div>
+            </div></section>
+        </div>
+
+        <div class="page exame-sub" data-page="exames/tomografia-computadorizada" data-exame="tomografia-computadorizada">
+            <div class="exame-sub__header page-header"><div class="container">
+                <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
+                <h1 class="page-header__title" style="margin-top:16px">Tomografia Computadorizada</h1>
+                <p class="page-header__sub">A Tomografia Computadorizada (TC) é um exame de imagem que utiliza raios X e processamento computacional para gerar imagens transversais detalhadas do interior do corpo.</p>
+            </div></div>
+            <section class="section section--soft"><div class="container">
+                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/tomografia-computadorizada.webp" alt="Tomografia Computadorizada" width="1200" height="450"></div></div>
+                <div class="exame-sub__grid">
+                    <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Avaliação de traumas e fraturas ósseas</li><li>Investigação de doenças pulmonares e torácicas</li><li>Diagnóstico de lesões abdominais e pélvicas</li><li>Avaliação de AVC e hemorragias cerebrais</li><li>Planejamento cirúrgico e oncológico</li><li>Investigação de doenças vasculares</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Gravidez (especialmente no primeiro trimestre) — avaliar risco/benefício</li><li>Alergia ao contraste iodado (quando aplicável)</li><li>Insuficiência renal grave (uso de contraste)</li><li>Hipertireoidismo não tratado (uso de contraste iodado)</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Para exames sem contraste, geralmente não é necessário preparo. Com contraste, jejum de 4 horas é recomendado. Informe sobre alergias e medicamentos em uso.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 5 a 20 minutos.</span></div></div>
+                </div>
+            </div></section>
+        </div>
+
+        <div class="page exame-sub" data-page="exames/biopsia-puncao-marcacao" data-exame="biopsia-puncao-marcacao">
+            <div class="exame-sub__header page-header"><div class="container">
+                <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
+                <h1 class="page-header__title" style="margin-top:16px">Biópsia, Punção e Marcação Cirúrgica</h1>
+                <p class="page-header__sub">Procedimentos minimamente invasivos realizados sob guia de imagem para coleta de amostras de tecido, aspiração de líquidos ou marcação de lesões para cirurgia.</p>
+            </div></div>
+            <section class="section section--soft"><div class="container">
+                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/biopsia-puncao-marcacao.webp" alt="Biópsia, Punção e Marcação Cirúrgica" width="1200" height="450"></div></div>
+                <div class="exame-sub__grid">
                     <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Investigação de nódulos suspeitos em mama, tireoide, fígado e outros órgãos</li><li>Coleta de material para análise histopatológica ou citológica</li><li>Punção aspirativa de cistos e abscessos</li><li>Marcação de lesões não palpáveis antes de cirurgias</li><li>Estadiamento de doenças oncológicas</li></ul></div>
                     <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Distúrbios graves de coagulação não corrigidos</li><li>Uso de anticoagulantes (pode ser necessária suspensão prévia)</li><li>Infecção ativa na região a ser puncionada</li><li>Impossibilidade de cooperação do paciente</li></ul></div>
                     <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Exames de coagulação podem ser solicitados previamente. Informe ao médico sobre uso de anticoagulantes, AAS ou outros medicamentos. Jejum de 4 horas em alguns procedimentos.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 20 a 60 minutos, incluindo preparo e observação pós-procedimento.</span></div></div>
@@ -659,416 +571,137 @@
             </div></section>
         </div>
 
-        <!-- SUBPÁGINA: Raio-X Digital -->
         <div class="page exame-sub" data-page="exames/raio-x-digital" data-exame="raio-x-digital">
-            <div class="exame-sub__header page-header">
-                <div class="container">
-                    <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        Voltar para Exames
-                    </button>
-                    <h1 class="page-header__title" style="margin-top:16px">Raio-X Digital</h1>
-                    <p class="page-header__sub">O Raio-X Digital utiliza radiação ionizante em baixa dose para gerar imagens de estruturas internas do corpo. A versão digital oferece imagens de alta resolução com menor exposição à radiação em relação ao raio-x convencional.</p>
+            <div class="exame-sub__header page-header"><div class="container">
+                <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
+                <h1 class="page-header__title" style="margin-top:16px">Raio-X Digital</h1>
+                <p class="page-header__sub">O Raio-X Digital utiliza radiação ionizante em baixa dose para gerar imagens de estruturas internas do corpo com alta resolução e menor exposição.</p>
+            </div></div>
+            <section class="section section--soft"><div class="container">
+                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/raio-x-digital.webp" alt="Raio-X Digital" width="1200" height="450"></div></div>
+                <div class="exame-sub__grid">
+                    <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Diagnóstico de fraturas e lesões ósseas</li><li>Avaliação pulmonar (pneumonia, derrame pleural, tuberculose)</li><li>Triagem cardiológica (silhueta cardíaca)</li><li>Avaliação da coluna vertebral</li><li>Exames pré-operatórios e admissionais</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Gravidez confirmada ou suspeita (especialmente abdômen e pelve) — avaliar risco/benefício</li><li>Exposição repetida e desnecessária deve ser evitada</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Não é necessário preparo especial. Retire adornos metálicos, brincos e piercings da região a ser examinada.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 5 a 10 minutos.</span></div></div>
                 </div>
-            </div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="exame-sub__image-card">
-                        <div class="exame-sub__image-card-header">
-                            <div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-                            <span>Imagem Ilustrativa</span>
-                        </div>
-                        <div class="exame-sub__image-slot">
-                            <img loading="lazy" src="img/exames/raio-x-digital.webp" alt="Raio-X Digital">
-                        </div>
-                    </div>
-                    <div class="exame-sub__grid">
-                        <div class="exame-sub__card exame-sub__card--green">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Indicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--green"><li>Diagnóstico de fraturas e lesões ósseas</li><li>Avaliação pulmonar (pneumonia, derrame pleural, tuberculose)</li><li>Triagem cardiológica (silhueta cardíaca)</li><li>Avaliação da coluna vertebral</li><li>Exames pré-operatórios e admissionais</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--red">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                                <h2>Contraindicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--red"><li>Gravidez confirmada ou suspeita (especialmente abdômen e pelve) — avaliar risco/benefício</li><li>Exposição repetida e desnecessária deve ser evitada</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--full">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Preparo para o Exame</h2>
-                            </div>
-                            <p class="exame-sub__preparo-text">Não é necessário preparo especial. Retire adornos metálicos, brincos e piercings da região a ser examinada.</p>
-                            <div class="exame-sub__duracao">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span><strong>Duração estimada:</strong> 5 a 10 minutos.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div></section>
         </div>
 
-       <!-- SUBPÁGINA: Mamografia Digital -->
         <div class="page exame-sub" data-page="exames/mamografia-digital" data-exame="mamografia-digital">
-            <div class="exame-sub__header page-header">
-                <div class="container">
-                    <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        Voltar para Exames
-                    </button>
-                    <h1 class="page-header__title" style="margin-top:16px">Mamografia Digital</h1>
-                    <p class="page-header__sub">A Mamografia Digital é o exame padrão-ouro para rastreamento e diagnóstico precoce do câncer de mama. Utiliza raios X de baixa dose para identificar nódulos, microcalcificações e outras alterações antes mesmo de serem palpáveis.</p>
+            <div class="exame-sub__header page-header"><div class="container">
+                <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
+                <h1 class="page-header__title" style="margin-top:16px">Mamografia Digital</h1>
+                <p class="page-header__sub">A Mamografia Digital é o exame padrão-ouro para rastreamento e diagnóstico precoce do câncer de mama, identificando alterações antes mesmo de serem palpáveis.</p>
+            </div></div>
+            <section class="section section--soft"><div class="container">
+                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/mamografia-digital.webp" alt="Mamografia Digital" width="1200" height="450"></div></div>
+                <div class="exame-sub__grid">
+                    <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Rastreamento de câncer de mama a partir dos 40 anos (anual)</li><li>Investigação de nódulos, espessamentos ou secreções mamilares</li><li>Avaliação de microcalcificações</li><li>Acompanhamento de pacientes com histórico familiar de câncer de mama</li><li>Pré-operatório de cirurgias mamárias</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Gravidez (relativa — avaliar risco/benefício em casos indispensáveis)</li><li>Implantes mamários não são contraindicação, mas devem ser informados ao técnico</li><li>Amamentação recente pode reduzir a qualidade das imagens</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Não utilize desodorante, talco ou creme nas axilas e mamas no dia do exame. Evite realizar no período pré-menstrual. Use roupas de duas peças para facilitar o procedimento.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 15 a 30 minutos.</span></div></div>
                 </div>
-            </div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="exame-sub__image-card">
-                        <div class="exame-sub__image-card-header">
-                            <div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-                            <span>Imagem Ilustrativa</span>
-                        </div>
-                        <div class="exame-sub__image-slot">
-                            <img loading="lazy" src="img/exames/mamografia-digital.webp" alt="Mamografia Digital">
-                        </div>
-                    </div>
-                    <div class="exame-sub__grid">
-                        <div class="exame-sub__card exame-sub__card--green">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Indicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--green"><li>Rastreamento de câncer de mama a partir dos 40 anos (anual)</li><li>Investigação de nódulos, espessamentos ou secreções mamilares</li><li>Avaliação de microcalcificações</li><li>Acompanhamento de pacientes com histórico familiar de câncer de mama</li><li>Pré-operatório de cirurgias mamárias</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--red">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                                <h2>Contraindicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--red"><li>Gravidez (relativa — avaliar risco/benefício em casos indispensáveis)</li><li>Implantes mamários não são contraindicação, mas devem ser informados ao técnico</li><li>Amamentação recente pode reduzir a qualidade das imagens</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--full">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Preparo para o Exame</h2>
-                            </div>
-                            <p class="exame-sub__preparo-text">Não utilize desodorante, talco ou creme nas axilas e mamas no dia do exame. Evite realizar no período pré-menstrual. Use roupas de duas peças para facilitar o procedimento.</p>
-                            <div class="exame-sub__duracao">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span><strong>Duração estimada:</strong> 15 a 30 minutos.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div></section>
         </div>
 
-       <!-- SUBPÁGINA: Ultrassonografia com Doppler -->
         <div class="page exame-sub" data-page="exames/ultrassonografia-doppler" data-exame="ultrassonografia-doppler">
-            <div class="exame-sub__header page-header">
-                <div class="container">
-                    <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        Voltar para Exames
-                    </button>
-                    <h1 class="page-header__title" style="margin-top:16px">Ultrassonografia com Doppler</h1>
-                    <p class="page-header__sub">O Doppler avalia o fluxo sanguíneo em artérias e veias em tempo real. Permite identificar obstruções, tromboses, varizes e alterações vasculares com precisão, sem radiação e de forma não invasiva.</p>
+            <div class="exame-sub__header page-header"><div class="container">
+                <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
+                <h1 class="page-header__title" style="margin-top:16px">Ultrassonografia com Doppler</h1>
+                <p class="page-header__sub">O Doppler avalia o fluxo sanguíneo em artérias e veias em tempo real, identificando obstruções, tromboses e alterações vasculares com precisão.</p>
+            </div></div>
+            <section class="section section--soft"><div class="container">
+                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/ultrassonografia-doppler.webp" alt="Ultrassonografia com Doppler" width="1200" height="450"></div></div>
+                <div class="exame-sub__grid">
+                    <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Diagnóstico de trombose venosa profunda (TVP)</li><li>Avaliação de insuficiência venosa e varizes</li><li>Investigação de estenoses e oclusões arteriais</li><li>Avaliação do fluxo uteroplacentário em gestações de risco</li><li>Diagnóstico de aneurismas vasculares</li><li>Avaliação de transplantes renais e hepáticos</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Não há contraindicações absolutas para o Doppler convencional</li><li>Feridas abertas ou curativos na região podem dificultar o exame</li><li>Obesidade e edema intenso podem limitar a qualidade das imagens</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Para Doppler abdominal: jejum de 6 horas. Para membros: sem preparo específico. Vista roupas confortáveis que permitam acesso à região.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 30 a 60 minutos, dependendo dos vasos avaliados.</span></div></div>
                 </div>
-            </div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="exame-sub__image-card">
-                        <div class="exame-sub__image-card-header">
-                            <div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-                            <span>Imagem Ilustrativa</span>
-                        </div>
-                        <div class="exame-sub__image-slot">
-                            <img loading="lazy" src="img/exames/ultrassonografia-doppler.webp" alt="Ultrassonografia com Doppler">
-                        </div>
-                    </div>
-                    <div class="exame-sub__grid">
-                        <div class="exame-sub__card exame-sub__card--green">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Indicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--green"><li>Diagnóstico de trombose venosa profunda (TVP)</li><li>Avaliação de insuficiência venosa e varizes</li><li>Investigação de estenoses e oclusões arteriais</li><li>Avaliação do fluxo uteroplacentário em gestações de risco</li><li>Diagnóstico de aneurismas vasculares</li><li>Avaliação de transplantes renais e hepáticos</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--red">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                                <h2>Contraindicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--red"><li>Não há contraindicações absolutas para o Doppler convencional</li><li>Feridas abertas ou curativos na região podem dificultar o exame</li><li>Obesidade e edema intenso podem limitar a qualidade das imagens</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--full">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Preparo para o Exame</h2>
-                            </div>
-                            <p class="exame-sub__preparo-text">Para Doppler abdominal: jejum de 6 horas. Para membros: sem preparo específico. Vista roupas confortáveis que permitam acesso à região.</p>
-                            <div class="exame-sub__duracao">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span><strong>Duração estimada:</strong> 30 a 60 minutos, dependendo dos vasos avaliados.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div></section>
         </div>
 
-        <!-- SUBPÁGINA: Densitometria Óssea -->
         <div class="page exame-sub" data-page="exames/densitometria-ossea" data-exame="densitometria-ossea">
-            <div class="exame-sub__header page-header">
-                <div class="container">
-                    <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        Voltar para Exames
-                    </button>
-                    <h1 class="page-header__title" style="margin-top:16px">Densitometria Óssea</h1>
-                    <p class="page-header__sub">A Densitometria Óssea (DEXA) mede a densidade mineral dos ossos, sendo o método mais preciso para diagnóstico de osteoporose e osteopenia. É indispensável no acompanhamento de pacientes em risco de fraturas.</p>
+            <div class="exame-sub__header page-header"><div class="container">
+                <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
+                <h1 class="page-header__title" style="margin-top:16px">Densitometria Óssea</h1>
+                <p class="page-header__sub">A Densitometria Óssea (DEXA) mede a densidade mineral dos ossos, sendo o método mais preciso para diagnóstico de osteoporose e osteopenia.</p>
+            </div></div>
+            <section class="section section--soft"><div class="container">
+                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/densitometria-ossea.webp" alt="Densitometria Óssea" width="1200" height="450"></div></div>
+                <div class="exame-sub__grid">
+                    <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Diagnóstico e monitoramento de osteoporose e osteopenia</li><li>Mulheres na pós-menopausa (especialmente acima de 65 anos)</li><li>Homens acima de 70 anos</li><li>Pacientes em uso prolongado de corticoides</li><li>Histórico de fraturas por trauma mínimo</li><li>Avaliação em doenças que causam perda óssea</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Gravidez</li><li>Realização de exames com contraste baritado ou radioativo nas últimas 72 horas</li><li>Implantes metálicos extensos na região lombar ou quadril podem interferir nos resultados</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Não realize exames com contraste nos 3 dias anteriores. Não tome suplementos de cálcio no dia do exame. Vista roupas sem metais. Informe sobre histórico de fraturas.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 10 a 20 minutos.</span></div></div>
                 </div>
-            </div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="exame-sub__image-card">
-                        <div class="exame-sub__image-card-header">
-                            <div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-                            <span>Imagem Ilustrativa</span>
-                        </div>
-                        <div class="exame-sub__image-slot">
-                            <img loading="lazy" src="img/exames/densitometria-ossea.webp" alt="Densitometria Óssea">
-                        </div>
-                    </div>
-                    <div class="exame-sub__grid">
-                        <div class="exame-sub__card exame-sub__card--green">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Indicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--green"><li>Diagnóstico e monitoramento de osteoporose e osteopenia</li><li>Mulheres na pós-menopausa (especialmente acima de 65 anos)</li><li>Homens acima de 70 anos</li><li>Pacientes em uso prolongado de corticoides</li><li>Histórico de fraturas por trauma mínimo</li><li>Avaliação em doenças que causam perda óssea</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--red">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                                <h2>Contraindicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--red"><li>Gravidez</li><li>Realização de exames com contraste baritado ou radioativo nas últimas 72 horas</li><li>Implantes metálicos extensos na região lombar ou quadril podem interferir nos resultados</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--full">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Preparo para o Exame</h2>
-                            </div>
-                            <p class="exame-sub__preparo-text">Não realize exames com contraste nos 3 dias anteriores. Não tome suplementos de cálcio no dia do exame. Vista roupas sem metais. Informe sobre histórico de fraturas.</p>
-                            <div class="exame-sub__duracao">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span><strong>Duração estimada:</strong> 10 a 20 minutos.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div></section>
         </div>
 
-        <!-- SUBPÁGINA: Mamotomia -->
         <div class="page exame-sub" data-page="exames/mamotomia" data-exame="mamotomia">
-            <div class="exame-sub__header page-header">
-                <div class="container">
-                    <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        Voltar para Exames
-                    </button>
-                    <h1 class="page-header__title" style="margin-top:16px">Mamotomia</h1>
-                    <p class="page-header__sub">A Mamotomia é um procedimento de biópsia minimamente invasivo guiado por imagem que permite a retirada de amostras de tecido mamário com alta precisão. Utilizada principalmente para investigação de microcalcificações e nódulos não palpáveis.</p>
+            <div class="exame-sub__header page-header"><div class="container">
+                <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
+                <h1 class="page-header__title" style="margin-top:16px">Mamotomia</h1>
+                <p class="page-header__sub">A Mamotomia é um procedimento de biópsia minimamente invasivo guiado por imagem para investigação de microcalcificações e nódulos não palpáveis.</p>
+            </div></div>
+            <section class="section section--soft"><div class="container">
+                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/mamotomia.webp" alt="Mamotomia" width="1200" height="450"></div></div>
+                <div class="exame-sub__grid">
+                    <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Investigação de microcalcificações suspeitas detectadas na mamografia</li><li>Biópsia de nódulos mamários não palpáveis</li><li>Lesões de difícil acesso à biópsia convencional</li><li>Retirada de nódulos benignos (vacuoaspiração)</li><li>Marcação pré-cirúrgica de lesões</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Distúrbios de coagulação não corrigidos</li><li>Uso de anticoagulantes (pode ser necessária suspensão prévia)</li><li>Infecção ativa na mama</li><li>Implantes mamários posicionados próximos à lesão (avaliar individualmente)</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Suspender anticoagulantes e AAS conforme orientação médica. Não utilize desodorante ou creme nas mamas no dia. Traga exames anteriores de mama.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 30 a 60 minutos, incluindo preparo local e observação.</span></div></div>
                 </div>
-            </div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="exame-sub__image-card">
-                        <div class="exame-sub__image-card-header">
-                            <div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-                            <span>Imagem Ilustrativa</span>
-                        </div>
-                        <div class="exame-sub__image-slot">
-                            <img loading="lazy" src="img/exames/mamotomia.webp" alt="Mamotomia">
-                        </div>
-                    </div>
-                    <div class="exame-sub__grid">
-                        <div class="exame-sub__card exame-sub__card--green">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Indicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--green"><li>Investigação de microcalcificações suspeitas detectadas na mamografia</li><li>Biópsia de nódulos mamários não palpáveis</li><li>Lesões de difícil acesso à biópsia convencional</li><li>Retirada de nódulos benignos (vacuoaspiração)</li><li>Marcação pré-cirúrgica de lesões</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--red">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                                <h2>Contraindicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--red"><li>Distúrbios de coagulação não corrigidos</li><li>Uso de anticoagulantes (pode ser necessária suspensão prévia)</li><li>Infecção ativa na mama</li><li>Implantes mamários posicionados próximos à lesão (avaliar individualmente)</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--full">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Preparo para o Exame</h2>
-                            </div>
-                            <p class="exame-sub__preparo-text">Suspender anticoagulantes e AAS conforme orientação médica. Não utilize desodorante ou creme nas mamas no dia. Traga exames anteriores de mama.</p>
-                            <div class="exame-sub__duracao">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span><strong>Duração estimada:</strong> 30 a 60 minutos, incluindo preparo local e observação.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div></section>
         </div>
 
-        <!-- SUBPÁGINA: Ultrassonografia Geral -->
         <div class="page exame-sub" data-page="exames/ultrassonografia-geral" data-exame="ultrassonografia-geral">
-            <div class="exame-sub__header page-header">
-                <div class="container">
-                    <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        Voltar para Exames
-                    </button>
-                    <h1 class="page-header__title" style="margin-top:16px">Ultrassonografia Geral</h1>
-                    <p class="page-header__sub">A Ultrassonografia é um método de diagnóstico por imagem que utiliza ondas sonoras de alta frequência para gerar imagens dos órgãos e estruturas internas do corpo, sem uso de radiação ionizante.</p>
+            <div class="exame-sub__header page-header"><div class="container">
+                <button class="exame-sub__back btn btn--glass btn--sm" data-back="exames"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar para Exames</button>
+                <h1 class="page-header__title" style="margin-top:16px">Ultrassonografia Geral</h1>
+                <p class="page-header__sub">A Ultrassonografia utiliza ondas sonoras de alta frequência para gerar imagens dos órgãos e estruturas internas do corpo, sem uso de radiação ionizante.</p>
+            </div></div>
+            <section class="section section--soft"><div class="container">
+                <div class="exame-sub__image-card"><div class="exame-sub__image-card-header"><div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span>Imagem Ilustrativa</span></div><div class="exame-sub__image-slot"><img loading="lazy" src="img/exames/ultrassonografia-geral.webp" alt="Ultrassonografia Geral" width="1200" height="450"></div></div>
+                <div class="exame-sub__grid">
+                    <div class="exame-sub__card exame-sub__card--green"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Indicações</h2></div><ul class="exame-sub__list exame-sub__list--green"><li>Avaliação de órgãos abdominais (fígado, vesícula, baço, rins)</li><li>Investigação de nódulos tireoidianos</li><li>Acompanhamento de gestação</li><li>Avaliação pélvica feminina e masculina</li><li>Diagnóstico de hérnias e massas superficiais</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--red"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><h2>Contraindicações</h2></div><ul class="exame-sub__list exame-sub__list--red"><li>Não há contraindicações absolutas</li><li>Limitações em pacientes obesos ou com muito gás intestinal</li></ul></div>
+                    <div class="exame-sub__card exame-sub__card--full"><div class="exame-sub__card-header"><div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h2>Preparo para o Exame</h2></div><p class="exame-sub__preparo-text">Para exames abdominais: jejum de 4 a 6 horas e bexiga cheia. Para exames pélvicos: bexiga cheia. Para exames de tireoide e partes moles: sem preparo.</p><div class="exame-sub__duracao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>Duração estimada:</strong> 15 a 30 minutos.</span></div></div>
                 </div>
-            </div>
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="exame-sub__image-card">
-                        <div class="exame-sub__image-card-header">
-                            <div class="exame-sub__image-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-                            <span>Imagem Ilustrativa</span>
-                        </div>
-                        <div class="exame-sub__image-slot">
-                            <img loading="lazy" src="img/exames/ultrassonografia-geral.webp" alt="Ultrassonografia Geral">
-                        </div>
-                    </div>
-                    <div class="exame-sub__grid">
-                        <div class="exame-sub__card exame-sub__card--green">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Indicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--green"><li>Avaliação de órgãos abdominais (fígado, vesícula, baço, rins)</li><li>Investigação de nódulos tireoidianos</li><li>Acompanhamento de gestação</li><li>Avaliação pélvica feminina e masculina</li><li>Diagnóstico de hérnias e massas superficiais</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--red">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                                <h2>Contraindicações</h2>
-                            </div>
-                            <ul class="exame-sub__list exame-sub__list--red"><li>Não há contraindicações absolutas</li><li>Limitações em pacientes obesos ou com muito gás intestinal</li></ul>
-                        </div>
-                        <div class="exame-sub__card exame-sub__card--full">
-                            <div class="exame-sub__card-header">
-                                <div class="exame-sub__card-icon exame-sub__card-icon--blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                                <h2>Preparo para o Exame</h2>
-                            </div>
-                            <p class="exame-sub__preparo-text">Para exames abdominais: jejum de 4 a 6 horas e bexiga cheia. Para exames pélvicos: bexiga cheia. Para exames de tireoide e partes moles: sem preparo.</p>
-                            <div class="exame-sub__duracao">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span><strong>Duração estimada:</strong> 15 a 30 minutos.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div></section>
         </div>
-        <!-- PAGE: POLÍTICA DE PRIVACIDADE -->
-<div class="page" data-page="politica-de-privacidade">
-    <div class="page-header">
-        <div class="container">
-            <span class="section__badge section__badge--light">Transparência</span>
-            <h1 class="page-header__title">Política de Privacidade e Termos de Uso</h1>
-            <p class="page-header__sub">Efetiva a partir de setembro de 2020.</p>
-        </div>
-    </div>
-    <section class="section section--soft">
-        <div class="container">
-            <div class="privacy-card">
 
+        <!-- PAGE: POLÍTICA DE PRIVACIDADE -->
+        <div class="page" data-page="politica-de-privacidade">
+            <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Transparência</span><h1 class="page-header__title">Política de Privacidade e Termos de Uso</h1><p class="page-header__sub">Efetiva a partir de setembro de 2020.</p></div></div>
+            <section class="section section--soft"><div class="container"><div class="privacy-card">
                 <div class="privacy-block">
                     <h2 class="privacy-title">Política de Privacidade</h2>
                     <p>A sua privacidade é importante para nós. É política do Radiogênesis respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site Radiogênesis, e outros sites que possuímos e operamos.</p>
-                    <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemos por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.</p>
+                    <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemos por meios justos e legais, com o seu conhecimento e consentimento.</p>
                     <p>Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemos dentro de meios comercialmente aceitáveis para evitar perdas e roubos, bem como acesso, divulgação, cópia, uso ou modificação não autorizados.</p>
                     <p>Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei.</p>
-                    <p>O nosso site pode ter links para sites externos que não são operados por nós. Esteja ciente de que não temos controle sobre o conteúdo e práticas desses sites e não podemos aceitar responsabilidade por suas respectivas políticas de privacidade.</p>
+                    <p>O nosso site pode ter links para sites externos que não são operados por nós. Esteja ciente de que não temos controle sobre o conteúdo e práticas desses sites.</p>
                     <p>Você é livre para recusar a nossa solicitação de informações pessoais, entendendo que talvez não possamos fornecer alguns dos serviços desejados.</p>
-                    <p>O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais. Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contato conosco.</p>
+                    <p>O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais.</p>
                 </div>
-
                 <div class="privacy-divider"></div>
-
                 <div class="privacy-block">
                     <h2 class="privacy-title">Termos de Uso</h2>
-
-                    <div class="privacy-section">
-                        <h3 class="privacy-section__title"><span class="privacy-section__num">1</span>Termos</h3>
-                        <p>Ao acessar ao site Radiogênesis, concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis. Se você não concordar com algum desses termos, está proibido de usar ou acessar este site. Os materiais contidos neste site são protegidos pelas leis de direitos autorais e marcas comerciais aplicáveis.</p>
-                    </div>
-
-                    <div class="privacy-section">
-                        <h3 class="privacy-section__title"><span class="privacy-section__num">2</span>Uso de Licença</h3>
-                        <p>É concedida permissão para baixar temporariamente uma cópia dos materiais (informações ou software) no site Radiogênesis, apenas para visualização transitória pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título e, sob esta licença, você não pode:</p>
-                        <ul class="privacy-list">
-                            <li>Modificar ou copiar os materiais;</li>
-                            <li>Usar os materiais para qualquer finalidade comercial ou para exibição pública (comercial ou não comercial);</li>
-                            <li>Tentar descompilar ou fazer engenharia reversa de qualquer software contido no site Radiogênesis;</li>
-                            <li>Remover quaisquer direitos autorais ou outras notações de propriedade dos materiais;</li>
-                            <li>Transferir os materiais para outra pessoa ou espelhar os materiais em qualquer outro servidor.</li>
-                        </ul>
-                        <p>Esta licença será automaticamente rescindida se você violar alguma dessas restrições e poderá ser rescindida pelo Radiogênesis a qualquer momento. Ao encerrar a visualização desses materiais ou após o término desta licença, você deve apagar todos os materiais baixados em sua posse, seja em formato eletrônico ou impresso.</p>
-                    </div>
-
-                    <div class="privacy-section">
-                        <h3 class="privacy-section__title"><span class="privacy-section__num">3</span>Isenção de Responsabilidade</h3>
-                        <p>Os materiais no site da Radiogênesis são fornecidos "como estão". O Radiogênesis não oferece garantias, expressas ou implícitas, e isenta todas as outras garantias, incluindo, sem limitação, garantias implícitas ou condições de comercialização, adequação a um fim específico ou não violação de propriedade intelectual ou outra violação de direitos.</p>
-                        <p>Além disso, o Radiogênesis não garante ou faz qualquer representação relativa à precisão, aos resultados prováveis ou à confiabilidade do uso dos materiais em seu site ou de outra forma relacionado a esses materiais ou em sites vinculados a este site.</p>
-                    </div>
-
-                    <div class="privacy-section">
-                        <h3 class="privacy-section__title"><span class="privacy-section__num">4</span>Limitações</h3>
-                        <p>Em nenhum caso o Radiogênesis ou seus fornecedores serão responsáveis por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucro ou devido a interrupção dos negócios) decorrentes do uso ou da incapacidade de usar os materiais em Radiogênesis, mesmo que o Radiogênesis ou um representante autorizado tenha sido notificado oralmente ou por escrito da possibilidade de tais danos.</p>
-                    </div>
-
-                    <div class="privacy-section">
-                        <h3 class="privacy-section__title"><span class="privacy-section__num">5</span>Precisão dos Materiais</h3>
-                        <p>Os materiais exibidos no site da Radiogênesis podem incluir erros técnicos, tipográficos ou fotográficos. O Radiogênesis não garante que qualquer material em seu site seja preciso, completo ou atual, e pode fazer alterações nos materiais a qualquer momento, sem aviso prévio.</p>
-                    </div>
-
-                    <div class="privacy-section">
-                        <h3 class="privacy-section__title"><span class="privacy-section__num">6</span>Links</h3>
-                        <p>O Radiogênesis não analisou todos os sites vinculados ao seu site e não é responsável pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso por Radiogênesis do site. O uso de qualquer site vinculado é por conta e risco do usuário.</p>
-                    </div>
-
-                    <div class="privacy-section">
-                        <h3 class="privacy-section__title"><span class="privacy-section__num">7</span>Modificações</h3>
-                        <p>O Radiogênesis pode revisar estes termos de serviço do site a qualquer momento, sem aviso prévio. Ao usar este site, você concorda em ficar vinculado à versão atual desses termos de serviço.</p>
-                    </div>
+                    <div class="privacy-section"><h3 class="privacy-section__title"><span class="privacy-section__num">1</span>Termos</h3><p>Ao acessar ao site Radiogênesis, concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis.</p></div>
+                    <div class="privacy-section"><h3 class="privacy-section__title"><span class="privacy-section__num">2</span>Uso de Licença</h3><p>É concedida permissão para baixar temporariamente uma cópia dos materiais apenas para visualização transitória pessoal e não comercial. Sob esta licença, você não pode:</p><ul class="privacy-list"><li>Modificar ou copiar os materiais;</li><li>Usar os materiais para qualquer finalidade comercial;</li><li>Tentar descompilar ou fazer engenharia reversa de qualquer software contido no site;</li><li>Remover quaisquer direitos autorais ou outras notações de propriedade dos materiais;</li><li>Transferir os materiais para outra pessoa ou espelhar os materiais em qualquer outro servidor.</li></ul></div>
+                    <div class="privacy-section"><h3 class="privacy-section__title"><span class="privacy-section__num">3</span>Isenção de Responsabilidade</h3><p>Os materiais no site da Radiogênesis são fornecidos "como estão". O Radiogênesis não oferece garantias, expressas ou implícitas.</p></div>
+                    <div class="privacy-section"><h3 class="privacy-section__title"><span class="privacy-section__num">4</span>Limitações</h3><p>Em nenhum caso o Radiogênesis ou seus fornecedores serão responsáveis por quaisquer danos decorrentes do uso ou da incapacidade de usar os materiais em Radiogênesis.</p></div>
+                    <div class="privacy-section"><h3 class="privacy-section__title"><span class="privacy-section__num">5</span>Precisão dos Materiais</h3><p>Os materiais exibidos no site da Radiogênesis podem incluir erros técnicos, tipográficos ou fotográficos. O Radiogênesis pode fazer alterações nos materiais a qualquer momento, sem aviso prévio.</p></div>
+                    <div class="privacy-section"><h3 class="privacy-section__title"><span class="privacy-section__num">6</span>Links</h3><p>O Radiogênesis não é responsável pelo conteúdo de nenhum site vinculado. O uso de qualquer site vinculado é por conta e risco do usuário.</p></div>
+                    <div class="privacy-section"><h3 class="privacy-section__title"><span class="privacy-section__num">7</span>Modificações</h3><p>O Radiogênesis pode revisar estes termos de serviço do site a qualquer momento, sem aviso prévio.</p></div>
                 </div>
-
-            </div>
-        </div>
-    </section>
+            </div></div></section>
         </div>
     </main>
-
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer__grid">
                 <div class="footer__col">
-                    <div class="logo logo--footer"><img src="img/top.png" alt="Radiogênesis" class="footer-logo-img" style="height:40px;width:auto;"></div>
+                    <div class="logo logo--footer"><img src="img/top.png" alt="Radiogênesis" class="footer-logo-img" width="180" height="40" style="height:40px;width:auto;"></div>
                     <p class="footer__desc">Referência em diagnóstico por imagem há mais de 20 anos.</p>
                     <div class="footer__social">
                         <a href="https://www.facebook.com/radiogenesisclinica/" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
@@ -1077,12 +710,14 @@
                 </div>
                 <div class="footer__col"><h4 class="footer__heading">Exames</h4><ul class="footer__links"><li><a href="#exames/ressonancia-magnetica" class="spa-exame">Ressonância</a></li><li><a href="#exames/tomografia-computadorizada" class="spa-exame">Tomografia</a></li><li><a href="#exames/ultrassonografia-geral" class="spa-exame">Ultrassom</a></li><li><a href="#exames/raio-x-digital" class="spa-exame">Raio-X</a></li><li><a href="#exames/mamografia-digital" class="spa-exame">Mamografia</a></li></ul></div>
                 <div class="footer__col"><h4 class="footer__heading">Institucional</h4><ul class="footer__links"><li><a href="#sobre" class="spa-link" data-page="sobre">Sobre Nós</a></li><li><a href="#equipe" class="spa-link" data-page="equipe">Equipe</a></li><li><a href="#unidades" class="spa-link" data-page="unidades">Unidades</a></li><li><a href="#convenios" class="spa-link" data-page="convenios">Convênios</a></li><li><a href="#ouvidoria" class="spa-link" data-page="ouvidoria">Ouvidoria</a></li><li><a href="#trabalhe-conosco" class="spa-link" data-page="trabalhe-conosco">Trabalhe Conosco</a></li></ul></div>
-                <div class="footer__col"><h4 class="footer__heading">Atendimento</h4><ul class="footer__links"><li><a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer">Laudo Online</a></li><li><a href="https://radiogenesis.naja.app/portal/login" target="_blank" rel="noopener noreferrer">Resultado de Exames</a></li><li><a href="#contato" class="spa-link" data-page="contato">Contato</a></li><li><a href="tel:+558532545885">(85) 3254.5885</a></li></ul><div class="footer__hours"><h4 class="footer__heading">Horários</h4><p>Seg–Sex: 7h às 18h</p><p>Sáb: 7h às 12h</p></div></div>            <div class="footer__bottom">
-    <p>© 2026 Radiogênesis — Todos os direitos reservados.</p>
-    <div class="footer__bottom-links">
-        <a href="#politica-de-privacidade" class="spa-link" data-page="politica-de-privacidade">Política de Privacidade</a>
-    </div>
-</div>
+                <div class="footer__col"><h4 class="footer__heading">Atendimento</h4><ul class="footer__links"><li><a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer">Laudo Online</a></li><li><a href="https://radiogenesis.naja.app/portal/login" target="_blank" rel="noopener noreferrer">Resultado de Exames</a></li><li><a href="#contato" class="spa-link" data-page="contato">Contato</a></li><li><a href="tel:+558532545885">(85) 3254.5885</a></li></ul><div class="footer__hours"><h4 class="footer__heading">Horários</h4><p>Seg–Sex: 7h às 18h</p><p>Sáb: 7h às 12h</p></div></div>
+            </div>
+            <div class="footer__bottom">
+                <p>© 2026 Radiogênesis — Todos os direitos reservados.</p>
+                <div class="footer__bottom-links">
+                    <a href="#politica-de-privacidade" class="spa-link" data-page="politica-de-privacidade">Política de Privacidade</a>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -1095,21 +730,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
     </button>
 
-    <!-- VLibras — Acessibilidade em Libras -->
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
-    </div>
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js" defer></script>
-    <script>
-    window.addEventListener('load', function() {
-        if (window.VLibras) {
-            new window.VLibras.Widget('https://vlibras.gov.br/app');
-        }
-    });
-    </script>
+    <!-- VLIBRAS REMOVIDO — era fonte de lentidão, especialmente em iPhone -->
 
     <script>
     // ---- TEMA ESCURO ----

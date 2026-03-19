@@ -61,6 +61,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initConvenioLogos();
 
+    // 0.7 CORREÇÃO 9 — Fade nas imagens das subpáginas de exames
+    function initExameImgs() {
+        document.querySelectorAll('.exame-sub__image-slot img').forEach(img => {
+            if (img.complete && img.naturalWidth > 0) {
+                img.classList.add('loaded');
+            } else {
+                img.addEventListener('load',  () => img.classList.add('loaded'));
+                img.addEventListener('error', () => img.classList.add('loaded'));
+            }
+        });
+    }
+
+    // 0.8 CORREÇÃO 9 — Fade nas imagens da equipe médica
+    function initTeamImgs() {
+        document.querySelectorAll('.team-img').forEach(img => {
+            if (img.complete && img.naturalWidth > 0) {
+                img.classList.add('loaded');
+            } else {
+                img.addEventListener('load',  () => img.classList.add('loaded'));
+                img.addEventListener('error', () => img.classList.add('loaded'));
+            }
+        });
+    }
+
+    initExameImgs();
+    initTeamImgs();
+
     // 1. Seleção de Elementos Globais
     const header     = document.getElementById('header');
     const hamburger  = document.getElementById('hamburger');
@@ -102,6 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     if (pageId === 'convenios') initConvenioLogos();
+
+                    // CORREÇÃO 9 — reinicia fade ao navegar para páginas de exame ou equipe
+                    if (pageId.startsWith('exames/')) initExameImgs();
+                    if (pageId === 'equipe') initTeamImgs();
                 });
             }
             if (window.location.hash.replace('#', '') !== pageId) {
@@ -166,6 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateActiveNav(navPage);
                 if (hash === 'inicio') { countersAnimated = false; animateCounters(); }
                 if (hash === 'convenios') initConvenioLogos();
+                if (hash.startsWith('exames/')) initExameImgs();
+                if (hash === 'equipe') initTeamImgs();
                 document.dispatchEvent(new CustomEvent('spaNavigate', { detail: { pageId: hash } }));
             }, 10);
         } else {
@@ -278,16 +311,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ================================================
-       6. SCROLL
+       6. SCROLL — CORREÇÃO 6: header hide on scroll
        ================================================ */
+    let lastScrollY = 0;
+
     function handleScroll() {
         if (!ticking) {
             requestAnimationFrame(() => {
-                const isScrolled = window.scrollY > 10;
+                const currentScrollY = window.scrollY;
+                const isScrolled = currentScrollY > 10;
+
+                // box-shadow ao rolar
                 if (header.classList.contains('header--scrolled') !== isScrolled) {
                     header.classList.toggle('header--scrolled', isScrolled);
                 }
-                if (backToTop) backToTop.classList.toggle('visible', window.scrollY > 400);
+
+                // esconde ao rolar para baixo, mostra ao rolar para cima
+                if (currentScrollY > lastScrollY && currentScrollY > 80) {
+                    header.classList.add('header--hidden');
+                } else {
+                    header.classList.remove('header--hidden');
+                }
+
+                lastScrollY = currentScrollY;
+
+                if (backToTop) backToTop.classList.toggle('visible', currentScrollY > 400);
                 ticking = false;
             });
             ticking = true;
@@ -426,6 +474,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // CORREÇÃO LAZY LOAD: carrega background apenas quando slide vai aparecer
+        function loadSlide(slide) {
+            if (!slide || slide.dataset.bgLoaded) return;
+            const bg = slide.dataset.bg;
+            if (bg) {
+                slide.style.backgroundImage = `url('${bg}')`;
+                slide.dataset.bgLoaded = '1';
+            }
+        }
+
+        // Precarrega o próximo slide antes de exibir
+        function preloadNext(index, slides) {
+            const nextIdx = (index + 1) % slides.length;
+            loadSlide(slides[nextIdx]);
+        }
+
         function goTo(index) {
             const slides = getActiveSlides();
             if (!slides.length) return;
@@ -436,12 +500,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 dots[current].removeAttribute('aria-current');
             }
             current = (index + slides.length) % slides.length;
+            loadSlide(slides[current]);
             slides[current].classList.add('active');
             if (dots[current]) {
                 dots[current].classList.add('active');
                 dots[current].setAttribute('aria-current', 'true');
             }
             if (label) label.textContent = slides[current].dataset.label || '';
+            preloadNext(current, slides);
         }
 
         function initCarousel() {
@@ -452,7 +518,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 d.removeAttribute('aria-current');
             });
             current = 0;
-            if (slides[0]) slides[0].classList.add('active');
+            if (slides[0]) {
+                loadSlide(slides[0]);
+                slides[0].classList.add('active');
+            }
+            // Precarrega o segundo slide imediatamente
+            if (slides[1]) loadSlide(slides[1]);
             updateDotVisibility();
             const dots = getActiveDots();
             if (dots[0]) {
@@ -488,7 +559,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Pausa quando a aba fica oculta, retoma só se estiver no início
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 clearInterval(timer);
@@ -497,7 +567,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Pausa ou retoma conforme a página ativa do SPA
         document.addEventListener('spaNavigate', (e) => {
             if (e.detail.pageId === 'inicio') {
                 if (!document.hidden && !isPerfLow) {
@@ -513,169 +582,5 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isPerfLow) startTimer();
     })();
 
-    /* ================================================
-       11. VLIBRAS
-       ================================================ */
-    (function watchVLibras() {
-
-        var STORAGE_KEY = 'rg-vlibras-pos';
-        var dragging    = false;
-        var dragMoved   = false;
-        var startX, startY, startLeft, startTop;
-
-        function getSavedPos() {
-            try {
-                var p = JSON.parse(localStorage.getItem(STORAGE_KEY));
-                if (p && typeof p.left === 'number' && typeof p.top === 'number') return p;
-            } catch(e) {}
-            return null;
-        }
-
-        function clamp(val, min, max) { return Math.min(Math.max(val, min), max); }
-
-        function setPos(vw, left, top) {
-            var W = window.innerWidth;
-            var H = window.innerHeight;
-            var w = vw.offsetWidth  || 80;
-            var h = vw.offsetHeight || 80;
-            left = clamp(left, 0, W - w);
-            top  = clamp(top,  0, H - h);
-            vw.style.setProperty('position',  'fixed',     'important');
-            vw.style.setProperty('z-index',   '299',       'important');
-            vw.style.setProperty('left',      left + 'px', 'important');
-            vw.style.setProperty('top',       top  + 'px', 'important');
-            vw.style.setProperty('right',     'auto',      'important');
-            vw.style.setProperty('bottom',    'auto',      'important');
-            vw.style.setProperty('transform', 'none',      'important');
-            vw.style.setProperty('cursor',    'grab',      'important');
-            var btn = vw.querySelector('[vw-access-button]');
-            if (btn) {
-                btn.style.setProperty('right',     'auto', 'important');
-                btn.style.setProperty('left',      '0',    'important');
-                btn.style.setProperty('bottom',    '0',    'important');
-                btn.style.setProperty('top',       'auto', 'important');
-                btn.style.setProperty('transform', 'none', 'important');
-            }
-            return { left: left, top: top };
-        }
-
-        function applyPosition(vw) {
-            var menu = document.getElementById('mobileMenu');
-            if (menu && menu.classList.contains('open')) return;
-            var saved = getSavedPos();
-            var left, top;
-            if (saved) { left = saved.left; top = saved.top; }
-            else { left = 20; top = window.innerHeight - (vw.offsetHeight || 80) - 20; }
-            setPos(vw, left, top);
-        }
-
-        function isVLibrasControl(target) {
-            var wrapper = target.closest('[vw-plugin-wrapper]');
-            if (!wrapper) return false;
-            return !!(target.closest('button, a, [role="button"]'));
-        }
-
-        function onMouseDown(e) {
-            if (e.button !== 0) return;
-            var vw = document.querySelector('[vw]');
-            if (!vw || !vw.contains(e.target)) return;
-            if (isVLibrasControl(e.target)) return;
-            dragging  = true; dragMoved = false;
-            startX = e.clientX; startY = e.clientY;
-            startLeft = parseInt(vw.style.left) || 20;
-            startTop  = parseInt(vw.style.top)  || (window.innerHeight - 80);
-            vw.style.setProperty('cursor', 'grabbing', 'important');
-        }
-
-        function onMouseMove(e) {
-            if (!dragging) return;
-            var vw = document.querySelector('[vw]');
-            if (!vw) return;
-            var dx = e.clientX - startX; var dy = e.clientY - startY;
-            if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
-            setPos(vw, startLeft + dx, startTop + dy);
-        }
-
-        function onMouseUp() {
-            if (!dragging) return;
-            dragging = false;
-            var vw = document.querySelector('[vw]');
-            if (!vw) return;
-            vw.style.setProperty('cursor', 'grab', 'important');
-            if (dragMoved) {
-                var left = parseInt(vw.style.left) || 20;
-                var top  = parseInt(vw.style.top)  || 20;
-                try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ left: left, top: top })); } catch(e) {}
-            }
-        }
-
-        function onTouchStart(e) {
-            var vw = document.querySelector('[vw]');
-            if (!vw || !vw.contains(e.target)) return;
-            if (isVLibrasControl(e.target)) return;
-            var t = e.touches[0];
-            dragging = true; dragMoved = false;
-            startX = t.clientX; startY = t.clientY;
-            startLeft = parseInt(vw.style.left) || 20;
-            startTop  = parseInt(vw.style.top)  || (window.innerHeight - 80);
-        }
-
-        function onTouchMove(e) {
-            if (!dragging) return;
-            var vw = document.querySelector('[vw]');
-            if (!vw) return;
-            var t = e.touches[0];
-            var dx = t.clientX - startX; var dy = t.clientY - startY;
-            if (Math.abs(dx) > 5 || Math.abs(dy) > 5) { dragMoved = true; e.preventDefault(); }
-            setPos(vw, startLeft + dx, startTop + dy);
-        }
-
-        function onTouchEnd() {
-            if (!dragging) return;
-            dragging = false;
-            var vw = document.querySelector('[vw]');
-            if (!vw) return;
-            if (dragMoved) {
-                var left = parseInt(vw.style.left) || 20;
-                var top  = parseInt(vw.style.top)  || 20;
-                try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ left: left, top: top })); } catch(e) {}
-            }
-        }
-
-        window.addEventListener('resize', function() {
-            var vw = document.querySelector('[vw]');
-            if (!vw) return;
-            var left = parseInt(vw.style.left) || 20;
-            var top  = parseInt(vw.style.top)  || 20;
-            var pos  = setPos(vw, left, top);
-            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(pos)); } catch(e) {}
-        });
-
-        function initDrag(vw) { applyPosition(vw); }
-
-        document.addEventListener('mousedown',  onMouseDown);
-        document.addEventListener('mousemove',  onMouseMove);
-        document.addEventListener('mouseup',    onMouseUp);
-        document.addEventListener('touchstart', onTouchStart, { passive: true });
-        document.addEventListener('touchmove',  onTouchMove,  { passive: false });
-        document.addEventListener('touchend',   onTouchEnd);
-
-        var observer = new MutationObserver(function(mutations) {
-            for (var i = 0; i < mutations.length; i++) {
-                if (mutations[i].type === 'childList') {
-                    var vw = document.querySelector('[vw]');
-                    if (vw && !vw.dataset.dragInit) { vw.dataset.dragInit = '1'; initDrag(vw); }
-                    break;
-                }
-            }
-        });
-        observer.observe(document.body, { childList: true, subtree: false });
-
-        window.addEventListener('load', function() {
-            var vw = document.querySelector('[vw]');
-            if (vw && !vw.dataset.dragInit) { vw.dataset.dragInit = '1'; initDrag(vw); }
-        });
-
-    })();
 
 });

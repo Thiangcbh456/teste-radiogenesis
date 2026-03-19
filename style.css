@@ -185,11 +185,14 @@ ul{list-style:none}
     backdrop-filter:blur(12px);
     -webkit-backdrop-filter:blur(12px);
     border-bottom:1px solid rgba(207,216,227,.5);
-    transition:transform 0.3s ease,background 0.3s ease;
+    transition:transform 0.3s ease,background 0.3s ease,box-shadow 0.3s ease;
     will-change:transform;
     transform:translateZ(0);
 }
 .header--scrolled{box-shadow:var(--shadow-md);background:rgba(255,255,255,.97)}
+/* CORREÇÃO 6 — esconde o header ao rolar para baixo */
+.header--hidden{transform:translateY(-100%)}
+
 .header__inner{
     display:flex;
     justify-content:space-between;
@@ -286,7 +289,13 @@ ul{list-style:none}
 .mobile-menu.open{transform:translateX(0)}
 
 .mobile-menu__content{padding:16px 24px 24px}
-.mobile-menu__header{display:none}
+.mobile-menu__header{
+    display:flex;
+    justify-content:flex-end;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--gray-100);
+    margin-bottom:8px;
+}
 .mobile-menu__list{margin-bottom:24px}
 .mobile-menu__link{
     display:flex;align-items:center;
@@ -373,7 +382,7 @@ ul{list-style:none}
 .hero__gradient{
     position:absolute;inset:0;
     background:radial-gradient(circle at 70% 20%,rgba(0,153,200,.18),transparent 50%);
-    pointer-events:none;will-change:opacity;
+    pointer-events:none;
 }
 .hero__inner{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center;padding:clamp(40px,6vw,80px) clamp(16px,4vw,24px);z-index:1}
 .hero__badge{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-full);color:var(--primary-200);font-size:clamp(.72rem,1.8vw,.85rem);font-weight:500;margin-bottom:16px;backdrop-filter:blur(4px)}
@@ -424,7 +433,7 @@ ul{list-style:none}
     width:100%;min-height:200px;
     box-shadow:var(--shadow-sm);
     transition:transform 0.3s cubic-bezier(.4,0,.2,1),box-shadow 0.3s ease;
-    will-change:transform,box-shadow;
+    
     position:relative;
     overflow:hidden;
 }
@@ -459,6 +468,18 @@ ul{list-style:none}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:center}
 .about__image{position:relative}
 .about__image-placeholder{width:100%;aspect-ratio:4/3;background:var(--bg-blue-mist);border-radius:var(--radius-xl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text-light);font-size:.9rem;border:1px solid var(--gray-200)}
+.about__video-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+.about__video-wrapper video {
+    width: 100%;
+    display: block;
+    border-radius: var(--radius-xl);
+}
 .about__experience{position:absolute;bottom:-16px;right:-16px;background:linear-gradient(135deg,var(--primary-color),var(--primary-hover));color:#fff;padding:clamp(16px,3vw,24px);border-radius:var(--radius-lg);text-align:center;box-shadow:var(--shadow-lg);border:3px solid var(--bg-white)}
 .about__experience-number{display:block;font-family:var(--font-heading);font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;line-height:1;color:#fff}
 .about__experience-text{font-size:.75rem;opacity:.9;line-height:1.3;color:#fff}
@@ -473,7 +494,9 @@ ul{list-style:none}
 .team-card:hover{transform:translateY(-8px);border-color:var(--primary-color);box-shadow:var(--shadow-md)}
 .team-card__photo{width:100%;height:320px;overflow:hidden;background-color:var(--bg-blue-mist);position:relative}
 .team-card__placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-.team-img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .5s ease}
+/* CORREÇÃO 9 — fade na imagem da equipe */
+.team-img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;opacity:0;transition:transform .5s ease,opacity .4s ease}
+.team-img.loaded{opacity:1}
 .team-card:hover .team-img{transform:scale(1.1)}
 .team-card__info{padding:clamp(16px,2.5vw,24px);flex-grow:1;display:flex;flex-direction:column;justify-content:center}
 .team-card__name{font-family:var(--font-heading);font-size:clamp(.9rem,2vw,1.1rem);font-weight:600;color:var(--text-heading);margin-bottom:6px}
@@ -491,7 +514,7 @@ ul{list-style:none}
 .unit-card__badge--sul{background:#FFF7ED;color:#C2410C}
 .unit-card__map{margin:12px clamp(12px,2vw,20px) 0;border-radius:var(--radius-md);overflow:hidden;height:180px;position:relative;flex-shrink:0;background:var(--gray-100)}
 .unit-card__map::after{content:'';position:absolute;bottom:0;left:0;right:0;height:48px;background:linear-gradient(to top,rgba(10,31,46,.15),transparent);pointer-events:none}
-.unit-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .45s cubic-bezier(.4,0,.2,1),filter .45s cubic-bezier(.4,0,.2,1),opacity .3s ease;will-change:transform,filter;opacity:0}
+.unit-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .45s cubic-bezier(.4,0,.2,1),filter .45s cubic-bezier(.4,0,.2,1),opacity .3s ease;opacity:0}
 .unit-img.loaded{opacity:1}
 .unit-card:hover .unit-img{transform:scale(1.05);filter:brightness(1.08)}
 .unit-card__body{padding:clamp(14px,2.5vw,20px) clamp(16px,2.5vw,24px);flex:1;display:flex;flex-direction:column;gap:12px}
@@ -573,6 +596,8 @@ ul{list-style:none}
 .trabalhe-card p{color:var(--text-body);line-height:1.8;margin-bottom:24px;font-size:clamp(.85rem,1.8vw,.95rem)}
 .trabalhe-card small{display:block;margin-top:16px;color:var(--text-muted);font-size:.82rem}
 .trabalhe-card small a{color:var(--primary-color);font-weight:600}
+.link-footer{color:var(--primary-color);font-weight:600;text-decoration:underline}
+.link-footer:hover{color:var(--primary-hover)}
 
 /* ---- LAUDO ---- */
 .laudo-card{text-align:center;max-width:480px;margin:0 auto;background:var(--bg-white);padding:clamp(28px,5vw,48px);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);border:1px solid rgba(207,216,227,.3)}
@@ -741,7 +766,6 @@ ul{list-style:none}
     .team-card:hover .team-img{transform:none}
     .exam-card:active,.quick-card:active,.unit-card:active{transform:scale(.98);transition:transform .1s}
     .btn:active{transform:scale(.97);transition:transform .1s}
-    /* CORREÇÃO SCROLL — sem sombra pesada em touch */
     .privacy-card{
         box-shadow:none;
         border:1px solid var(--gray-100);
@@ -954,59 +978,7 @@ ul{list-style:none}
     background-position: center 65%;
 }
 
-/* VLibras */
-[vw] {
-    touch-action: none;
-}
-[vw] .vw-access-button {
-    left: 20px !important;
-    right: auto !important;
-    bottom: 20px !important;
-}
-[vw] .vw-plugin-wrapper {
-    left: 20px !important;
-    right: auto !important;
-}
-[vw],
-[vw] *,
-[vw-plugin-wrapper],
-[vw-plugin-wrapper] * {
-    z-index: 299 !important;
-}
-
-.mobile-menu__logo {
-    filter: brightness(0) saturate(100%) invert(40%) sepia(80%) saturate(500%) hue-rotate(165deg) brightness(95%);
-}
-
-.vw-tooltip {
-    position: absolute;
-    left: 56px;
-    bottom: 8px;
-    background: rgba(10, 22, 40, 0.85);
-    color: #fff;
-    font-size: 0.72rem;
-    font-weight: 500;
-    padding: 5px 10px;
-    border-radius: 6px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    z-index: 300 !important;
-}
-.vw-tooltip::before {
-    content: '';
-    position: absolute;
-    left: -6px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 4px solid transparent;
-    border-right-color: rgba(10, 22, 40, 0.85);
-    border-left: 0;
-}
-[vw]:hover .vw-tooltip {
-    opacity: 1;
-}
+/* VLibras removido — era fonte de lentidão em mobile */
 
 /* ================================================
    CARROSSEL HERO — desktop vs mobile
@@ -1453,11 +1425,17 @@ ul{list-style:none}
     aspect-ratio: 16/6;
     overflow: hidden;
 }
+/* CORREÇÃO 9 — fade nas imagens das subpáginas de exames */
 .exame-sub__image-slot img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    opacity: 0;
+    transition: opacity .4s ease;
+}
+.exame-sub__image-slot img.loaded {
+    opacity: 1;
 }
 .exame-sub__image-placeholder {
     width: 100%;
@@ -1577,7 +1555,7 @@ ul{list-style:none}
     border-radius: 50%;
     background: var(--primary-color);
     opacity: .6;
-    will-change: auto;
+
 }
 
 [data-theme="dark"] .privacy-card {
