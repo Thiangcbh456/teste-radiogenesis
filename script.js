@@ -109,13 +109,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const delay = currentPage ? perfDelay : 0;
         setTimeout(() => {
             allPages.forEach(p => {
-                p.classList.remove('active', 'visible');
-                p.style.display = 'none';
-            });
+    p.classList.remove('active', 'visible');
+    p.style.display = 'none';
+    if (p.dataset.page !== pageId) {
+        p.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            if (!img.dataset.src) img.dataset.src = img.src;
+            img.src = '';
+        });
+    }
+});
             const targetPage = document.querySelector(`.page[data-page="${pageId}"]`);
             if (targetPage) {
-                targetPage.style.display = 'block';
-                window.scrollTo({ top: 0, behavior: 'instant' });
+    targetPage.style.display = 'block';
+    targetPage.querySelectorAll('img[data-src]').forEach(img => {
+        img.classList.remove('loaded');
+        img.src = img.dataset.src;
+        img.addEventListener('load', () => img.classList.add('loaded'), { once: true });
+        img.addEventListener('error', () => img.classList.add('loaded'), { once: true });
+        delete img.dataset.src;
+    });
+    window.scrollTo({ top: 0, behavior: 'instant' });
                 requestAnimationFrame(() => {
                     targetPage.classList.add('active');
                     targetPage.classList.add('visible');
@@ -336,6 +349,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 lastScrollY = currentScrollY;
 
                 if (backToTop) backToTop.classList.toggle('visible', currentScrollY > 400);
+                const socialFloat = document.querySelector('.social-float');
+                if (socialFloat) socialFloat.classList.toggle('visible', currentScrollY > 50);
                 ticking = false;
             });
             ticking = true;
@@ -584,7 +599,94 @@ document.addEventListener('DOMContentLoaded', () => {
         const isPerfLow = document.documentElement.classList.contains('perf-low');
         if (!isPerfLow) startTimer();
     })();
-    
+    /* ================================================
+   PLAYER DE VÍDEO CUSTOMIZADO
+   ================================================ */
+(function initRgPlayer() {
+    const player     = document.getElementById('rgPlayer');
+    if (!player) return;
+    const video      = player.querySelector('.rg-player__video');
+    const bigPlay    = player.querySelector('.rg-player__big-play');
+    const playBtn    = player.querySelector('.rg-player__play');
+    const muteBtn    = player.querySelector('.rg-player__mute');
+    const fullBtn    = player.querySelector('.rg-player__fullscreen');
+    const progress   = player.querySelector('.rg-player__progress');
+    const fill       = player.querySelector('.rg-player__progress-fill');
+    const timeCur    = player.querySelector('.rg-player__time--current');
+    const timeTotal  = player.querySelector('.rg-player__time--total');
+
+    function fmt(s) {
+        const m = Math.floor(s / 60);
+        const sec = Math.floor(s % 60).toString().padStart(2, '0');
+        return `${m}:${sec}`;
+    }
+
+    function togglePlay() {
+        video.paused ? video.play() : video.pause();
+    }
+
+    video.addEventListener('play', () => {
+        player.classList.add('playing');
+        player.classList.remove('paused');
+        playBtn.querySelector('.icon-play').style.display  = 'none';
+        playBtn.querySelector('.icon-pause').style.display = 'block';
+    });
+
+    video.addEventListener('pause', () => {
+        player.classList.remove('playing');
+        player.classList.add('paused');
+        playBtn.querySelector('.icon-play').style.display  = 'block';
+        playBtn.querySelector('.icon-pause').style.display = 'none';
+    });
+
+    video.addEventListener('loadedmetadata', () => {
+        timeTotal.textContent = fmt(video.duration);
+    });
+
+    video.addEventListener('timeupdate', () => {
+        if (!video.duration) return;
+        const pct = (video.currentTime / video.duration) * 100;
+        fill.style.width = pct + '%';
+        timeCur.textContent = fmt(video.currentTime);
+    });
+
+    video.addEventListener('ended', () => {
+        player.classList.remove('playing');
+        player.classList.add('paused');
+        playBtn.querySelector('.icon-play').style.display  = 'block';
+        playBtn.querySelector('.icon-pause').style.display = 'none';
+        fill.style.width = '0%';
+        timeCur.textContent = '0:00';
+    });
+
+    bigPlay.addEventListener('click', togglePlay);
+    playBtn.addEventListener('click', togglePlay);
+    player.addEventListener('click', (e) => {
+        if (e.target === video) togglePlay();
+    });
+
+    muteBtn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        muteBtn.querySelector('.icon-sound').style.display = video.muted ? 'none'  : 'block';
+        muteBtn.querySelector('.icon-muted').style.display = video.muted ? 'block' : 'none';
+    });
+
+    progress.addEventListener('click', (e) => {
+        const rect = progress.getBoundingClientRect();
+        const pct  = (e.clientX - rect.left) / rect.width;
+        video.currentTime = pct * video.duration;
+    });
+
+    fullBtn.addEventListener('click', () => {
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        } else {
+            player.requestFullscreen();
+        }
+    });
+})();
+     // Anti-FOUC: revelar o body após SPA inicializado
+    document.body.classList.add('rg-ready');
 
 
 });
