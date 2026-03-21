@@ -472,42 +472,77 @@
                 </div>
             </section>
 
-            <!-- SEÇÃO 3: Galeria -->
-            <section class="section section--soft">
-                <div class="container">
-                    <div class="section__header">
-                        <span class="section__badge">Estrutura e Instalações</span>
-                        <h2 class="section__title">Nossa Estrutura</h2>
-                        <p style="color:var(--text-muted);font-size:.95rem">Equipamentos de última geração e ambientes pensados para o seu conforto.</p>
-                    </div>
-                    <div class="sobre-galeria">
-                        <div class="sobre-galeria__item sobre-galeria__item--large">
-                            <img src="img/unidades/medical.webp" alt="Unidade Medical" loading="lazy" width="800" height="500">
-                            <div class="sobre-galeria__label">Unidade Medical</div>
-                        </div>
-                        <div class="sobre-galeria__item">
-                            <img src="img/unidades/hospital.webp" alt="Unidade Hospital Gênesis" loading="lazy" width="400" height="300">
-                            <div class="sobre-galeria__label">Unidade Hospital Gênesis</div>
-                        </div>
-                        <div class="sobre-galeria__item">
-                            <img src="img/unidades/bs-tower.webp" alt="Unidade BS Tower" loading="lazy" width="400" height="300">
-                            <div class="sobre-galeria__label">Unidade BS Tower</div>
-                        </div>
-                        <div class="sobre-galeria__item">
-                            <img src="img/exames/ressonancia-magnetica.webp" alt="Ressonância Magnética" loading="lazy" width="400" height="300">
-                            <div class="sobre-galeria__label">Ressonância Magnética</div>
-                        </div>
-                        <div class="sobre-galeria__item">
-                            <img src="img/exames/tomografia-computadorizada.webp" alt="Tomografia Computadorizada" loading="lazy" width="400" height="300">
-                            <div class="sobre-galeria__label">Tomografia Computadorizada</div>
-                        </div>
-                        <div class="sobre-galeria__item">
-                            <img src="img/exames/ultrassonografia-geral.webp" alt="Ultrassonografia" loading="lazy" width="400" height="300">
-                            <div class="sobre-galeria__label">Ultrassonografia</div>
-                        </div>
+            <!-- GALERIA — Slider com miniaturas -->
+<section class="section section--soft sobre-galeria-section">
+    <div class="container">
+        <div class="section__header">
+            <span class="section__badge">Nossas Instalações</span>
+            <h2 class="section__title">Conheça a Radiogênesis</h2>
+            <p class="section__sub">Em breve, fotos das nossas unidades e equipamentos.</p>
+        </div>
+        <div class="sobre-slider" id="sobreSlider">
+            <!-- Imagem principal -->
+            <div class="sobre-slider__main">
+                <div class="sobre-slider__main-inner" id="sobreSliderMain">
+                    <div class="sobre-placeholder sobre-placeholder--main">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <span>Recepção — Unidade Medical</span>
                     </div>
                 </div>
-            </section>
+                <!-- Setas de navegação -->
+                <button class="sobre-slider__arrow sobre-slider__arrow--prev" id="sliderPrev" aria-label="Anterior">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <button class="sobre-slider__arrow sobre-slider__arrow--next" id="sliderNext" aria-label="Próximo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <!-- Contador -->
+                <div class="sobre-slider__counter">
+                    <span id="sliderCurrent">1</span> / <span id="sliderTotal">6</span>
+                </div>
+            </div>
+            <!-- Miniaturas -->
+            <div class="sobre-slider__thumbs" id="sobreSliderThumbs">
+                <button class="sobre-slider__thumb active" data-index="0" aria-label="Ver foto 1">
+                    <div class="sobre-placeholder sobre-placeholder--thumb">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <span>Recepção</span>
+                    </div>
+                </button>
+                <button class="sobre-slider__thumb" data-index="1" aria-label="Ver foto 2">
+                    <div class="sobre-placeholder sobre-placeholder--thumb">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        <span>Ressonância</span>
+                    </div>
+                </button>
+                <button class="sobre-slider__thumb" data-index="2" aria-label="Ver foto 3">
+                    <div class="sobre-placeholder sobre-placeholder--thumb">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        <span>Tomografia</span>
+                    </div>
+                </button>
+                <button class="sobre-slider__thumb" data-index="3" aria-label="Ver foto 4">
+                    <div class="sobre-placeholder sobre-placeholder--thumb">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        <span>Ultrassom</span>
+                    </div>
+                </button>
+                <button class="sobre-slider__thumb" data-index="4" aria-label="Ver foto 5">
+                    <div class="sobre-placeholder sobre-placeholder--thumb">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Hosp. Gênesis</span>
+                    </div>
+                </button>
+                <button class="sobre-slider__thumb" data-index="5" aria-label="Ver foto 6">
+                    <div class="sobre-placeholder sobre-placeholder--thumb">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>BS Tower</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
 
             <!-- SEÇÃO 4: Missão, Visão e Valores -->
             <section class="section section--white">

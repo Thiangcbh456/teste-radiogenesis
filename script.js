@@ -1,5 +1,5 @@
 /* ================================================
-   RADIOGÊNESIS — SPA ENGINE v4.0 (Full Optimized)
+   RADIOGÊNESIS — SPA ENGINE v4.1 (Full Optimized + Fixes)
    Responsivo + Touch-friendly + Performance
    ================================================ */
 
@@ -35,60 +35,41 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
     const perfDelay = document.documentElement.classList.contains('perf-low')  ? 250
-                    : document.documentElement.classList.contains('perf-mid')   ? 280
+                    : document.documentElement.classList.contains('perf-mid')  ? 280
                     : 150;
 
-    // 0.5 Carregamento suave das imagens das unidades
-    document.querySelectorAll('.unit-img').forEach(img => {
+    /* ================================================
+       0.5  FUNÇÕES GENÉRICAS DE FADE-IN DE IMAGENS
+       ================================================ */
+    function bindImageFade(img) {
+        if (img.dataset.listenersBound) return;
+        img.dataset.listenersBound = '1';
         if (img.complete && img.naturalWidth > 0) {
             img.classList.add('loaded');
         } else {
-            img.addEventListener('load', () => img.classList.add('loaded'));
-            img.addEventListener('error', () => img.classList.add('loaded'));
+            img.addEventListener('load',  () => img.classList.add('loaded'), { once: true });
+            img.addEventListener('error', () => img.classList.add('loaded'), { once: true });
         }
-    });
+    }
 
-    // 0.6 Carregamento suave das logos de convênios
+    document.querySelectorAll('.unit-img').forEach(bindImageFade);
+
     function initConvenioLogos() {
-        document.querySelectorAll('.convenio-img').forEach(img => {
-            if (img.complete && img.naturalWidth > 0) {
-                img.classList.add('loaded');
-            } else {
-                img.addEventListener('load',  () => img.classList.add('loaded'));
-                img.addEventListener('error', () => img.classList.add('loaded'));
-            }
-        });
+        document.querySelectorAll('.convenio-img').forEach(bindImageFade);
     }
     initConvenioLogos();
 
-    // 0.7 CORREÇÃO 9 — Fade nas imagens das subpáginas de exames
     function initExameImgs() {
-        document.querySelectorAll('.exame-sub__image-slot img').forEach(img => {
-            if (img.complete && img.naturalWidth > 0) {
-                img.classList.add('loaded');
-            } else {
-                img.addEventListener('load',  () => img.classList.add('loaded'));
-                img.addEventListener('error', () => img.classList.add('loaded'));
-            }
-        });
+        document.querySelectorAll('.exame-sub__image-slot img').forEach(bindImageFade);
     }
 
-    // 0.8 CORREÇÃO 9 — Fade nas imagens da equipe médica
     function initTeamImgs() {
-        document.querySelectorAll('.team-img').forEach(img => {
-            if (img.complete && img.naturalWidth > 0) {
-                img.classList.add('loaded');
-            } else {
-                img.addEventListener('load',  () => img.classList.add('loaded'));
-                img.addEventListener('error', () => img.classList.add('loaded'));
-            }
-        });
+        document.querySelectorAll('.team-img').forEach(bindImageFade);
     }
 
     initExameImgs();
     initTeamImgs();
 
-    // 1. Seleção de Elementos Globais
     const header     = document.getElementById('header');
     const hamburger  = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -96,7 +77,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const allPages   = document.querySelectorAll('.page');
     const overlay    = document.getElementById('mobileOverlay');
 
-    let ticking = false;
+    let ticking         = false;
+    let navigationTimer = null;
+
+    /* ================================================
+       HELPERS: limpar / restaurar imagens lazy
+       ================================================ */
+    function clearPageImages(page) {
+        page.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            if (!img.dataset.src && img.getAttribute('src')) {
+                img.dataset.src = img.getAttribute('src');
+            }
+            img.removeAttribute('src');
+            img.classList.remove('loaded');
+            delete img.dataset.listenersBound;
+        });
+    }
+
+    function restorePageImages(page) {
+        page.querySelectorAll('img[data-src]').forEach(img => {
+            img.classList.remove('loaded');
+            delete img.dataset.listenersBound;
+            img.src = img.dataset.src;
+            delete img.dataset.src;
+            bindImageFade(img);
+        });
+    }
 
     /* ================================================
        1. SPA ROUTER
@@ -106,29 +112,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentPage = document.querySelector('.page.active');
         if (currentPage && currentPage.dataset.page === pageId) return;
         if (currentPage) currentPage.classList.remove('visible');
+
+        if (navigationTimer) {
+            clearTimeout(navigationTimer);
+            navigationTimer = null;
+        }
+
         const delay = currentPage ? perfDelay : 0;
-        setTimeout(() => {
+
+        navigationTimer = setTimeout(() => {
+            navigationTimer = null;
+
             allPages.forEach(p => {
-    p.classList.remove('active', 'visible');
-    p.style.display = 'none';
-    if (p.dataset.page !== pageId) {
-        p.querySelectorAll('img[loading="lazy"]').forEach(img => {
-            if (!img.dataset.src) img.dataset.src = img.src;
-            img.src = '';
-        });
-    }
-});
+                p.classList.remove('active', 'visible');
+                p.style.display = 'none';
+                if (p.dataset.page !== pageId) {
+                    clearPageImages(p);
+                }
+            });
+
             const targetPage = document.querySelector(`.page[data-page="${pageId}"]`);
             if (targetPage) {
-    targetPage.style.display = 'block';
-    targetPage.querySelectorAll('img[data-src]').forEach(img => {
-        img.classList.remove('loaded');
-        img.src = img.dataset.src;
-        img.addEventListener('load', () => img.classList.add('loaded'), { once: true });
-        img.addEventListener('error', () => img.classList.add('loaded'), { once: true });
-        delete img.dataset.src;
-    });
-    window.scrollTo({ top: 0, behavior: 'instant' });
+                targetPage.style.display = 'block';
+                restorePageImages(targetPage);
+                window.scrollTo({ top: 0, behavior: 'instant' });
+
                 requestAnimationFrame(() => {
                     targetPage.classList.add('active');
                     targetPage.classList.add('visible');
@@ -141,17 +149,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         setTimeout(animateCounters, 300);
                     }
 
-                    if (pageId === 'convenios') initConvenioLogos();
-
-                    // CORREÇÃO 9 — reinicia fade ao navegar para páginas de exame ou equipe
+                    if (pageId === 'convenios')       initConvenioLogos();
                     if (pageId.startsWith('exames/')) initExameImgs();
-                    if (pageId === 'equipe') initTeamImgs();
+                    if (pageId === 'equipe')          initTeamImgs();
+                    if (pageId === 'sobre')           initSobreSlider();
                 });
             }
+
             if (window.location.hash.replace('#', '') !== pageId) {
                 history.pushState(null, '', `#${pageId}`);
             }
         }, delay);
+
         document.dispatchEvent(new CustomEvent('spaNavigate', { detail: { pageId } }));
         closeMobileMenu();
     }
@@ -196,22 +205,35 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleHash() {
         const hash = window.location.hash.replace('#', '') || 'inicio';
         const targetPage = document.querySelector(`.page[data-page="${hash}"]`);
+
         if (targetPage) {
+            if (navigationTimer) {
+                clearTimeout(navigationTimer);
+                navigationTimer = null;
+            }
+
             allPages.forEach(p => {
                 p.style.display = 'none';
                 p.classList.remove('active', 'visible');
+                if (p.dataset.page !== hash) clearPageImages(p);
             });
+
             targetPage.style.display = 'block';
+            restorePageImages(targetPage);
+
             setTimeout(() => {
                 targetPage.classList.add('active');
                 targetPage.classList.add('visible');
                 updatePageTitle(hash);
                 const navPage = hash.startsWith('exames/') ? 'exames' : hash;
                 updateActiveNav(navPage);
+
                 if (hash === 'inicio') { countersAnimated = false; animateCounters(); }
-                if (hash === 'convenios') initConvenioLogos();
+                if (hash === 'convenios')       initConvenioLogos();
                 if (hash.startsWith('exames/')) initExameImgs();
-                if (hash === 'equipe') initTeamImgs();
+                if (hash === 'equipe')          initTeamImgs();
+                if (hash === 'sobre')           initSobreSlider();
+
                 document.dispatchEvent(new CustomEvent('spaNavigate', { detail: { pageId: hash } }));
             }, 10);
         } else {
@@ -262,37 +284,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const headerH = header ? header.getBoundingClientRect().height : 0;
         mobileMenu.style.top = headerH + 'px';
         mobileMenu.style.height = '';
-
         mobileMenu.classList.add('open');
         overlay.classList.add('active');
         hamburger.classList.add('active');
         hamburger.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
-
-        const app = document.getElementById('app');
+        const app    = document.getElementById('app');
         const topBar = document.querySelector('.top-bar');
-        if (app) app.style.setProperty('pointer-events', 'none', 'important');
+        if (app)    app.style.setProperty('pointer-events', 'none', 'important');
         if (topBar) topBar.style.setProperty('pointer-events', 'none', 'important');
-        const vw = document.querySelector('[vw]');
-        if (vw) vw.style.setProperty('left', '-200px', 'important');
-
         if (header) menuResizeObserver.observe(header);
     }
 
     function closeMobileMenu() {
+        if (!mobileMenu || !mobileMenu.classList.contains('open')) return;
         mobileMenu.classList.remove('open');
         overlay.classList.remove('active');
         hamburger.classList.remove('active');
         hamburger.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
-
-        const app = document.getElementById('app');
+        const app    = document.getElementById('app');
         const topBar = document.querySelector('.top-bar');
-        if (app) app.style.removeProperty('pointer-events');
+        if (app)    app.style.removeProperty('pointer-events');
         if (topBar) topBar.style.removeProperty('pointer-events');
-        const vw = document.querySelector('[vw]');
-        if (vw) vw.style.setProperty('left', '20px', 'important');
-
         if (header) menuResizeObserver.unobserve(header);
     }
 
@@ -324,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ================================================
-       6. SCROLL — CORREÇÃO 6: header hide on scroll
+       6. SCROLL — header hide on scroll
        ================================================ */
     let lastScrollY = 0;
 
@@ -332,14 +346,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!ticking) {
             requestAnimationFrame(() => {
                 const currentScrollY = window.scrollY;
-                const isScrolled = currentScrollY > 10;
+                const isScrolled     = currentScrollY > 10;
 
-                // box-shadow ao rolar
                 if (header.classList.contains('header--scrolled') !== isScrolled) {
                     header.classList.toggle('header--scrolled', isScrolled);
                 }
 
-                // esconde ao rolar para baixo, mostra ao rolar para cima
                 if (currentScrollY > lastScrollY && currentScrollY > 80) {
                     header.classList.add('header--hidden');
                 } else {
@@ -489,7 +501,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // CORREÇÃO LAZY LOAD: carrega background apenas quando slide vai aparecer
         function loadSlide(slide) {
             if (!slide || slide.dataset.bgLoaded) return;
             const bg = slide.dataset.bg;
@@ -499,7 +510,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Precarrega o próximo slide antes de exibir
         function preloadNext(index, slides) {
             const nextIdx = (index + 1) % slides.length;
             loadSlide(slides[nextIdx]);
@@ -537,7 +547,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadSlide(slides[0]);
                 slides[0].classList.add('active');
             }
-            // Precarrega o segundo slide imediatamente
             if (slides[1]) loadSlide(slides[1]);
             updateDotVisibility();
             const dots = getActiveDots();
@@ -553,8 +562,6 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(carouselResizeTimer);
             carouselResizeTimer = setTimeout(() => {
                 clearInterval(timer);
-                // Zera current antes de reiniciar para evitar
-                // dessincronismo entre dots e slides ao girar o celular
                 current = 0;
                 initCarousel();
                 if (isOnInicio()) startTimer();
@@ -599,94 +606,249 @@ document.addEventListener('DOMContentLoaded', () => {
         const isPerfLow = document.documentElement.classList.contains('perf-low');
         if (!isPerfLow) startTimer();
     })();
+
     /* ================================================
-   PLAYER DE VÍDEO CUSTOMIZADO
-   ================================================ */
-(function initRgPlayer() {
-    const player     = document.getElementById('rgPlayer');
-    if (!player) return;
-    const video      = player.querySelector('.rg-player__video');
-    const bigPlay    = player.querySelector('.rg-player__big-play');
-    const playBtn    = player.querySelector('.rg-player__play');
-    const muteBtn    = player.querySelector('.rg-player__mute');
-    const fullBtn    = player.querySelector('.rg-player__fullscreen');
-    const progress   = player.querySelector('.rg-player__progress');
-    const fill       = player.querySelector('.rg-player__progress-fill');
-    const timeCur    = player.querySelector('.rg-player__time--current');
-    const timeTotal  = player.querySelector('.rg-player__time--total');
+       11. PLAYER DE VÍDEO CUSTOMIZADO
+       ================================================ */
+    (function initRgPlayer() {
+        const player = document.getElementById('rgPlayer');
+        if (!player) return;
+        const video     = player.querySelector('.rg-player__video');
+        const bigPlay   = player.querySelector('.rg-player__big-play');
+        const playBtn   = player.querySelector('.rg-player__play');
+        const muteBtn   = player.querySelector('.rg-player__mute');
+        const fullBtn   = player.querySelector('.rg-player__fullscreen');
+        const progress  = player.querySelector('.rg-player__progress');
+        const fill      = player.querySelector('.rg-player__progress-fill');
+        const timeCur   = player.querySelector('.rg-player__time--current');
+        const timeTotal = player.querySelector('.rg-player__time--total');
 
-    function fmt(s) {
-        const m = Math.floor(s / 60);
-        const sec = Math.floor(s % 60).toString().padStart(2, '0');
-        return `${m}:${sec}`;
-    }
-
-    function togglePlay() {
-        video.paused ? video.play() : video.pause();
-    }
-
-    video.addEventListener('play', () => {
-        player.classList.add('playing');
-        player.classList.remove('paused');
-        playBtn.querySelector('.icon-play').style.display  = 'none';
-        playBtn.querySelector('.icon-pause').style.display = 'block';
-    });
-
-    video.addEventListener('pause', () => {
-        player.classList.remove('playing');
-        player.classList.add('paused');
-        playBtn.querySelector('.icon-play').style.display  = 'block';
-        playBtn.querySelector('.icon-pause').style.display = 'none';
-    });
-
-    video.addEventListener('loadedmetadata', () => {
-        timeTotal.textContent = fmt(video.duration);
-    });
-
-    video.addEventListener('timeupdate', () => {
-        if (!video.duration) return;
-        const pct = (video.currentTime / video.duration) * 100;
-        fill.style.width = pct + '%';
-        timeCur.textContent = fmt(video.currentTime);
-    });
-
-    video.addEventListener('ended', () => {
-        player.classList.remove('playing');
-        player.classList.add('paused');
-        playBtn.querySelector('.icon-play').style.display  = 'block';
-        playBtn.querySelector('.icon-pause').style.display = 'none';
-        fill.style.width = '0%';
-        timeCur.textContent = '0:00';
-    });
-
-    bigPlay.addEventListener('click', togglePlay);
-    playBtn.addEventListener('click', togglePlay);
-    player.addEventListener('click', (e) => {
-        if (e.target === video) togglePlay();
-    });
-
-    muteBtn.addEventListener('click', () => {
-        video.muted = !video.muted;
-        muteBtn.querySelector('.icon-sound').style.display = video.muted ? 'none'  : 'block';
-        muteBtn.querySelector('.icon-muted').style.display = video.muted ? 'block' : 'none';
-    });
-
-    progress.addEventListener('click', (e) => {
-        const rect = progress.getBoundingClientRect();
-        const pct  = (e.clientX - rect.left) / rect.width;
-        video.currentTime = pct * video.duration;
-    });
-
-    fullBtn.addEventListener('click', () => {
-        if (document.fullscreenElement) {
-            document.exitFullscreen();
-        } else {
-            player.requestFullscreen();
+        function fmt(s) {
+            const m   = Math.floor(s / 60);
+            const sec = Math.floor(s % 60).toString().padStart(2, '0');
+            return `${m}:${sec}`;
         }
-    });
-})();
-     // Anti-FOUC: revelar o body após SPA inicializado
+
+        function togglePlay() {
+            video.paused ? video.play() : video.pause();
+        }
+
+        video.addEventListener('play', () => {
+            player.classList.add('playing');
+            player.classList.remove('paused');
+            playBtn.querySelector('.icon-play').style.display  = 'none';
+            playBtn.querySelector('.icon-pause').style.display = 'block';
+        });
+
+        video.addEventListener('pause', () => {
+            player.classList.remove('playing');
+            player.classList.add('paused');
+            playBtn.querySelector('.icon-play').style.display  = 'block';
+            playBtn.querySelector('.icon-pause').style.display = 'none';
+        });
+
+        video.addEventListener('loadedmetadata', () => {
+            timeTotal.textContent = fmt(video.duration);
+        });
+
+        video.addEventListener('timeupdate', () => {
+            if (!video.duration) return;
+            const pct = (video.currentTime / video.duration) * 100;
+            fill.style.width = pct + '%';
+            timeCur.textContent = fmt(video.currentTime);
+        });
+
+        video.addEventListener('ended', () => {
+            player.classList.remove('playing');
+            player.classList.add('paused');
+            playBtn.querySelector('.icon-play').style.display  = 'block';
+            playBtn.querySelector('.icon-pause').style.display = 'none';
+            fill.style.width = '0%';
+            timeCur.textContent = '0:00';
+        });
+
+        bigPlay.addEventListener('click', togglePlay);
+        playBtn.addEventListener('click', togglePlay);
+        player.addEventListener('click', (e) => {
+            if (e.target === video) togglePlay();
+        });
+
+        muteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            muteBtn.querySelector('.icon-sound').style.display = video.muted ? 'none'  : 'block';
+            muteBtn.querySelector('.icon-muted').style.display = video.muted ? 'block' : 'none';
+        });
+
+        progress.addEventListener('click', (e) => {
+            const rect = progress.getBoundingClientRect();
+            const pct  = (e.clientX - rect.left) / rect.width;
+            video.currentTime = pct * video.duration;
+        });
+
+        fullBtn.addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                player.requestFullscreen();
+            }
+        });
+    })();
+
+    /* ================================================
+       12. SLIDER DA PÁGINA SOBRE
+       — Função normal (não IIFE) para poder ser
+         chamada novamente ao navegar para Sobre
+       — Carrossel com deslize automático
+       ================================================ */
+    function initSobreSlider() {
+        const slider = document.getElementById('sobreSlider');
+        if (!slider) return;
+
+        // Para adicionar fotos reais, substitua null pelo caminho com barras normais /
+        // Exemplo: src: 'img/sobre/recepcao.webp'
+        const slides = [
+            { label: 'Unidade Medical',         src: 'img/sobre/medical2.jpg' },
+            { label: 'Ressonância Magnética',    src: null },
+            { label: 'Tomografia',               src: null },
+            { label: 'Ultrassonografia',         src: null },
+            { label: 'Unidade Hospital Gênesis', src: 'img/sobre/hospital.webp' },
+            { label: 'Unidade BS Tower',         src: null },
+        ];
+
+        const mainEl   = document.getElementById('sobreSliderMain');
+        const thumbsEl = document.getElementById('sobreSliderThumbs');
+        const prevBtn  = document.getElementById('sliderPrev');
+        const nextBtn  = document.getElementById('sliderNext');
+        const curEl    = document.getElementById('sliderCurrent');
+        const totalEl  = document.getElementById('sliderTotal');
+
+        if (!mainEl || !thumbsEl) return;
+
+        if (totalEl) totalEl.textContent = slides.length;
+
+        // Monta todos os slides lado a lado para deslize
+        mainEl.innerHTML = '';
+        mainEl.style.cssText = `
+            display: flex;
+            width: ${slides.length * 100}%;
+            transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+        `;
+
+        slides.forEach((slide) => {
+            const item = document.createElement('div');
+            item.style.cssText = `width:${100 / slides.length}%;flex-shrink:0;`;
+
+            if (slide.src) {
+                item.innerHTML = `<img src="${slide.src}" alt="${slide.label}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+            } else {
+                item.innerHTML = `
+                    <div class="sobre-placeholder sobre-placeholder--main">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                        <span>${slide.label || 'Em breve'}</span>
+                    </div>`;
+            }
+            mainEl.appendChild(item);
+        });
+
+        // Atualiza miniaturas com imagem real quando disponível
+        const thumbBtns = thumbsEl.querySelectorAll('.sobre-slider__thumb');
+        thumbBtns.forEach((btn, i) => {
+            if (slides[i] && slides[i].src) {
+                btn.innerHTML = `<img src="${slides[i].src}" alt="${slides[i].label}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:calc(var(--radius-md) - 2px);">`;
+            }
+        });
+
+        let current   = 0;
+        let autoTimer = null;
+
+        function goTo(index) {
+            current = (index + slides.length) % slides.length;
+
+            // Animação de deslize via transform
+            mainEl.style.transform = `translateX(-${current * (100 / slides.length)}%)`;
+
+            if (curEl) curEl.textContent = current + 1;
+
+            thumbsEl.querySelectorAll('.sobre-slider__thumb').forEach((btn, i) => {
+                btn.classList.toggle('active', i === current);
+            });
+        }
+
+        function startAuto() {
+            stopAuto();
+            autoTimer = setInterval(() => goTo(current + 1), 2500);
+        }
+
+        function stopAuto() {
+            if (autoTimer) {
+                clearInterval(autoTimer);
+                autoTimer = null;
+            }
+        }
+
+        function resetAuto() {
+            stopAuto();
+            startAuto();
+        }
+
+        // Remove listeners antigos substituindo botões por clones limpos
+        const freshPrev = prevBtn ? prevBtn.cloneNode(true) : null;
+        const freshNext = nextBtn ? nextBtn.cloneNode(true) : null;
+        if (freshPrev && prevBtn && prevBtn.parentNode) prevBtn.parentNode.replaceChild(freshPrev, prevBtn);
+        if (freshNext && nextBtn && nextBtn.parentNode) nextBtn.parentNode.replaceChild(freshNext, nextBtn);
+
+        const activePrev = document.getElementById('sliderPrev');
+        const activeNext = document.getElementById('sliderNext');
+
+        if (activePrev) activePrev.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+        if (activeNext) activeNext.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+
+        // Reatribui cliques nas miniaturas
+        thumbsEl.querySelectorAll('.sobre-slider__thumb').forEach((btn, i) => {
+            const clone = btn.cloneNode(true);
+            btn.parentNode.replaceChild(clone, btn);
+        });
+        thumbsEl.querySelectorAll('.sobre-slider__thumb').forEach((btn, i) => {
+            btn.addEventListener('click', () => { goTo(i); resetAuto(); });
+        });
+
+        // Pausa ao passar o mouse
+        slider.addEventListener('mouseenter', stopAuto);
+        slider.addEventListener('mouseleave', startAuto);
+
+        // Swipe touch
+        let touchStartX = 0;
+        const mainWrapper = slider.querySelector('.sobre-slider__main');
+        if (mainWrapper) {
+            mainWrapper.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+                stopAuto();
+            }, { passive: true });
+            mainWrapper.addEventListener('touchend', e => {
+                const diff = touchStartX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+                startAuto();
+            }, { passive: true });
+        }
+
+        // Para o timer quando sai da página Sobre
+        document.addEventListener('spaNavigate', (e) => {
+            if (e.detail.pageId !== 'sobre') stopAuto();
+        });
+
+        goTo(0);
+        startAuto();
+    }
+
+    // Chama uma vez no carregamento inicial
+    initSobreSlider();
+
+    // Anti-FOUC: revelar o body após SPA inicializado
     document.body.classList.add('rg-ready');
 
-
+    
 });
