@@ -780,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function startAuto() {
             stopAuto();
-            autoTimer = setInterval(() => goTo(current + 1), 2500);
+            autoTimer = setInterval(() => goTo(current + 1), 3500);
         }
 
         function stopAuto() {
@@ -850,5 +850,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Anti-FOUC: revelar o body após SPA inicializado
     document.body.classList.add('rg-ready');
 
-    
+
 });

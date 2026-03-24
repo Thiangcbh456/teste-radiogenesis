@@ -174,7 +174,7 @@ ul{list-style:none}
 .btn--block{width:100%}
 
 /* ---- TOP BAR ---- */
-.top-bar{background:var(--bg-navy-deep);color:var(--gray-300);font-size:.78rem;padding:6px 0}
+.top-bar{background:linear-gradient(90deg, #0D6E8A 0%, #0F8FAD 50%, #0D6E8A 100%);color:#fff;font-size:.78rem;padding:6px 0}
 .top-bar__inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
 .top-bar__left,.top-bar__right{display:flex;align-items:center;gap:16px}
 .top-bar__link{display:flex;align-items:center;gap:6px;color:var(--gray-300);cursor:pointer;min-height:var(--touch-min);padding:4px 0}
@@ -2225,4 +2225,16 @@ ul{list-style:none}
 .sobre-slider__main-inner {
     display: flex;
     transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+/* Garante que o clique no botão de voltar sempre chegue ao button */
+.exame-sub__back svg {
+    pointer-events: none;
+}
+
+/*Nova Adição para a tela de inicio no tema escuro*/
+[data-theme="dark"] .hero__badge {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: rgba(56, 189, 248, 0.30);
+    color: #e0f2fe;
 }
