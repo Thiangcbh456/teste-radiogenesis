@@ -1,0 +1,65 @@
+/* ================================================
+   12-STATS — Faixa de Estatísticas + Navy Strip
+   ================================================ */
+
+/* ---- Stats Row ---- */
+.stats-row {
+    display: flex;
+    justify-content: center;
+    gap: clamp(24px, 5vw, 64px);
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+    min-width: 100px;
+}
+
+.stat-item__number {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 800;
+    color: #fff;
+}
+
+.stat-item__suffix {
+    font-family: var(--font-heading);
+    font-size: clamp(.85rem, 2vw, 1.1rem);
+    font-weight: 700;
+    color: var(--primary-300);
+}
+
+.stat-item__label {
+    display: block;
+    font-size: clamp(.7rem, 1.5vw, .8rem);
+    color: rgba(143, 163, 184, .8);
+    margin-top: 4px;
+}
+
+/* ---- Navy Strip Section ---- */
+.section--navy-strip {
+    background: linear-gradient(135deg, #0D6E8A 0%, #0F8FAD 50%, #22C4E0 100%);
+    padding: clamp(32px, 5vw, 48px) 0;
+}
+
+.section--navy-strip .mvv-card {
+    background: rgba(255, 255, 255, .12);
+    border-color: rgba(255, 255, 255, .18);
+}
+
+.section--navy-strip .mvv-card::before {
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, .6));
+}
+
+.section--navy-strip .mvv-card__title {
+    color: #fff;
+}
+
+.section--navy-strip .mvv-card__text {
+    color: rgba(255, 255, 255, .85);
+}
+
+.section--navy-strip .mvv-card__icon {
+    background: rgba(255, 255, 255, .18);
+    color: #fff;
+}

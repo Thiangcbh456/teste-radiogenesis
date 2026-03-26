@@ -1,0 +1,205 @@
+/* ================================================
+   05-HEADER — Top Bar, Cabeçalho, Nav, Hamburger
+   ================================================ */
+
+/* ---- Top Bar ---- */
+.top-bar {
+    background: linear-gradient(90deg, #0D6E8A 0%, #0F8FAD 50%, #0D6E8A 100%);
+    color: #fff;
+    font-size: .78rem;
+    padding: 6px 0;
+}
+
+.top-bar__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.top-bar__left,
+.top-bar__right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.top-bar__link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gray-300);
+    cursor: pointer;
+    min-height: var(--touch-min);
+    padding: 4px 0;
+}
+
+.top-bar__link:hover {
+    color: #fff;
+}
+
+/* ---- Header ---- */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(207, 216, 227, .5);
+    transition: transform 0.3s ease, background 0.3s ease;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.header--scrolled {
+    box-shadow: var(--shadow-md);
+    background: rgba(255, 255, 255, .97);
+}
+
+.header--hidden {
+    transform: translateY(-100%);
+}
+
+.header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Respiro vertical equilibrado */
+    padding: 12px 0; 
+}
+
+/* ---- Logo ---- */
+.header__logo {
+    flex-shrink: 0;
+    padding-left: 4px;
+}
+
+.header__logo-img {
+    height: clamp(38px, 6vw, 50px);
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo__icon {
+    color: var(--primary-color);
+    display: flex;
+    flex-shrink: 0;
+}
+
+.logo__text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo__name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--text-heading);
+    line-height: 1.2;
+}
+
+.logo__tagline {
+    font-size: .6rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+}
+
+/* ---- Navegação (Onde estava o problema) ---- */
+.nav__list {
+    display: flex;
+    align-items: center;
+    /* Mantém os botões equilibrados entre si */
+    gap: 6px; 
+    /* CORREÇÃO AQUI: Afasta todo o grupo de botões do Logo */
+    margin-left: 20px; 
+}
+
+.nav__link {
+    /* Respiro interno equilibrado do botão */
+    padding: 8px 12px; 
+    font-size: clamp(.78rem, 1.5vw, .85rem);
+    font-weight: 500;
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+    position: relative;
+    cursor: pointer;
+    min-height: var(--touch-min);
+    display: flex;
+    align-items: center;
+}
+
+.nav__link:hover {
+    color: var(--primary-color);
+    background: var(--primary-50);
+}
+
+.nav__link.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.nav__link.active::after {
+    content: '';
+    position: absolute;
+    /* Respiro vertical da barra de 'Active' */
+    bottom: 2px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* ---- Header Actions ---- */
+.header__actions {
+    display: flex;
+    align-items: center;
+    /* Espaçamento equilibrado entre as ações da direita */
+    gap: 8px; 
+}
+
+.header__btn-desktop {
+    /* visível por padrão no desktop */
+}
+
+/* ---- Hamburger ---- */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1100;
+    flex-shrink: 0;
+    overflow: visible;
+}
+
+.hamburger__line {
+    width: 22px;
+    height: 2.5px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: block;
+    transform-origin: center;
+}

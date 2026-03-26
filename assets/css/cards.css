@@ -1,0 +1,533 @@
+/* ================================================
+   08-CARDS — Quick, Exames, Unidades, Equipe, Convênios
+   ================================================ */
+
+/* ---- QUICK GRID ---- */
+.quick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 2vw, 20px);
+}
+
+.quick-card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(20px, 3vw, 28px) clamp(16px, 2.5vw, 24px);
+    background: var(--bg-white);
+    border: 1px solid rgba(207, 216, 227, .5);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.quick-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-300));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+}
+
+.quick-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--primary-200);
+}
+
+.quick-card:hover::before {
+    transform: scaleX(1);
+}
+
+.quick-card__icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-50);
+    color: var(--primary-color);
+    border-radius: var(--radius-md);
+    margin-bottom: 14px;
+    transition: var(--transition);
+}
+
+.quick-card:hover .quick-card__icon {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.quick-card h3 {
+    font-family: var(--font-heading);
+    font-size: clamp(.9rem, 2vw, 1.05rem);
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 4px;
+}
+
+.quick-card p {
+    font-size: clamp(.78rem, 1.8vw, .85rem);
+    color: var(--text-muted);
+    line-height: 1.5;
+    flex: 1;
+}
+
+.quick-card__arrow {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-top: 10px;
+    transition: var(--transition);
+}
+
+.quick-card:hover .quick-card__arrow {
+    transform: translateX(6px);
+}
+
+/* ---- EXAMES GRID ---- */
+.exames-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2.5vw, 24px);
+    align-items: stretch;
+}
+
+.exam-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-white);
+    border: 1px solid rgba(207, 216, 227, .5);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    width: 100%;
+    min-height: 200px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.exam-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-300));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+}
+
+.exam-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--primary-200);
+}
+
+.exam-card:hover::before {
+    transform: scaleX(1);
+}
+
+.exam-card__icon {
+    width: clamp(44px, 6vw, 56px);
+    height: clamp(44px, 6vw, 56px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-50);
+    border-radius: var(--radius-md);
+    color: var(--primary-color);
+    margin-bottom: 16px;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.exam-card:hover .exam-card__icon {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.exam-card__title {
+    font-family: var(--font-heading);
+    font-size: clamp(.95rem, 2vw, 1.1rem);
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+.exam-card__desc {
+    font-size: clamp(.8rem, 1.8vw, .88rem);
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+    flex: 1;
+}
+
+.exam-card__tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.exam-card__tags span {
+    padding: 4px 10px;
+    background: var(--bg-soft);
+    color: var(--text-muted);
+    font-size: .7rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+/* ---- Botões dos cards de exame ---- */
+.exam-card__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.exam-card__actions .btn {
+    flex: 1;
+    padding: 10px 4px;
+    font-size: .78rem;
+    text-align: center;
+    min-width: 80px;
+}
+
+/* ---- UNITS GRID ---- */
+.units-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2.5vw, 24px);
+    align-items: stretch;
+}
+
+.unit-card {
+    background: var(--bg-white);
+    border: 1px solid rgba(207, 216, 227, .5);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.unit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.unit-card__header {
+    padding: clamp(14px, 2.5vw, 20px) clamp(16px, 2.5vw, 24px) 0;
+}
+
+.unit-card__badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.unit-card__badge--centro {
+    background: #E6F6FB;
+    color: var(--primary-hover);
+}
+
+.unit-card__badge--norte {
+    background: #E6F6FB;
+    color: var(--primary-hover);
+}
+
+.unit-card__badge--sul {
+    background: #E6F6FB;
+    color: var(--primary-hover);
+}
+
+.unit-card__map {
+    margin: 12px clamp(12px, 2vw, 20px) 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    height: 180px;
+    position: relative;
+    flex-shrink: 0;
+    background: var(--gray-100);
+}
+
+.unit-card__map::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: linear-gradient(to top, rgba(10, 31, 46, .15), transparent);
+    pointer-events: none;
+}
+
+.unit-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform .45s cubic-bezier(.4, 0, .2, 1), filter .45s cubic-bezier(.4, 0, .2, 1), opacity .3s ease;
+    opacity: 0;
+}
+
+.unit-img.loaded {
+    opacity: 1;
+}
+
+.unit-card:hover .unit-img {
+    transform: scale(1.05);
+    filter: brightness(1.08);
+}
+
+.unit-card__body {
+    padding: clamp(14px, 2.5vw, 20px) clamp(16px, 2.5vw, 24px);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.unit-card__row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.unit-card__row svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+}
+
+.unit-card__row strong {
+    display: block;
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--text-heading);
+    margin-bottom: 2px;
+}
+
+.unit-card__row p {
+    font-size: clamp(.78rem, 1.8vw, .85rem);
+    color: var(--text-body);
+    line-height: 1.4;
+}
+
+.unit-card__row a {
+    color: var(--primary-color);
+}
+
+.unit-card__row a:hover {
+    text-decoration: underline;
+}
+
+.unit-card__footer {
+    padding: 0 clamp(16px, 2.5vw, 24px) clamp(16px, 2.5vw, 24px);
+    display: flex;
+    gap: 8px;
+}
+
+.unit-card__footer .btn {
+    flex: 1;
+    justify-content: center;
+    font-size: clamp(.7rem, 1.5vw, .78rem);
+}
+
+/* ---- TEAM GRID ---- */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2.5vw, 24px);
+    margin-top: 2rem;
+}
+
+.team-card {
+    background: var(--bg-white);
+    border: 1px solid rgba(207, 216, 227, .5);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform .3s ease, border-color .3s ease;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.team-card__photo {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background-color: var(--bg-blue-mist);
+    position: relative;
+}
+
+.team-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    opacity: 0;
+    transition: transform .5s ease, opacity .4s ease;
+}
+
+.team-img.loaded {
+    opacity: 1;
+}
+
+.team-card:hover .team-img {
+    transform: scale(1.1);
+}
+
+.team-card__info {
+    padding: clamp(16px, 2.5vw, 24px);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.team-card__name {
+    font-family: var(--font-heading);
+    font-size: clamp(.9rem, 2vw, 1.1rem);
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 6px;
+}
+
+.team-card__role {
+    font-size: clamp(.75rem, 1.5vw, .85rem);
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.team-card__crm {
+    font-size: .75rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* ---- CONVÊNIOS GRID ---- */
+.convenios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(10px, 2vw, 16px);
+}
+
+.convenio-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: clamp(16px, 3vw, 24px) clamp(12px, 2vw, 20px);
+    background: #fff;
+    border: 1.5px solid rgba(207, 216, 227, .55);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    min-height: clamp(80px, 12vw, 100px);
+    box-shadow: var(--shadow-sm);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+.convenio-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform .28s ease;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.convenio-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 6px 20px rgba(0, 153, 200, .15);
+    transform: translateY(-3px);
+}
+
+.convenio-item:hover::after {
+    transform: scaleX(1);
+}
+
+.convenio-item > span {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: clamp(.78rem, 1.8vw, .9rem);
+    text-align: center;
+}
+
+.convenio-item:hover > span {
+    color: var(--primary-hover);
+}
+
+.convenio-item__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+}
+
+.convenio-item__logo img,
+.convenio-img {
+    max-width: 100%;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+.convenio-img.loaded {
+    opacity: 1;
+}

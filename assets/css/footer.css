@@ -1,0 +1,156 @@
+/* ================================================
+   13-FOOTER — Rodapé Completo
+   ================================================ */
+
+.footer {
+    background: var(--bg-navy-deep);
+    color: var(--gray-300);
+    padding: clamp(40px, 6vw, 64px) 0 0;
+    border-top: 1px solid rgba(0, 153, 200, .18);
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('../../img/rodape/teste-medical.webp');
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    filter: grayscale(30%);
+    opacity: .15;
+    transform: scale(1.04);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.footer__grid,
+.footer__bottom {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Grid ---- */
+.footer__grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: clamp(24px, 4vw, 48px);
+    padding-bottom: clamp(32px, 5vw, 48px);
+}
+
+/* ---- Logo ---- */
+.footer-logo-img {
+    filter: brightness(0) invert(1);
+    opacity: .85;
+}
+
+/* ---- Description ---- */
+.footer__desc {
+    font-size: .82rem;
+    line-height: 1.7;
+    margin: 14px 0 18px;
+    color: rgba(143, 163, 184, .7);
+}
+
+/* ---- Social Links ---- */
+.footer__social {
+    display: flex;
+    gap: 10px;
+}
+
+.footer__social-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: var(--radius-sm);
+    color: var(--text-light);
+    transition: var(--transition);
+    min-width: var(--touch-min);
+    min-height: var(--touch-min);
+}
+
+.footer__social-link:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ---- Headings ---- */
+.footer__heading {
+    font-family: var(--font-heading);
+    font-size: .82rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ---- Links ---- */
+.footer__links li {
+    margin-bottom: 8px;
+}
+
+.footer__links a {
+    font-size: .82rem;
+    color: rgba(143, 163, 184, .7);
+    cursor: pointer;
+    display: inline-block;
+    min-height: 28px;
+    line-height: 28px;
+}
+
+.footer__links a:hover {
+    color: var(--primary-300);
+    padding-left: 4px;
+}
+
+/* ---- Hours ---- */
+.footer__hours {
+    margin-top: 20px;
+}
+
+.footer__hours p {
+    font-size: .82rem;
+    color: rgba(143, 163, 184, .7);
+    margin-bottom: 4px;
+}
+
+/* ---- Bottom ---- */
+.footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, .06);
+    font-size: .75rem;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.footer__bottom p {
+    color: rgba(143, 163, 184, .5);
+}
+
+.footer__bottom-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer__bottom-links a {
+    color: rgba(143, 163, 184, .5);
+    min-height: var(--touch-min);
+    display: flex;
+    align-items: center;
+}
+
+.footer__bottom-links a:hover {
+    color: var(--primary-300);
+}

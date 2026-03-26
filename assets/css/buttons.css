@@ -1,0 +1,106 @@
+/* ================================================
+   03-BUTTONS — Sistema de Botões
+   ================================================ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: clamp(.8rem, 2vw, .9rem);
+    border: 2px solid transparent;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+    text-decoration: none;
+    min-height: var(--touch-min);
+    padding: 10px 24px;
+}
+
+/* ---- Tamanhos ---- */
+.btn--sm {
+    padding: 8px 20px;
+    font-size: clamp(.75rem, 1.8vw, .8rem);
+}
+
+.btn--lg {
+    padding: 14px 32px;
+    font-size: clamp(.85rem, 2.2vw, 1rem);
+}
+
+.btn--touch {
+    min-height: var(--touch-min);
+    min-width: var(--touch-min);
+}
+
+/* ---- Variantes ---- */
+.btn--primary {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.btn--primary:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 153, 200, .38);
+}
+
+.btn--outline {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn--outline:hover {
+    background: var(--primary-50);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn--glass {
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+    border-color: rgba(255, 255, 255, .25);
+    backdrop-filter: blur(8px);
+}
+
+.btn--glass:hover {
+    background: rgba(255, 255, 255, .22);
+    border-color: rgba(255, 255, 255, .45);
+    transform: translateY(-2px);
+}
+
+.btn--whatsapp {
+    background: var(--whatsapp);
+    border-color: var(--whatsapp);
+    color: #fff;
+}
+
+.btn--whatsapp:hover {
+    background: #20BD5A;
+    border-color: #20BD5A;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, .35);
+}
+
+.btn--info {
+    background: #F0F9FF;
+    color: var(--primary-700);
+    border: 2px solid var(--primary-200);
+}
+
+.btn--info:hover {
+    background: var(--primary-50);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* ---- Modificadores ---- */
+.btn--block {
+    width: 100%;
+}

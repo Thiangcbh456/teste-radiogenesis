@@ -1,0 +1,291 @@
+/* ================================================
+   16-RESPONSIVE — Breakpoints, Print, Motion, Performance
+   ================================================ */
+
+/* ---- 1441px+ ---- */
+@media (min-width: 1441px) {
+    .container { max-width: 1280px; }
+}
+
+/* ---- 1024px ---- */
+@media (max-width: 1024px) {
+    .nav__link { padding: 8px 10px; font-size: .78rem; }
+    .hero__inner { grid-template-columns: 1fr; text-align: center; }
+    .hero__subtitle { margin: 0 auto 28px; }
+    .hero__actions { justify-content: center; }
+    .hero__visual { display: none; }
+    .quick-grid { grid-template-columns: repeat(2, 1fr); }
+    .exames-grid { grid-template-columns: repeat(2, 1fr); }
+    .about { grid-template-columns: 1fr; gap: 32px; }
+    .about__experience { bottom: -12px; right: 16px; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+    .units-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-grid { grid-template-columns: 1fr; }
+    .convenios-grid { grid-template-columns: repeat(3, 1fr); }
+    .footer__grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-row { gap: 32px; }
+}
+
+/* ---- 768px ---- */
+@media (max-width: 768px) {
+    .top-bar { display: none; }
+    .nav { display: none; }
+    .header__logo { padding-left: 6px; }
+    .header__btn-desktop { display: none !important; }
+    .hamburger { display: flex !important; }
+    .header__inner { padding-right: clamp(10px, 3vw, 16px); }
+    .hero { min-height: 65vh; }
+    .hero__badge { font-size: .72rem; padding: 6px 12px; }
+    .hero__br-desktop { display: none; }
+    .quick-grid { grid-template-columns: 1fr 1fr; }
+    .exames-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .units-grid { grid-template-columns: 1fr; }
+    .convenios-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-form__row { grid-template-columns: 1fr; }
+    .about__features { grid-template-columns: 1fr; }
+    .about__experience {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: -24px;
+        display: inline-flex;
+        gap: 12px;
+        align-items: center;
+    }
+    .about__experience-number { font-size: 1.6rem; }
+    .footer__grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer__bottom { flex-direction: column; text-align: center; }
+    .floating-card { display: none; }
+    .stats-row { flex-direction: row; flex-wrap: wrap; gap: 24px; }
+    .stat-item { flex: 1 1 40%; min-width: 120px; }
+    .ouvidoria__channels { flex-direction: column; align-items: stretch; }
+    .mvv-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    .about-historia { grid-template-columns: 1fr; gap: 32px; }
+    .sobre-slider__main { aspect-ratio: 16/9; border-radius: var(--radius-lg); }
+    .sobre-slider__thumbs { grid-template-columns: repeat(3, 1fr); }
+    .about__video-wrapper video { max-height: 240px; border-radius: var(--radius-lg); }
+    .about__video-wrapper { border-radius: var(--radius-lg); }
+    .rg-player__video { max-height: 240px; }
+    .exame-sub__grid { grid-template-columns: 1fr; }
+    .exame-sub__card--full { grid-column: 1; }
+}
+
+/* ---- 480px ---- */
+@media (max-width: 480px) {
+    .hero { min-height: 60vh; }
+    .hero__actions { flex-direction: column; align-items: stretch; }
+    .hero__title { font-size: 1.6rem; }
+    .quick-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+    .team-card__photo { height: 240px; }
+    .convenios-grid { grid-template-columns: 1fr 1fr; }
+    .stats-row { flex-direction: column; gap: 16px; }
+    .stat-item { flex: none; min-width: unset; }
+    .footer__grid { grid-template-columns: 1fr; gap: 28px; }
+    .unit-card__footer { flex-direction: column; }
+    .unit-card__footer .btn { width: 100%; }
+    .footer::before {
+        background-image: url('../../img/rodape/rodape-mobile.webp');
+        background-position: center center;
+    }
+    .exam-card__actions { flex-direction: column; gap: 8px; }
+    .exam-card__actions .btn { flex: none; width: 100%; min-width: unset; padding: 12px 16px; font-size: .85rem; }
+    .sobre-slider__thumbs { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .sobre-slider__arrow { width: 34px; height: 34px; }
+    .sobre-slider__arrow--prev { left: 8px; }
+    .sobre-slider__arrow--next { right: 8px; }
+    .exame-sub__cta-btns { flex-direction: column; }
+    .exame-sub__cta-btns .btn { width: 100%; }
+    .privacy-card { border-radius: var(--radius-lg); }
+}
+
+/* ---- 375px ---- */
+@media (max-width: 375px) {
+    .hero__title { font-size: 1.4rem; }
+    .hero__badge { font-size: .68rem; }
+    .page-header__title { font-size: 1.3rem; }
+    .btn--lg { padding: 12px 20px; font-size: .85rem; }
+    .btn--sm { padding: 8px 16px; }
+    .mobile-menu { width: 100%; }
+    .ouvidoria__channel { padding: 12px 14px; }
+    .convenios-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- 320px ---- */
+@media (max-width: 320px) {
+    .container { padding: 0 12px; }
+    .hero__title { font-size: 1.25rem; }
+    .hero__subtitle { font-size: .82rem; }
+    .hero { min-height: 55vh; }
+    .logo__name { font-size: .95rem; }
+    .logo__tagline { display: none; }
+    .section { padding: 32px 0; }
+    .page-header { padding: 24px 0 20px; }
+    .quick-card { padding: 16px 14px; }
+    .quick-card__icon { width: 40px; height: 40px; }
+    .exam-card { padding: 16px 14px; }
+    .exam-card__icon { width: 40px; height: 40px; }
+    .exam-card__actions .btn { padding: 11px 12px; font-size: .82rem; }
+    .unit-card__body { padding: 14px 16px; }
+    .unit-card__footer { padding: 0 16px 16px; }
+    .contact-form { padding: 16px; }
+    .ouvidoria-card,
+    .trabalhe-card,
+    .laudo-card { padding: 20px 16px; }
+    .mobile-menu__content { padding: 12px 16px 20px; }
+    .mobile-menu__link { font-size: .92rem; }
+    .whatsapp-float { width: 48px; height: 48px; }
+    .whatsapp-float svg { width: 24px; height: 24px; }
+    .back-to-top { width: 38px; height: 38px; right: 68px; }
+    .team-card__photo { height: 200px; }
+}
+
+/* ---- Touch Devices ---- */
+@media (hover: none) and (pointer: coarse) {
+    .exam-card:hover,
+    .quick-card:hover,
+    .unit-card:hover,
+    .team-card:hover,
+    .convenio-item:hover,
+    .contact-info__card:hover { transform: none; }
+    .unit-card:hover .unit-img { transform: none; filter: none; }
+    .team-card:hover .team-img { transform: none; }
+    .exam-card:active,
+    .quick-card:active,
+    .unit-card:active { transform: scale(.98); transition: transform .1s; }
+    .btn:active { transform: scale(.97); transition: transform .1s; }
+    .privacy-card {
+        box-shadow: none;
+        border: 1px solid var(--gray-100);
+    }
+
+    /* Substitui box-shadow por opacity (GPU-accelerated) */
+    .quick-card,
+    .exam-card,
+    .unit-card,
+    .team-card,
+    .convenio-item,
+    .contact-info__card {
+        transition: opacity 0.2s ease, transform 0.2s ease !important;
+    }
+    .quick-card:active,
+    .exam-card:active,
+    .unit-card:active {
+        opacity: 0.88;
+    }
+}
+
+/* ---- Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+    .floating-card { animation: none; }
+    .whatsapp-float { animation: none; }
+}
+
+/* ---- Landscape Short ---- */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero { min-height: auto; padding: 32px 0; }
+    .hero__inner { padding: 24px; }
+    .page-header { padding: 24px 0 20px; }
+    .section--navy-strip { padding: 24px 0; }
+}
+
+/* ---- Retina ---- */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .hamburger__line { height: 2px; }
+}
+
+/* ---- Slow Updates ---- */
+@media (update: slow) {
+    .page { transition: none !important; }
+    .mobile-menu { transition: none !important; }
+    .mobile-overlay { transition: none !important; }
+}
+
+/* ---- Print ---- */
+@media print {
+    .top-bar,
+    .header,
+    .mobile-menu,
+    .whatsapp-float,
+    .back-to-top,
+    .hero__visual,
+    .floating-card { display: none !important; }
+    .page { display: block !important; opacity: 1 !important; transform: none !important; }
+    .hero { min-height: auto; background: #fff !important; color: #000 !important; }
+    .hero__title,
+    .hero__subtitle { color: #000 !important; -webkit-text-fill-color: #000 !important; }
+    body { background: #fff; color: #000; }
+    .footer { background: var(--bg-navy-deep) !important; }
+    .footer::before { display: none; }
+}
+
+/* ================================================
+   PERFORMANCE ADAPTATIVA
+   ================================================ */
+
+/* ---- Low Performance ---- */
+.perf-low .page {
+    transition: opacity 0.15s ease !important;
+    transform: none !important;
+}
+
+.perf-low .page.visible {
+    transform: none !important;
+}
+
+.perf-low .mobile-menu {
+    transition: transform 0.15s ease !important;
+}
+
+.perf-low .mobile-overlay {
+    transition: opacity 0.15s ease !important;
+}
+
+.perf-low .exam-card:hover,
+.perf-low .quick-card:hover,
+.perf-low .unit-card:hover,
+.perf-low .team-card:hover,
+.perf-low .convenio-item:hover,
+.perf-low .btn:hover {
+    transform: none !important;
+}
+
+.perf-low .header,
+.perf-low .btn--glass,
+.perf-low .hero__badge,
+.perf-low .hero__slide-label {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* ---- Mid Performance ---- */
+.perf-mid .page {
+    transition: opacity 0.2s ease !important;
+    transform: none !important;
+}
+
+.perf-mid .page.visible {
+    transform: none !important;
+}
+
+.perf-mid .mobile-menu {
+    transition: transform 0.2s ease !important;
+}
+
+.perf-mid .btn:hover {
+    transform: translateY(-1px) !important;
+}
+
+.perf-mid .header {
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+}

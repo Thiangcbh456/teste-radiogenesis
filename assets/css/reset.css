@@ -1,0 +1,148 @@
+/* ================================================
+   02-RESET — Reset, Base, SR-Only, Focus Visible
+   ================================================ */
+
+/* ---- Reset universal ---- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* ---- Remove flash cinza no toque em iOS/Safari ---- */
+a,
+button,
+.btn,
+.nav__link,
+.mobile-menu__link,
+.quick-card,
+.exam-card,
+.spa-link,
+.hamburger,
+.back-to-top,
+.whatsapp-float,
+.hero__carousel-dot,
+.theme-toggle,
+.footer__social-link,
+.top-bar__link {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ---- Body ---- */
+body {
+    font-family: var(--font-sans);
+    font-size: clamp(14px, 1vw, 16px);
+    line-height: 1.6;
+    color: var(--text-body);
+    background: var(--bg-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+body:not(.rg-ready) {
+    opacity: 0;
+}
+
+body.rg-ready {
+    opacity: 1;
+    transition: opacity .15s ease;
+}
+
+/* ---- Base elements ---- */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-fast);
+}
+
+img,
+svg {
+    max-width: 100%;
+    display: block;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ---- SR-Only — Conteúdo apenas para leitores de tela ---- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* ---- Focus Visible — Acessibilidade por teclado ---- */
+:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.btn:focus-visible,
+.nav__link:focus-visible,
+.mobile-menu__link:focus-visible,
+.quick-card:focus-visible,
+.exam-card:focus-visible,
+.footer__social-link:focus-visible,
+.top-bar__link:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(0, 153, 200, .15);
+}
+
+.hamburger:focus-visible,
+.theme-toggle:focus-visible,
+.back-to-top:focus-visible,
+.whatsapp-float:focus-visible,
+.hero__carousel-dot:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(0, 153, 200, .20);
+}
+
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+    outline: none;
+}
+
+.unit-card:focus-visible,
+.convenio-item:focus-visible,
+.team-card:focus-visible,
+.contact-info__card:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.footer__links a:focus-visible,
+.footer__bottom-links a:focus-visible {
+    outline: 2px solid var(--primary-300);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.mobile-menu__close:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 153, 200, .15);
+}

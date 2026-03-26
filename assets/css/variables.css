@@ -1,0 +1,68 @@
+/* ================================================
+   01-VARIABLES — Tokens de Design
+   ================================================ */
+:root {
+    --primary-color: #0099C8;
+    --primary-hover: #007BA3;
+    --bg-overlay: rgba(0, 153, 200, .72);
+
+    --primary-50: #E6F6FB;
+    --primary-100: #C0E8F5;
+    --primary-200: #8DD4EC;
+    --primary-300: #4DBFE3;
+    --primary-400: #1AADD8;
+    --primary-500: #0099C8;
+    --primary-600: #0099C8;
+    --primary-700: #007BA3;
+    --primary-800: #005F7D;
+    --primary-900: #003D52;
+
+    --gray-50: #F0F4F8;
+    --gray-100: #E1E8EF;
+    --gray-200: #CFD8E3;
+    --gray-300: #B0BEC9;
+    --gray-400: #8896A7;
+    --gray-500: #5F7084;
+    --gray-600: #475B6F;
+    --gray-700: #354A5F;
+    --gray-800: #243447;
+    --gray-900: #0F1D2F;
+
+    --bg-body: #F4F7FA;
+    --bg-white: #FFFFFF;
+    --bg-soft: #EDF1F7;
+    --bg-blue-mist: #E0F3FA;
+    --bg-navy: #0A1F2E;
+    --bg-navy-deep: #061520;
+
+    --success: #10B981;
+    --whatsapp: #25D366;
+
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Poppins', 'Inter', sans-serif;
+
+    --text-heading: #1A2B3F;
+    --text-body: #3D5068;
+    --text-muted: #6B819A;
+    --text-light: #8FA3B8;
+
+    --container-max: 1200px;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    --shadow-sm: 0 1px 4px rgba(15, 29, 47, .05), 0 1px 2px rgba(15, 29, 47, .03);
+    --shadow-md: 0 4px 16px rgba(15, 29, 47, .07), 0 2px 4px rgba(15, 29, 47, .04);
+    --shadow-lg: 0 8px 32px rgba(15, 29, 47, .10), 0 2px 8px rgba(15, 29, 47, .05);
+    --shadow-xl: 0 16px 48px rgba(15, 29, 47, .12), 0 4px 12px rgba(15, 29, 47, .06);
+    --shadow-card: 0 2px 8px rgba(15, 29, 47, .06), 0 8px 24px rgba(15, 29, 47, .08);
+    --shadow-card-hover: 0 8px 32px rgba(15, 29, 47, .12), 0 2px 8px rgba(0, 153, 200, .08);
+
+    --transition: all .3s cubic-bezier(.4, 0, .2, 1);
+    --transition-fast: all .15s ease;
+
+    --touch-min: 44px;
+}

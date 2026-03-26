@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://api.whatsapp.com">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"></noscript>
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
@@ -57,7 +57,6 @@
                 <li><a href="#equipe" class="mobile-menu__link spa-link" data-page="equipe">Equipe</a></li>
                 <li><a href="#unidades" class="mobile-menu__link spa-link" data-page="unidades">Unidades</a></li>
                 <li><a href="#convenios" class="mobile-menu__link spa-link" data-page="convenios">Convênios</a></li>
-                <li><a href="#contato" class="mobile-menu__link spa-link" data-page="contato">Contato</a></li>
                 <li><a href="#ouvidoria" class="mobile-menu__link spa-link" data-page="ouvidoria">Ouvidoria</a></li>
                 <li><a href="#trabalhe-conosco" class="mobile-menu__link spa-link" data-page="trabalhe-conosco">Trabalhe Conosco</a></li>
             </ul>
@@ -77,9 +76,7 @@
     <!-- ===== TOP BAR ===== -->
     <div class="top-bar">
         <div class="container top-bar__inner">
-            <div class="top-bar__left">
-
-            </div>
+            <div class="top-bar__left"></div>
             <div class="top-bar__right">
                 <a href="#ouvidoria" class="top-bar__link spa-link" data-page="ouvidoria">Ouvidoria</a>
                 <a href="#trabalhe-conosco" class="top-bar__link spa-link top-bar__link--hide-tablet" data-page="trabalhe-conosco">Trabalhe Conosco</a>
@@ -91,7 +88,6 @@
     <header class="header" id="header">
         <div class="container header__inner">
             <a href="#inicio" class="header__logo spa-link" data-page="inicio">
-                <!-- CORREÇÃO CLS: width/height explícitos -->
                 <img src="img/top.png" alt="Logo Radiogênesis" class="header__logo-img" width="180" height="50" fetchpriority="high">
             </a>
             <nav class="nav" id="nav">
@@ -102,7 +98,8 @@
                     <li><a href="#equipe" class="nav__link spa-link" data-page="equipe">Equipe</a></li>
                     <li><a href="#unidades" class="nav__link spa-link" data-page="unidades">Unidades</a></li>
                     <li><a href="#convenios" class="nav__link spa-link" data-page="convenios">Convênios</a></li>
-                    <li><a href="#contato" class="nav__link spa-link" data-page="contato">Contato</a></li>
+                    <li><a href="#ouvidoria" class="nav__link spa-link" data-page="ouvidoria">Ouvidoria</a></li>
+                    <li><a href="#trabalhe-conosco" class="nav__link spa-link" data-page="trabalhe-conosco">Trabalhe Conosco</a></li>
                 </ul>
             </nav>
             <div class="header__actions">
@@ -133,8 +130,6 @@
         <!-- PAGE: INÍCIO -->
         <div class="page active" data-page="inicio">
             <section class="hero">
-                <!-- CORREÇÃO LAZY LOAD: slides usam data-bg em vez de style inline -->
-                <!-- O JS carrega o background apenas quando o slide está ativo ou prestes a aparecer -->
                 <div class="hero__bg-carousel hero__bg-carousel--desktop" id="heroCarousel">
                     <div class="hero__bg-slide active" data-bg="img/inicio/medical.webp" data-label="Unidade Medical"></div>
                     <div class="hero__bg-slide" data-bg="img/inicio/medical1.webp" data-label="Unidade Medical"></div>
@@ -217,42 +212,48 @@
                             <h3>Equipe Médica</h3><p>Conheça nossos especialistas</p>
                             <span class="quick-card__arrow">→</span>
                         </a>
-                        <a href="#contato" class="quick-card spa-link" data-page="contato">
-                            <div class="quick-card__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-                            <h3>Contato</h3><p>Fale conosco por telefone, e-mail ou WhatsApp</p>
-                            <span class="quick-card__arrow">→</span>
-                        </a>
+                        <a href="#trabalhe-conosco" class="quick-card spa-link" data-page="trabalhe-conosco">
+    <div class="quick-card__icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+        </svg>
+    </div>
+    <h3>Trabalhe Conosco</h3>
+    <p>Faça parte da nossa equipe profissional</p>
+    <span class="quick-card__arrow">→</span>
+</a>
                     </div>
                 </div>
             </section>
 
             <section class="section section--navy-strip">
-    <div class="container">
-        <div class="mvv-grid">
-            <div class="mvv-card">
-                <div class="mvv-card__icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="m16.24 7.76 1.42-1.42"/><path d="m18.36 5.64.01-.01"/></svg>
+                <div class="container">
+                    <div class="mvv-grid">
+                        <div class="mvv-card">
+                            <div class="mvv-card__icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="m16.24 7.76 1.42-1.42"/><path d="m18.36 5.64.01-.01"/></svg>
+                            </div>
+                            <h3 class="mvv-card__title">Missão</h3>
+                            <p class="mvv-card__text">Atender com máxima excelência.</p>
+                        </div>
+                        <div class="mvv-card">
+                            <div class="mvv-card__icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                            </div>
+                            <h3 class="mvv-card__title">Visão</h3>
+                            <p class="mvv-card__text">Ser referência em medicina diagnóstica, buscando o bem-estar e a plena satisfação dos nossos clientes.</p>
+                        </div>
+                        <div class="mvv-card">
+                            <div class="mvv-card__icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <h3 class="mvv-card__title">Valores</h3>
+                            <p class="mvv-card__text">Ética, qualidade, humanização, inovação, excelência profissional e foco no cliente.</p>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="mvv-card__title">Missão</h3>
-                <p class="mvv-card__text">Atender com máxima excelência.</p>
-            </div>
-            <div class="mvv-card">
-                <div class="mvv-card__icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-                </div>
-                <h3 class="mvv-card__title">Visão</h3>
-                <p class="mvv-card__text">Ser referência em medicina diagnóstica, buscando o bem-estar e a plena satisfação dos nossos clientes.</p>
-            </div>
-            <div class="mvv-card">
-                <div class="mvv-card__icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                </div>
-                <h3 class="mvv-card__title">Valores</h3>
-                <p class="mvv-card__text">Ética, qualidade, humanização, inovação, excelência profissional e foco no cliente.</p>
-            </div>
-        </div>
-    </div>
-</section>
+            </section>
         </div>
         <!-- FIM PAGE: INÍCIO -->
 
@@ -359,74 +360,66 @@
                             </div>
                         </div>
                     </div>
-                    <div class="section-cta">
-                        <p>Não encontrou o exame que procura?</p>
-                        <a href="#contato" class="btn btn--primary btn--touch spa-link" data-page="contato">Fale Conosco</a>
-                    </div>
                 </div>
             </section>
         </div>
 
-       <!-- PAGE: SOBRE -->
+        <!-- PAGE: SOBRE -->
         <div class="page" data-page="sobre">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Institucional</span><h1 class="page-header__title">Quem Somos</h1><p class="page-header__sub">Tradição e inovação há mais de 20 anos.</p></div></div>
 
-            <!-- SEÇÃO 1: Vídeo + Texto -->
             <section class="section section--soft">
                 <div class="container">
                     <div class="about">
                         <div class="about__image">
                             <div class="about__video-wrapper">
-    <p id="video-desc" class="sr-only">Vídeo institucional da Radiogênesis mostrando as instalações, equipamentos de diagnóstico por imagem e a equipe médica das unidades em Fortaleza.</p>
-    <div class="rg-player" id="rgPlayer">
-        <video class="rg-player__video" src="vid/radiogenesis.mp4" preload="none" playsinline
-            poster="img/OpenGraph/og-image.webp"
-            aria-label="Vídeo institucional Radiogênesis"
-            aria-describedby="video-desc">
-            Seu navegador não suporta vídeo HTML5.
-        </video>
-        <!-- Botão de play central -->
-        <button class="rg-player__big-play" aria-label="Reproduzir vídeo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        </button>
-        <!-- Controles -->
-        <div class="rg-player__controls">
-            <button class="rg-player__btn rg-player__play" aria-label="Play/Pause">
-                <svg class="icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <svg class="icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-            </button>
-            <span class="rg-player__time rg-player__time--current">0:00</span>
-            <div class="rg-player__progress">
-                <div class="rg-player__progress-bar"></div>
-                <div class="rg-player__progress-fill"></div>
-            </div>
-            <span class="rg-player__time rg-player__time--total">0:00</span>
-            <button class="rg-player__btn rg-player__mute" aria-label="Mudo/Som">
-                <svg class="icon-sound" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-                <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-            </button>
-            <button class="rg-player__btn rg-player__fullscreen" aria-label="Tela cheia">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-            </button>
-        </div>
-    </div>
-</div>
+                                <p id="video-desc" class="sr-only">Vídeo institucional da Radiogênesis mostrando as instalações, equipamentos de diagnóstico por imagem e a equipe médica das unidades em Fortaleza.</p>
+                                <div class="rg-player" id="rgPlayer">
+                                    <video class="rg-player__video" src="vid/radiogenesis.mp4" preload="none" playsinline
+                                        poster="img/OpenGraph/og-image.webp"
+                                        aria-label="Vídeo institucional Radiogênesis"
+                                        aria-describedby="video-desc">
+                                        Seu navegador não suporta vídeo HTML5.
+                                    </video>
+                                    <button class="rg-player__big-play" aria-label="Reproduzir vídeo">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                    </button>
+                                    <div class="rg-player__controls">
+                                        <button class="rg-player__btn rg-player__play" aria-label="Play/Pause">
+                                            <svg class="icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                            <svg class="icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                                        </button>
+                                        <span class="rg-player__time rg-player__time--current">0:00</span>
+                                        <div class="rg-player__progress">
+                                            <div class="rg-player__progress-bar"></div>
+                                            <div class="rg-player__progress-fill"></div>
+                                        </div>
+                                        <span class="rg-player__time rg-player__time--total">0:00</span>
+                                        <button class="rg-player__btn rg-player__mute" aria-label="Mudo/Som">
+                                            <svg class="icon-sound" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                                            <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                                        </button>
+                                        <button class="rg-player__btn rg-player__fullscreen" aria-label="Tela cheia">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="about__content">
                             <p class="about__text">A <strong>Radiogênesis</strong> é referência em diagnóstico por imagem há mais de 20 anos. Combinamos tecnologia de ponta com atendimento humanizado.</p>
                             <p class="about__text">Nossas três unidades contam com aparelhos de última geração e uma equipe de médicos especialistas comprometidos com qualidade.</p>
                             <div class="about__features">
-                            <div class="about__feature"><div class="about__feature-icon" style="background:var(--primary-color)">✓</div><span>Equipamentos de última geração</span></div>
-                            <div class="about__feature"><div class="about__feature-icon" style="background:var(--primary-color)">✓</div><span>Equipe médica especializada</span></div>
-                            <div class="about__feature"><div class="about__feature-icon" style="background:var(--primary-color)">✓</div><span>Laudos em até 3 dias úteis</span></div>
-                            <div class="about__feature"><div class="about__feature-icon" style="background:var(--primary-color)">✓</div><span>Atendimento humanizado</span></div>
-                         </div>
+                                <div class="about__feature"><div class="about__feature-icon" style="background:var(--primary-color)">✓</div><span>Equipamentos de última geração</span></div>
+                                <div class="about__feature"><div class="about__feature-icon" style="background:var(--primary-color)">✓</div><span>Equipe médica especializada</span></div>
+                                <div class="about__feature"><div class="about__feature-icon" style="background:var(--primary-color)">✓</div><span>Laudos em até 3 dias úteis</span></div>
+                                <div class="about__feature"><div class="about__feature-icon" style="background:var(--primary-color)">✓</div><span>Atendimento humanizado</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- SEÇÃO 2: História -->
             <section class="section section--white">
                 <div class="container">
                     <div class="about-historia">
@@ -456,7 +449,7 @@
                             <div class="timeline-item">
                                 <div class="timeline-item__dot"></div>
                                 <div class="timeline-item__body">
-                                    <span class="timeline-item__year">2018</span>
+                                    <span class="timeline-item__year">2021</span>
                                     <p class="timeline-item__text">Inauguração da Unidade BS Tower</p>
                                 </div>
                             </div>
@@ -472,79 +465,43 @@
                 </div>
             </section>
 
-            <!-- GALERIA — Slider com miniaturas -->
-<section class="section section--soft sobre-galeria-section">
-    <div class="container">
-        <div class="section__header">
-            <span class="section__badge">Nossas Instalações</span>
-            <h2 class="section__title">Conheça a Radiogênesis</h2>
-            <p class="section__sub">Em breve, fotos das nossas unidades e equipamentos.</p>
-        </div>
-        <div class="sobre-slider" id="sobreSlider">
-            <!-- Imagem principal -->
-            <div class="sobre-slider__main">
-                <div class="sobre-slider__main-inner" id="sobreSliderMain">
-                    <div class="sobre-placeholder sobre-placeholder--main">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                        <span>Recepção — Unidade Medical</span>
+            <section class="section section--soft sobre-galeria-section">
+                <div class="container">
+                    <div class="section__header">
+                        <span class="section__badge">Nossas Instalações</span>
+                        <h2 class="section__title">Conheça a Radiogênesis</h2>
+                        <p class="section__sub">Em breve, fotos das nossas unidades e equipamentos.</p>
+                    </div>
+                    <div class="sobre-slider" id="sobreSlider">
+                        <div class="sobre-slider__main">
+                            <div class="sobre-slider__main-inner" id="sobreSliderMain">
+                                <div class="sobre-placeholder sobre-placeholder--main">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                    <span>Recepção — Unidade Medical</span>
+                                </div>
+                            </div>
+                            <button class="sobre-slider__arrow sobre-slider__arrow--prev" id="sliderPrev" aria-label="Anterior">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+                            </button>
+                            <button class="sobre-slider__arrow sobre-slider__arrow--next" id="sliderNext" aria-label="Próximo">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+                            </button>
+                            <div class="sobre-slider__counter">
+                                <span id="sliderCurrent">1</span> / <span id="sliderTotal">6</span>
+                            </div>
+                        </div>
+                        <div class="sobre-slider__thumbs" id="sobreSliderThumbs">
+                            <button class="sobre-slider__thumb active" data-index="0" aria-label="Ver foto 1"><div class="sobre-placeholder sobre-placeholder--thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Recepção</span></div></button>
+                            <button class="sobre-slider__thumb" data-index="1" aria-label="Ver foto 2"><div class="sobre-placeholder sobre-placeholder--thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span>Ressonância</span></div></button>
+                            <button class="sobre-slider__thumb" data-index="2" aria-label="Ver foto 3"><div class="sobre-placeholder sobre-placeholder--thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span>Tomografia</span></div></button>
+                            <button class="sobre-slider__thumb" data-index="3" aria-label="Ver foto 4"><div class="sobre-placeholder sobre-placeholder--thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span>Ultrassom</span></div></button>
+                            <button class="sobre-slider__thumb" data-index="4" aria-label="Ver foto 5"><div class="sobre-placeholder sobre-placeholder--thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Hosp. Gênesis</span></div></button>
+                            <button class="sobre-slider__thumb" data-index="5" aria-label="Ver foto 6"><div class="sobre-placeholder sobre-placeholder--thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>BS Tower</span></div></button>
+                        </div>
                     </div>
                 </div>
-                <!-- Setas de navegação -->
-                <button class="sobre-slider__arrow sobre-slider__arrow--prev" id="sliderPrev" aria-label="Anterior">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                </button>
-                <button class="sobre-slider__arrow sobre-slider__arrow--next" id="sliderNext" aria-label="Próximo">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-                </button>
-                <!-- Contador -->
-                <div class="sobre-slider__counter">
-                    <span id="sliderCurrent">1</span> / <span id="sliderTotal">6</span>
-                </div>
-            </div>
-            <!-- Miniaturas -->
-            <div class="sobre-slider__thumbs" id="sobreSliderThumbs">
-                <button class="sobre-slider__thumb active" data-index="0" aria-label="Ver foto 1">
-                    <div class="sobre-placeholder sobre-placeholder--thumb">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                        <span>Recepção</span>
-                    </div>
-                </button>
-                <button class="sobre-slider__thumb" data-index="1" aria-label="Ver foto 2">
-                    <div class="sobre-placeholder sobre-placeholder--thumb">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                        <span>Ressonância</span>
-                    </div>
-                </button>
-                <button class="sobre-slider__thumb" data-index="2" aria-label="Ver foto 3">
-                    <div class="sobre-placeholder sobre-placeholder--thumb">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        <span>Tomografia</span>
-                    </div>
-                </button>
-                <button class="sobre-slider__thumb" data-index="3" aria-label="Ver foto 4">
-                    <div class="sobre-placeholder sobre-placeholder--thumb">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                        <span>Ultrassom</span>
-                    </div>
-                </button>
-                <button class="sobre-slider__thumb" data-index="4" aria-label="Ver foto 5">
-                    <div class="sobre-placeholder sobre-placeholder--thumb">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                        <span>Hosp. Gênesis</span>
-                    </div>
-                </button>
-                <button class="sobre-slider__thumb" data-index="5" aria-label="Ver foto 6">
-                    <div class="sobre-placeholder sobre-placeholder--thumb">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                        <span>BS Tower</span>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </div>
-</section>
+            </section>
 
-            <!-- SEÇÃO 4: Missão, Visão e Valores -->
             <section class="section section--white">
                 <div class="container">
                     <div class="section__header">
@@ -553,37 +510,29 @@
                     </div>
                     <div class="mvv-grid">
                         <div class="mvv-card">
-                            <div class="mvv-card__icon">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="m16.24 7.76 1.42-1.42"/><path d="m18.36 5.64.01-.01"/></svg>
-                            </div>
+                            <div class="mvv-card__icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="m16.24 7.76 1.42-1.42"/><path d="m18.36 5.64.01-.01"/></svg></div>
                             <h3 class="mvv-card__title">Missão</h3>
                             <p class="mvv-card__text">Atender com máxima excelência.</p>
                         </div>
                         <div class="mvv-card">
-                            <div class="mvv-card__icon">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-                            </div>
+                            <div class="mvv-card__icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
                             <h3 class="mvv-card__title">Visão</h3>
                             <p class="mvv-card__text">Ser referência em medicina diagnóstica, buscando o bem-estar e a plena satisfação dos nossos clientes.</p>
                         </div>
                         <div class="mvv-card">
-                            <div class="mvv-card__icon">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            </div>
+                            <div class="mvv-card__icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                             <h3 class="mvv-card__title">Valores</h3>
                             <p class="mvv-card__text">Ética, qualidade, humanização, inovação, excelência profissional e foco no cliente.</p>
                         </div>
                     </div>
                 </div>
             </section>
-
         </div>
 
         <!-- PAGE: EQUIPE -->
         <div class="page" data-page="equipe">
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Corpo Clínico</span><h1 class="page-header__title">Equipe Médica</h1><p class="page-header__sub">Profissionais dedicados ao diagnóstico preciso.</p></div></div>
             <section class="section section--soft"><div class="container"><div class="team-grid">
-                <!-- CORREÇÃO CLS: width/height explícitos nas imagens da equipe -->
                 <div class="team-card"><div class="team-card__photo"><img loading="lazy" src="img/Equipe-Medica/Dr Eduardo Portela.webp" alt="Dr. Eduardo Portela" class="team-img" width="320" height="320"></div><div class="team-card__info"><h3 class="team-card__name">Dr. Eduardo Portela</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/5579</p></div></div>
                 <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Adriana Moreira Pontes</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/3820</p></div></div>
                 <div class="team-card"><div class="team-card__photo"><div class="team-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 14 0v2"/></svg></div></div><div class="team-card__info"><h3 class="team-card__name">Dra. Ana Mª Leopercio Pontes</h3><p class="team-card__role">Ultrassonografia</p><p class="team-card__crm">CRM/4575</p></div></div>
@@ -644,7 +593,6 @@
             <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Planos Aceitos</span><h1 class="page-header__title">Convênios</h1><p class="page-header__sub">Trabalhamos com os principais planos de saúde.</p></div></div>
             <section class="section section--soft"><div class="container">
                 <div class="convenios-grid">
-                    <!-- CORREÇÃO CLS: width/height explícitos nas logos -->
                     <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/amil.webp" alt="Amil" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Amil</span></div>
                     <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/banco-central.webp" alt="Banco Central do Brasil" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Banco Central do Brasil</span></div>
                     <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/bradesco-saude.webp" alt="Bradesco Saúde" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Bradesco Saúde</span></div>
@@ -665,32 +613,14 @@
                     <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/sul-america.webp" alt="SulAmérica" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">SulAmérica</span></div>
                     <div class="convenio-item"><div class="convenio-item__logo"><img loading="lazy" src="img/convenios/unimed.webp" alt="Unimed" class="convenio-img" width="120" height="60" decoding="async"></div><span class="convenio-item__name">Unimed</span></div>
                 </div>
-                <div class="section-cta"><p>Não encontrou seu convênio?</p><a href="#contato" class="btn btn--primary btn--touch spa-link" data-page="contato">Entre em Contato</a></div>
+                <div class="section-cta"><p>Não encontrou seu convênio?</p><a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--touch">Fale pelo WhatsApp</a></div>
             </div></section>
-        </div>
-
-        <!-- PAGE: CONTATO -->
-        <div class="page" data-page="contato">
-            <div class="page-header"><div class="container"><span class="section__badge section__badge--light">Fale Conosco</span><h1 class="page-header__title">Contato</h1><p class="page-header__sub">Envie sua mensagem ou entre em contato pelos canais abaixo.</p></div></div>
-            <section class="section section--soft"><div class="container"><div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-info__card"><div class="contact-info__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.11 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><strong>Telefone</strong><p><a href="tel:+558532545885">(85) 3254-5885</a></p></div></div>
-                    <div class="contact-info__card"><div class="contact-info__icon"><svg width="24" height="24" fill="currentColor" aria-hidden="true"><use href="#icon-whatsapp"/></svg></div><div><strong>WhatsApp</strong><p><a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank">(85) 3254.5885</a></p></div></div>
-                    <div class="contact-info__card"><div class="contact-info__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><div><strong>E-mail</strong><p><a href="mailto:contato@radiogenesis.com">contato@radiogenesis.com</a></p></div></div>
-                </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="contact-form__row"><div class="form-group"><label for="nome">Nome completo</label><input type="text" id="nome" placeholder="Seu nome" required></div><div class="form-group"><label for="email">E-mail</label><input type="email" id="email" placeholder="seu@email.com" required></div></div>
-                    <div class="contact-form__row"><div class="form-group"><label for="telefone">Telefone</label><input type="tel" id="telefone" placeholder="(85) 90000-0000"></div><div class="form-group"><label for="assunto">Assunto</label><select id="assunto"><option value="">Selecione</option><option>Agendamento</option><option>Resultados</option><option>Convênios</option><option>Outro</option></select></div></div>
-                    <div class="form-group"><label for="mensagem">Mensagem</label><textarea id="mensagem" rows="5" placeholder="Escreva sua mensagem..." required></textarea></div>
-                    <button type="submit" class="btn btn--primary btn--lg btn--touch">Enviar Mensagem →</button>
-                </form>
-            </div></div></section>
         </div>
 
         <!-- PAGE: OUVIDORIA -->
         <div class="page" data-page="ouvidoria">
             <div class="page-header page-header--compact"><div class="container"><span class="section__badge section__badge--light">Canal Direto</span><h1 class="page-header__title">Ouvidoria</h1><p class="page-header__sub">Sua opinião é fundamental.</p></div></div>
-            <section class="section section--soft section--compact"><div class="container"><div class="ouvidoria-card"><div class="ouvidoria__icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><p class="ouvidoria__text">A Ouvidoria da Radiogênesis é o canal dedicado para ouvir suas sugestões, elogios ou reclamações.</p><div class="ouvidoria__channels"><div class="ouvidoria__channel"><strong>E-mail:</strong><a href="mailto:ouvidoria@radiogenesis.com">ouvidoria@radiogenesis.com</a></div><div class="ouvidoria__channel"><strong>Telefone:</strong><a href="tel:+558532545885">(85) 3254.5885</a></div><div class="ouvidoria__channel"><strong>Prazo:</strong><span>Até 5 dias úteis</span></div></div></div></div></section>
+            <section class="section section--soft section--compact"><div class="container"><div class="ouvidoria-card"><div class="ouvidoria__icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><p class="ouvidoria__text">A Ouvidoria da Radiogênesis é o canal dedicado para ouvir suas sugestões, elogios ou reclamações.</p><div class="ouvidoria__channels"><div class="ouvidoria__channel"><strong>E-mail:</strong><a href="mailto:martaoliveira@radiogenesis.com.br ">martaoliveira@radiogenesis.com.br </a></div><div class="ouvidoria__channel"><strong>Telefone:</strong><a href="tel:+558532545885">(85) 3254.5885</a></div></div></div></div></section>
         </div>
 
         <!-- PAGE: TRABALHE CONOSCO -->
@@ -877,6 +807,7 @@
                 </div>
             </div></div></section>
         </div>
+
     </main>
 
     <!-- ===== FOOTER ===== -->
@@ -893,7 +824,7 @@
                 </div>
                 <div class="footer__col"><h4 class="footer__heading">Exames</h4><ul class="footer__links"><li><a href="#exames/ressonancia-magnetica" class="spa-exame">Ressonância</a></li><li><a href="#exames/tomografia-computadorizada" class="spa-exame">Tomografia</a></li><li><a href="#exames/ultrassonografia-geral" class="spa-exame">Ultrassom</a></li><li><a href="#exames/raio-x-digital" class="spa-exame">Raio-X</a></li><li><a href="#exames/mamografia-digital" class="spa-exame">Mamografia</a></li></ul></div>
                 <div class="footer__col"><h4 class="footer__heading">Institucional</h4><ul class="footer__links"><li><a href="#sobre" class="spa-link" data-page="sobre">Sobre Nós</a></li><li><a href="#equipe" class="spa-link" data-page="equipe">Equipe</a></li><li><a href="#unidades" class="spa-link" data-page="unidades">Unidades</a></li><li><a href="#convenios" class="spa-link" data-page="convenios">Convênios</a></li><li><a href="#ouvidoria" class="spa-link" data-page="ouvidoria">Ouvidoria</a></li><li><a href="#trabalhe-conosco" class="spa-link" data-page="trabalhe-conosco">Trabalhe Conosco</a></li></ul></div>
-                <div class="footer__col"><h4 class="footer__heading">Atendimento</h4><ul class="footer__links"><li><a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer">Laudo Online</a></li><li><a href="https://radiogenesis.naja.app/portal/login" target="_blank" rel="noopener noreferrer">Resultado de Exames</a></li><li><a href="#contato" class="spa-link" data-page="contato">Contato</a></li><li><a href="tel:+558532545885">(85) 3254.5885</a></li></ul><div class="footer__hours"><h4 class="footer__heading">Horários</h4><p>Seg–Sex: 7h às 18h</p><p>Sáb: 7h às 12h</p></div></div>
+                <div class="footer__col"><h4 class="footer__heading">Atendimento</h4><ul class="footer__links"><li><a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer">Laudo Online</a></li><li><a href="https://radiogenesis.naja.app/portal/login" target="_blank" rel="noopener noreferrer">Resultado de Exames</a></li><li><a href="tel:+558532545885">(85) 3254.5885</a></li></ul><div class="footer__hours"><h4 class="footer__heading">Horários</h4><p>Seg–Sex: 7h às 18h</p><p>Sáb: 7h às 12h</p></div></div>
             </div>
             <div class="footer__bottom">
                 <p>© 2026 Radiogênesis — Todos os direitos reservados.</p>
@@ -905,27 +836,24 @@
     </footer>
 
     <!-- ===== FLOAT ELEMENTS ===== -->
-<div class="social-float">
-    <a href="https://www.instagram.com/clinicaradiogenesis" target="_blank" rel="noopener noreferrer" class="social-float__btn social-float__btn--instagram" aria-label="Instagram">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    </a>
-    <a href="https://www.facebook.com/radiogenesisclinica/" target="_blank" rel="noopener noreferrer" class="social-float__btn social-float__btn--facebook" aria-label="Facebook">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-    </a>
-    <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
-        <svg width="28" height="28" fill="currentColor" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
-    </a>
-</div>
+    <div class="social-float">
+        <a href="https://www.instagram.com/clinicaradiogenesis" target="_blank" rel="noopener noreferrer" class="social-float__btn social-float__btn--instagram" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.facebook.com/radiogenesisclinica/" target="_blank" rel="noopener noreferrer" class="social-float__btn social-float__btn--facebook" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://api.whatsapp.com/send?l=pt_BR&phone=558532545885" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+            <svg width="28" height="28" fill="currentColor" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
+        </a>
+    </div>
 
     <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
     </button>
 
-    <!-- VLIBRAS REMOVIDO — era fonte de lentidão, especialmente em iPhone -->
-     
-
+    <!-- ===== TEMA — executa antes do DOM para evitar flash ===== -->
     <script>
-    // ---- TEMA ESCURO ----
     (function() {
         const toggle = document.getElementById('themeToggle');
         const root   = document.documentElement;
@@ -949,6 +877,6 @@
     })();
     </script>
 
-    <script src="script.js" defer></script>
+        <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>

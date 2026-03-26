@@ -1,0 +1,310 @@
+/* ================================================
+   07-HERO — Hero Section, Carousel, Floating Cards
+   ================================================ */
+
+/* ---- Hero Base ---- */
+.hero {
+    position: relative;
+    min-height: clamp(60vh, 75vh, 90vh);
+    min-height: max(360px, clamp(60vh, 75vh, 90vh));
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--bg-navy-deep), var(--primary-900));
+    z-index: 0;
+}
+
+.hero__bg {
+    position: absolute;
+    inset: 0;
+}
+
+.hero__gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 70% 20%, rgba(0, 153, 200, .18), transparent 50%);
+    pointer-events: none;
+}
+
+/* ---- Hero Inner ---- */
+.hero__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 4vw, 60px);
+    align-items: center;
+    padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 24px);
+    z-index: 1;
+}
+
+/* ---- Hero Badge ---- */
+.hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: var(--radius-full);
+    color: var(--primary-200);
+    font-size: clamp(.72rem, 1.8vw, .85rem);
+    font-weight: 500;
+    margin-bottom: 16px;
+    backdrop-filter: blur(4px);
+}
+
+/* ---- Hero Title ---- */
+.hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 4.5vw, 3.2rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-300), #e0f6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ---- Hero Subtitle ---- */
+.hero__subtitle {
+    font-size: clamp(.88rem, 2vw, 1.05rem);
+    color: rgba(191, 219, 254, .85);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 500px;
+}
+
+/* ---- Hero Actions ---- */
+.hero__actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* ---- Hero Visual ---- */
+.hero__visual {
+    display: flex;
+    justify-content: center;
+}
+
+.hero__image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 4/3;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+.hero__image-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: rgba(255, 255, 255, .04);
+    border: 2px dashed rgba(255, 255, 255, .1);
+    border-radius: var(--radius-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, .25);
+    font-size: .9rem;
+}
+
+/* ---- Floating Cards ---- */
+.floating-card {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(207, 216, 227, .3);
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-card strong {
+    display: block;
+    font-size: .8rem;
+    color: var(--text-heading);
+}
+
+.floating-card small {
+    font-size: .7rem;
+    color: var(--text-muted);
+}
+
+.floating-card__icon {
+    font-size: 1.3rem;
+}
+
+.floating-card--1 {
+    top: 20%;
+    left: -20px;
+}
+
+.floating-card--2 {
+    bottom: 20%;
+    right: -10px;
+    animation-delay: 3s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* ---- Hero Carousel (dentro do visual) ---- */
+.hero__carousel {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.hero__carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero__carousel-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+}
+
+.hero__carousel-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hero__carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero__carousel-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px 16px 12px;
+    background: linear-gradient(to top, rgba(0, 0, 0, .55), transparent);
+    color: #fff;
+    font-size: .78rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: .03em;
+}
+
+.hero__carousel-dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.hero__carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, .45);
+    cursor: pointer;
+    transition: all .3s ease;
+    padding: 0;
+}
+
+.hero__carousel-dot.active {
+    background: #fff;
+    width: 20px;
+    border-radius: 4px;
+}
+
+/* ---- Hero Background Carousel (full width) ---- */
+.hero__bg-carousel {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero__bg-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    will-change: opacity;
+}
+
+.hero__bg-slide.active {
+    opacity: 1;
+}
+
+.hero__bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(6, 21, 32, .82) 0%,
+        rgba(0, 61, 82, .70) 50%,
+        rgba(0, 95, 125, .55) 100%
+    );
+}
+
+.hero__slide-label {
+    position: absolute;
+    bottom: 20px;
+    right: 24px;
+    z-index: 2;
+    color: rgba(255, 255, 255, .75);
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    background: rgba(0, 0, 0, .25);
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(4px);
+    transition: opacity .4s ease;
+}
+
+/* ---- Slide position overrides ---- */
+.hero__bg-slide:nth-child(11) {
+    background-position: center center;
+    background-size: cover;
+}
+
+.hero__bg-slide:nth-child(3) {
+    background-position: center bottom;
+}
+
+.hero__bg-slide:nth-child(4) {
+    background-position: center 65%;
+}
+
+/* ---- Desktop vs Mobile carousel ---- */
+.hero__bg-carousel--mobile {
+    display: none;
+}
+
+.hero__bg-carousel--desktop {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .hero__bg-carousel--desktop { display: none; }
+    .hero__bg-carousel--mobile  { display: block; }
+}

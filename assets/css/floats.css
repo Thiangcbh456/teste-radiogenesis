@@ -1,0 +1,167 @@
+/* ================================================
+   14-FLOATS — WhatsApp, Back to Top, Social, Theme Toggle
+   ================================================ */
+
+/* ---- WhatsApp Float ---- */
+.whatsapp-float {
+    position: fixed;
+    bottom: clamp(12px, 3vw, 24px);
+    right: clamp(12px, 3vw, 24px);
+    width: 56px;
+    height: 56px;
+    background: var(--whatsapp);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, .4);
+    z-index: 900;
+    transition: var(--transition);
+    animation: pulse-wa 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+@keyframes pulse-wa {
+    0%, 100% { box-shadow: 0 4px 16px rgba(37, 211, 102, .4); }
+    50% { box-shadow: 0 4px 24px rgba(37, 211, 102, .6); }
+}
+
+/* ---- Back to Top ---- */
+.back-to-top {
+    position: fixed;
+    bottom: clamp(12px, 3vw, 24px);
+    right: clamp(76px, 12vw, 90px);
+    width: 44px;
+    height: 44px;
+    background: var(--primary-color);
+    color: #fff;
+    border: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+    z-index: 900;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--primary-hover);
+    transform: translateY(-3px);
+}
+
+/* ---- iPhone Safe Area ---- */
+@supports (bottom: env(safe-area-inset-bottom)) {
+    .whatsapp-float {
+        bottom: calc(clamp(12px, 3vw, 24px) + env(safe-area-inset-bottom));
+    }
+    .back-to-top {
+        bottom: calc(clamp(12px, 3vw, 24px) + env(safe-area-inset-bottom));
+    }
+}
+
+/* ---- Social Float Group ---- */
+.social-float {
+    position: fixed;
+    bottom: clamp(12px, 3vw, 24px);
+    right: clamp(12px, 3vw, 24px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 900;
+}
+
+/* Reposiciona o whatsapp-float para dentro do grupo */
+.social-float .whatsapp-float {
+    position: static;
+    bottom: auto;
+    right: auto;
+}
+
+.social-float__btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+    transition: transform .3s ease, opacity .3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.social-float__btn--instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.social-float__btn--facebook {
+    background: #1877F2;
+}
+
+.social-float__btn:hover {
+    transform: translateY(-3px) scale(1.1) !important;
+}
+
+/* Visíveis após scroll */
+.social-float.visible .social-float__btn {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.social-float.visible .social-float__btn--facebook {
+    transition-delay: .05s;
+}
+
+.social-float.visible .social-float__btn--instagram {
+    transition-delay: .1s;
+}
+
+/* ---- Theme Toggle ---- */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: var(--primary-50);
+    transform: rotate(15deg);
+}
+
+.theme-toggle .icon-sun {
+    display: none;
+}
+
+.theme-toggle .icon-moon {
+    display: block;
+}
