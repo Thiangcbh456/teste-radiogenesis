@@ -148,3 +148,9 @@
     color: var(--text-muted);
     margin-bottom: 16px;
 }
+
+/* ---- Navegação desktop ---- */
+.nav__link {
+    padding: 8px 12px;
+    font-size: .80rem;
+}
