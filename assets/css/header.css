@@ -4,7 +4,7 @@
 
 /* ---- Top Bar ---- */
 .top-bar {
-    background: linear-gradient(90deg, #0D6E8A 0%, #0F8FAD 50%, #0D6E8A 100%);
+    background: linear-gradient(90deg, #006994 0%, #0099CC 50%, #006994 100%);
     color: #fff;
     font-size: .78rem;
     padding: 6px 0;
@@ -66,8 +66,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Respiro vertical equilibrado */
-    padding: 12px 0; 
+    padding: 12px 0;
 }
 
 /* ---- Logo ---- */
@@ -116,19 +115,16 @@
     font-weight: 500;
 }
 
-/* ---- Navegação (Onde estava o problema) ---- */
+/* ---- Navegação ---- */
 .nav__list {
     display: flex;
     align-items: center;
-    /* Mantém os botões equilibrados entre si */
-    gap: 6px; 
-    /* CORREÇÃO AQUI: Afasta todo o grupo de botões do Logo */
-    margin-left: 20px; 
+    gap: 6px;
+    margin-left: 20px;
 }
 
 .nav__link {
-    /* Respiro interno equilibrado do botão */
-    padding: 8px 12px; 
+    padding: 8px 12px;
     font-size: clamp(.78rem, 1.5vw, .85rem);
     font-weight: 500;
     color: var(--text-muted);
@@ -154,8 +150,7 @@
 .nav__link.active::after {
     content: '';
     position: absolute;
-    /* Respiro vertical da barra de 'Active' */
-    bottom: 2px; 
+    bottom: 2px;
     left: 50%;
     transform: translateX(-50%);
     width: 20px;
@@ -168,8 +163,7 @@
 .header__actions {
     display: flex;
     align-items: center;
-    /* Espaçamento equilibrado entre as ações da direita */
-    gap: 8px; 
+    gap: 8px;
 }
 
 .header__btn-desktop {

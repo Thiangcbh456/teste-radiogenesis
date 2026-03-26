@@ -33,7 +33,7 @@
 
 /* ---- Page Header ---- */
 .page-header {
-    background: linear-gradient(135deg, #0D6E8A 0%, #0F8FAD 50%, #22C4E0 100%);
+    background: linear-gradient(135deg, #006994 0%, #0099CC 50%, #00B4D8 100%);
     padding: clamp(32px, 6vw, 56px) 0 clamp(28px, 5vw, 48px);
     text-align: center;
     position: relative;
