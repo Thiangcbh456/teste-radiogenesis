@@ -3,28 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    
+    <!-- SEO -->
     <meta name="description" content="Radiogênesis — Diagnóstico por Imagem. Excelência em Ressonância, Tomografia, Ultrassom e mais.">
-    <meta property="og:type"         content="website">
-    <meta property="og:url"          content="https://teste-radiogenesis.netlify.app/">
-    <meta property="og:title"        content="Radiogênesis | Diagnóstico por Imagem">
-    <meta property="og:description"  content="Excelência em Ressonância, Tomografia, Ultrassom e mais. Três unidades em Fortaleza/CE.">
-    <meta property="og:image"        content="https://teste-radiogenesis.netlify.app/img/OpenGraph/og-image.webp">
-    <meta property="og:image:width"  content="1620">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://teste-radiogenesis.netlify.app/">
+    <meta property="og:title" content="Radiogênesis | Diagnóstico por Imagem">
+    <meta property="og:description" content="Excelência em Ressonância, Tomografia, Ultrassom e mais. Três unidades em Fortaleza/CE.">
+    <meta property="og:image" content="https://teste-radiogenesis.netlify.app/img/OpenGraph/og-image.webp">
+    <meta property="og:image:width" content="1620">
     <meta property="og:image:height" content="1080">
-    <meta property="og:locale"       content="pt_BR">
+    <meta property="og:locale" content="pt_BR">
+
     <title>Radiogênesis | Diagnóstico por Imagem</title>
     <link rel="canonical" href="https://teste-radiogenesis.netlify.app/">
-    <link rel="preload" as="image" href="img/inicio/medical.webp" media="(min-width: 769px)">
-    <link rel="preload" as="image" href="img/mobile/medical0.webp" media="(max-width: 768px)">
-    <link rel="preload" as="image" href="img/unidades/medical.webp" media="(min-width: 769px)">
-    <link rel="preload" as="image" href="img/unidades/hospital.webp" media="(min-width: 769px)">
-    <link rel="preload" as="image" href="img/unidades/bs-tower.webp" media="(min-width: 769px)">
+
+    <!-- 🔵 PRELOAD (SOMENTE O QUE É CRÍTICO) -->
+    <!-- Apenas a imagem inicial do hero -->
+    <link rel="preload" as="image" href="img/inicio/medical.webp" type="image/webp">
+
+    <!-- 🟡 PREFETCH (conteúdo futuro / SPA / carousel) -->
+    <link rel="prefetch" href="img/unidades/medical.webp">
+    <link rel="prefetch" href="img/unidades/hospital.webp">
+    <link rel="prefetch" href="img/unidades/bs-tower.webp">
+
+    <!-- ⚡ Conexões externas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://api.whatsapp.com">
+
+    <!-- 🎨 CSS crítico -->
     <link rel="stylesheet" href="assets/css/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"></noscript>
+
+    <!-- 🔤 Fontes (carregamento não bloqueante) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+          rel="stylesheet"
+          media="print"
+          onload="this.media='all'">
+
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+              rel="stylesheet">
+    </noscript>
+
+    <!-- 🧩 Ícones -->
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-apple.png">
@@ -620,7 +642,7 @@
         <!-- PAGE: OUVIDORIA -->
         <div class="page" data-page="ouvidoria">
             <div class="page-header page-header--compact"><div class="container"><span class="section__badge section__badge--light">Canal Direto</span><h1 class="page-header__title">Ouvidoria</h1><p class="page-header__sub">Sua opinião é fundamental.</p></div></div>
-            <section class="section section--soft section--compact"><div class="container"><div class="ouvidoria-card"><div class="ouvidoria__icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><p class="ouvidoria__text">A Ouvidoria da Radiogênesis é o canal dedicado para ouvir suas sugestões, elogios ou reclamações.</p><div class="ouvidoria__channels"><div class="ouvidoria__channel"><strong>E-mail:</strong><a href="mailto:martaoliveira@radiogenesis.com.br ">martaoliveira@radiogenesis.com.br </a></div><div class="ouvidoria__channel"><strong>Telefone:</strong><a href="tel:+558532545885">(85) 3254.5885</a></div></div></div></div></section>
+            <section class="section section--soft section--compact"><div class="container"><div class="ouvidoria-card"><div class="ouvidoria__icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><p class="ouvidoria__text">A Ouvidoria da Radiogênesis é o canal dedicado para ouvir suas sugestões, elogios ou reclamações.</p><div class="ouvidoria__channels"><div class="ouvidoria__channel"><strong>E-mail:</strong><a href="mailto:ouvidoria@radiogenesis.com.br ">ouvidoria@radiogenesis.com.br </a></div><div class="ouvidoria__channel"><strong>Telefone:</strong><a href="tel:+5585981536275">(85) 98153-6275</a></div></div></div></div></section>
         </div>
 
         <!-- PAGE: TRABALHE CONOSCO -->
@@ -824,7 +846,7 @@
                 </div>
                 <div class="footer__col"><h4 class="footer__heading">Exames</h4><ul class="footer__links"><li><a href="#exames/ressonancia-magnetica" class="spa-exame">Ressonância</a></li><li><a href="#exames/tomografia-computadorizada" class="spa-exame">Tomografia</a></li><li><a href="#exames/ultrassonografia-geral" class="spa-exame">Ultrassom</a></li><li><a href="#exames/raio-x-digital" class="spa-exame">Raio-X</a></li><li><a href="#exames/mamografia-digital" class="spa-exame">Mamografia</a></li></ul></div>
                 <div class="footer__col"><h4 class="footer__heading">Institucional</h4><ul class="footer__links"><li><a href="#sobre" class="spa-link" data-page="sobre">Sobre Nós</a></li><li><a href="#equipe" class="spa-link" data-page="equipe">Equipe</a></li><li><a href="#unidades" class="spa-link" data-page="unidades">Unidades</a></li><li><a href="#convenios" class="spa-link" data-page="convenios">Convênios</a></li><li><a href="#ouvidoria" class="spa-link" data-page="ouvidoria">Ouvidoria</a></li><li><a href="#trabalhe-conosco" class="spa-link" data-page="trabalhe-conosco">Trabalhe Conosco</a></li></ul></div>
-                <div class="footer__col"><h4 class="footer__heading">Atendimento</h4><ul class="footer__links"><li><a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer">Laudo Online</a></li><li><a href="https://radiogenesis.naja.app/portal/login" target="_blank" rel="noopener noreferrer">Resultado de Exames</a></li><li><a href="tel:+558532545885">(85) 3254.5885</a></li></ul><div class="footer__hours"><h4 class="footer__heading">Horários</h4><p>Seg–Sex: 7h às 18h</p><p>Sáb: 7h às 12h</p></div></div>
+                <div class="footer__col"><h4 class="footer__heading">Atendimento</h4><ul class="footer__links"><li><a href="https://radiogenesis.najasocial.com/users/sign_in?role=4" target="_blank" rel="noopener noreferrer">Laudo Online</a></li><li><a href="https://radiogenesis.naja.app/portal/login" target="_blank" rel="noopener noreferrer">Resultado de Exames</a></li><li><a href="tel:+5585981536275">(85) 98153.6275</a></li></ul><div class="footer__hours"><h4 class="footer__heading">Horários</h4><p>Seg–Sex: 7h às 18h</p><p>Sáb: 7h às 12h</p></div></div>
             </div>
             <div class="footer__bottom">
                 <p>© 2026 Radiogênesis — Todos os direitos reservados.</p>

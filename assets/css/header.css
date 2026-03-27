@@ -121,11 +121,13 @@
     align-items: center;
     gap: 6px;
     margin-left: 20px;
+    flex-wrap: nowrap; /* adicione isso */
 }
 
 .nav__link {
-    padding: 8px 12px;
-    font-size: clamp(.78rem, 1.5vw, .85rem);
+    padding: 8px 8px; /* reduza o padding horizontal */
+    font-size: clamp(.72rem, 1.3vw, .82rem); /* reduza levemente o tamanho */
+    white-space: nowrap; /* adicione isso */
     font-weight: 500;
     color: var(--text-muted);
     border-radius: var(--radius-sm);
@@ -164,6 +166,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-left: 8px;
 }
 
 .header__btn-desktop {
